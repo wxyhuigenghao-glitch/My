@@ -1,0 +1,3509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simone Weng · Personal Page</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@300;400;500;600&family=Noto+Serif+SC:wght@300;400;500;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* ===== Dune (Light Mode Default) ===== */
+    --ink:#1f1a14;
+    --ink-rgb:31,26,20;
+    --paper:#f0e6d2;
+    --paper-rgb:240,230,210;
+    --paper-tint:#e3d7bf;
+    --ink-tint:#2d2620;
+    --mono:"Noto Serif SC",source-han-serif-sc,serif;
+    --serif-en:"Noto Serif SC",source-han-serif-sc,serif;
+    --serif-body-en:"Noto Serif SC",source-han-serif-sc,serif;
+    --serif-zh:"Noto Serif SC",source-han-serif-sc,serif;
+    --sans-zh:"Noto Serif SC",source-han-serif-sc,serif;
+  }
+  body.dark-mode{
+    /* ===== Forest Ink ===== */
+    --ink:#1a2e1f;
+    --ink-rgb:26,46,31;
+    --paper:#f5f1e8;
+    --paper-rgb:245,241,232;
+    --paper-tint:#ece7da;
+    --ink-tint:#253d2c;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;overflow:hidden}
+  body{font-family:var(--sans-zh);color:var(--ink);background:var(--ink);overflow:hidden;transition:background .4s ease,color .4s ease}
+
+  /* WebGL */
+  canvas.bg{position:fixed;inset:0;width:100vw;height:100vh;z-index:0;display:block;transition:opacity 1.2s ease}
+  canvas#bg-light{opacity:1}
+  canvas#bg-dark{opacity:0}
+  body.dark-mode canvas#bg-light{opacity:0}
+  body.dark-mode canvas#bg-dark{opacity:1}
+  body.low-power canvas.bg{display:none!important}
+
+  /* Navbar */
+  #navbar{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:0 5vw;height:60px;transition:background .4s ease,backdrop-filter .4s ease}
+  #navbar.scrolled{background:rgba(var(--paper-rgb),.7);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+  body.dark-mode #navbar.scrolled{background:rgba(var(--ink-rgb),.7)}
+  #navbar .brand{font-family:var(--serif-zh);font-size:17px;font-weight:600;letter-spacing:.04em;text-decoration:none;color:var(--ink);transition:color .3s}
+  body.dark-mode #navbar .brand{color:var(--paper)}
+  #navbar .nav-links{display:flex;gap:1.8vw;list-style:none;align-items:center}
+  #navbar .nav-links a{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;color:rgba(var(--ink-rgb),.55);transition:color .25s;position:relative;padding:4px 0;cursor:pointer}
+  body.dark-mode #navbar .nav-links a{color:rgba(var(--paper-rgb),.55)}
+  #navbar .nav-links a:hover{color:rgba(var(--ink-rgb),.8)}
+  body.dark-mode #navbar .nav-links a:hover{color:rgba(var(--paper-rgb),.8)}
+  #navbar .nav-links a.active{color:var(--ink)}
+  body.dark-mode #navbar .nav-links a.active{color:var(--paper)}
+  #navbar .nav-links a.active::after{content:"";position:absolute;bottom:-1px;left:0;right:0;height:1.5px;background:currentColor;opacity:.6}
+  .nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:8px;color:var(--ink)}
+  body.dark-mode .nav-toggle{color:var(--paper)}
+  .nav-toggle span{display:block;width:20px;height:2px;background:currentColor;margin:4px 0;transition:.3s;border-radius:1px}
+  .nav-right{display:flex;align-items:center;gap:12px}
+  .nav-btn{background:none;border:1px solid rgba(var(--ink-rgb),.25);color:rgba(var(--ink-rgb),.6);border-radius:4px;padding:4px 8px;font-family:var(--mono);font-size:10px;letter-spacing:.06em;cursor:pointer;transition:all .2s;line-height:1}
+  body.dark-mode .nav-btn{color:rgba(var(--paper-rgb),.55);border-color:rgba(var(--paper-rgb),.2)}
+  .nav-btn:hover{border-color:rgba(var(--ink-rgb),.5);color:rgba(var(--ink-rgb),.9)}
+  body.dark-mode .nav-btn:hover{border-color:rgba(var(--paper-rgb),.4);color:var(--paper)}
+  .nav-btn.active{border-color:rgba(var(--ink-rgb),.6);color:rgba(var(--ink-rgb),.95)}
+  body.dark-mode .nav-btn.active{border-color:rgba(var(--paper-rgb),.5);color:var(--paper)}
+
+  /* Sections */
+  main{position:relative;z-index:10}
+  .section{min-height:100vh;width:100%;position:relative;padding:9vh 6vw 6vh;display:flex;flex-direction:column;justify-content:center;overflow:hidden}
+  .section::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;transition:background .7s ease}
+  .section::before{background:rgba(var(--paper-rgb),.92)}
+  .section.hero{min-height:100vh;justify-content:center}
+  .section.hero::before{background:rgba(var(--paper-rgb),.12)}
+  .section.hero::after{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(180deg,rgba(var(--paper-rgb),.28) 0%,rgba(var(--paper-rgb),0) 20%,rgba(var(--paper-rgb),0) 80%,rgba(var(--paper-rgb),.28) 100%)}
+  body.dark-mode .section{color:var(--paper)}
+  body.dark-mode .section::before{background:rgba(var(--ink-rgb),.92)}
+  body.dark-mode .section.hero::before{background:rgba(var(--ink-rgb),.16)}
+  body.dark-mode .section.hero::after{background:linear-gradient(180deg,rgba(var(--ink-rgb),.32) 0%,rgba(var(--ink-rgb),0) 20%,rgba(var(--ink-rgb),0) 80%,rgba(var(--ink-rgb),.32) 100%)}
+  .section-content{flex:1;display:flex;flex-direction:column;justify-content:center;max-width:1100px;margin:0 auto;width:100%}
+
+  /* Chrome & Foot */
+  .chrome{display:flex;justify-content:space-between;align-items:flex-start;font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;opacity:.6;margin-bottom:2vh;padding:0 0 1.2vh}
+  .chrome .left,.chrome .right{display:flex;gap:1.8em;align-items:center}
+  .chrome .sep{width:24px;height:1px;background:currentColor;opacity:.4}
+  .foot{margin-top:auto;display:flex;justify-content:space-between;align-items:flex-end;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;opacity:.45;padding-top:3vh}
+  .foot .title{font-family:var(--serif-zh);font-weight:400;letter-spacing:.04em;text-transform:none;opacity:.7}
+
+  /* Typography */
+  .kicker{font-family:var(--mono);font-size:11px;letter-spacing:.28em;text-transform:uppercase;opacity:.55;margin-bottom:2.4vh}
+  .display-zh{font-family:var(--serif-zh);font-weight:700;font-size:6vw;line-height:1.04;letter-spacing:-.002em}
+  .h1-zh{font-family:var(--serif-zh);font-weight:700;font-size:3.8vw;line-height:1.12;letter-spacing:-.002em}
+  .h2-zh{font-family:var(--serif-zh);font-weight:600;font-size:2.6vw;line-height:1.2;letter-spacing:0}
+  .h3-zh{font-family:var(--serif-zh);font-weight:500;font-size:1.6vw;line-height:1.35;letter-spacing:.02em}
+  .body{font-family:var(--sans-zh);font-size:clamp(15px,1.2vw,18px);line-height:1.7;letter-spacing:.03em;opacity:.82;max-width:62ch}
+  .body-sm{font-family:var(--sans-zh);font-size:clamp(13px,0.95vw,15px);line-height:1.6;opacity:.7}
+  .meta{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;opacity:.55}
+  .tag{display:inline-block;font-family:var(--serif-en);font-size:10px;letter-spacing:.12em;text-transform:uppercase;padding:5px 12px;border:1px solid currentColor;opacity:.8;border-radius:2px}
+
+  /* Me section: photo left + text right */
+  .me-layout{display:grid;grid-template-columns:1fr 1fr;gap:4vw;align-items:center;flex:1;max-width:1100px;margin:0 auto;width:100%}
+  .photo-placeholder{aspect-ratio:3/4;width:100%;max-width:340px;border-radius:4px;background:rgba(var(--ink-rgb),.06);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;letter-spacing:.16em;opacity:.5;justify-self:end}
+  body.dark-mode .photo-placeholder{background:rgba(var(--ink-rgb),.06)}
+ .me-text{display:flex;flex-direction:column;gap:1.2vh}
+
+ /* Me section: 双图通用排版 (去除之前仅限深色模式的限制) */
+  .me-layout{
+    display:grid;
+    grid-template-columns: 260px 1fr; 
+    gap: 3vw; 
+    align-items:center;
+    flex:1;
+    max-width: 1400px; 
+    margin:0 auto;
+    width:100%;
+  }
+
+  /* 图片显隐切换逻辑 */
+  .me-img{width:100%;border-radius:4px;}
+  .light-img { display: block; }
+  .dark-img { display: none; }
+  body.dark-mode .light-img { display: none; }
+  body.dark-mode .dark-img { display: block; }
+
+  /* 左侧自拍照样式 (260px宽度 + 四周边角羽化) */
+  .me-img-selfie{
+    aspect-ratio:3/4;
+    object-fit:cover;
+    max-width:260px;
+    width: 100%;
+    justify-self:center; 
+    
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%),
+                        linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%);
+    -webkit-mask-composite: source-in; 
+    mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%),
+                linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%);
+    mask-composite: intersect; 
+  }
+  
+  /* 右侧时间轴大图样式 (高度限制 + 四周边角羽化) */
+  .me-img-timeline{
+    object-fit:contain;
+    max-height:90vh; 
+    width:100%;
+    
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%),
+                        linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%);
+    -webkit-mask-composite: source-in; 
+    mask-image: linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%),
+                linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%);
+    mask-composite: intersect; 
+  }
+
+  /* 消除割裂感魔法：浅色用正片叠底(multiply)，深色用滤色(screen) */
+  .light-img.me-img-timeline { mix-blend-mode: multiply; }
+  .dark-img.me-img-timeline { mix-blend-mode: screen; }
+  
+
+
+   /* Research section: sidebar + content */
+   .research-layout{display:grid;grid-template-columns:140px 1fr;gap:4vw;flex:1;max-width:1400px;margin:0 auto;width:100%;min-height:0}
+   .research-sidebar{display:flex;flex-direction:column;gap:1.2vh;padding-top:.6vh}
+   .project-btn{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;text-align:left;background:none;border:none;border-left:2px solid rgba(var(--ink-rgb),.15);padding:1.2vh 1em;color:rgba(var(--ink-rgb),.5);cursor:pointer;transition:all .25s;border-radius:0 4px 4px 0;line-height:1.4}
+   body.dark-mode .project-btn{border-color:rgba(var(--paper-rgb),.15);color:rgba(var(--paper-rgb),.45)}
+   .project-btn:hover{border-left-color:rgba(var(--ink-rgb),.4);color:rgba(var(--ink-rgb),.75);background:rgba(var(--ink-rgb),.03)}
+   body.dark-mode .project-btn:hover{border-left-color:rgba(var(--paper-rgb),.35);color:rgba(var(--paper-rgb),.7);background:rgba(var(--paper-rgb),.03)}
+   .project-btn.active{border-left-color:var(--ink);color:var(--ink);background:rgba(var(--ink-rgb),.05);font-weight:600}
+   body.dark-mode .project-btn.active{border-left-color:var(--paper);color:var(--paper);background:rgba(var(--paper-rgb),.05)}
+   .research-content{overflow-y:auto;padding-right:2vw;max-height:75vh;max-width:100%}
+   .research-content::-webkit-scrollbar{width:4px}
+   .research-content::-webkit-scrollbar-track{background:transparent}
+   .research-content::-webkit-scrollbar-thumb{background:rgba(var(--ink-rgb),.12);border-radius:2px}
+   body.dark-mode .research-content::-webkit-scrollbar-thumb{background:rgba(var(--paper-rgb),.12)}
+   .research-paper{display:none}
+   .research-paper.active{display:block}
+
+   /* Work section: sidebar + content (same pattern as research) */
+   .work-layout{display:grid;grid-template-columns:130px 1fr;gap:2.2vw;flex:1;max-width:1500px;margin:0 auto;width:100%;min-height:0}
+   .work-sidebar{display:flex;flex-direction:column;gap:1.2vh;padding-top:.6vh}
+   .work-btn{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;text-align:left;background:none;border:none;border-left:2px solid rgba(var(--ink-rgb),.15);padding:1.2vh 1em;color:rgba(var(--ink-rgb),.5);cursor:pointer;transition:all .25s;border-radius:0 4px 4px 0;line-height:1.4}
+   body.dark-mode .work-btn{border-color:rgba(var(--paper-rgb),.15);color:rgba(var(--paper-rgb),.45)}
+   .work-btn:hover{border-left-color:rgba(var(--ink-rgb),.4);color:rgba(var(--ink-rgb),.75);background:rgba(var(--ink-rgb),.03)}
+   body.dark-mode .work-btn:hover{border-left-color:rgba(var(--paper-rgb),.35);color:rgba(var(--paper-rgb),.7);background:rgba(var(--paper-rgb),.03)}
+   .work-btn.active{border-left-color:var(--ink);color:var(--ink);background:rgba(var(--ink-rgb),.05);font-weight:600}
+   body.dark-mode .work-btn.active{border-left-color:var(--paper);color:var(--paper);background:rgba(var(--paper-rgb),.05)}
+   .work-content{overflow-y:auto;padding-right:1.6vw;max-height:75vh}
+   .work-content::-webkit-scrollbar{width:4px}
+   .work-content::-webkit-scrollbar-track{background:transparent}
+   .work-content::-webkit-scrollbar-thumb{background:rgba(var(--ink-rgb),.12);border-radius:2px}
+   body.dark-mode .work-content::-webkit-scrollbar-thumb{background:rgba(var(--paper-rgb),.12)}
+   .work-panel{display:none}
+   .work-panel.active{display:block}
+
+   /* Wangsu carousel pages: left text + right image layout */
+   .wangsu-carousel{position:relative;margin:0.0vh 0;display:flex;flex-direction:column;gap:0.0vh;align-items:center}
+   .wangsu-carousel .img-wrap{position:relative;width:100%;max-width:100%;margin:0 auto}
+   .wangsu-carousel .img-wrap img{width:100%;border-radius:4px;object-fit:contain;aspect-ratio:16/10;transition:opacity .35s ease;mix-blend-mode:normal;display:block}
+   body.dark-mode .wangsu-carousel .img-wrap img{mix-blend-mode:normal}
+   .wangsu-carousel .carousel-arrow{position:absolute;top:50%;transform:translateY(-50%);background:rgba(var(--paper-rgb),.85);border:1px solid rgba(var(--ink-rgb),.2);color:rgba(var(--ink-rgb),.6);font-size:20px;width:36px;height:36px;border-radius:50%;cursor:pointer;transition:all .25s;display:flex;align-items:center;justify-content:center;font-family:var(--mono);line-height:1;z-index:2}
+   body.dark-mode .wangsu-carousel .carousel-arrow{background:rgba(var(--ink-rgb),.85);border-color:rgba(var(--paper-rgb),.2);color:rgba(var(--paper-rgb),.55)}
+   .wangsu-carousel .carousel-arrow:hover{border-color:rgba(var(--ink-rgb),.5);color:var(--ink);background:var(--paper)}
+   body.dark-mode .wangsu-carousel .carousel-arrow:hover{border-color:rgba(var(--paper-rgb),.4);color:var(--paper);background:var(--ink)}
+   .wangsu-carousel .carousel-arrow.prev{position:static;transform:none}
+   .wangsu-carousel .carousel-arrow.next{position:static;transform:none}
+   .wangsu-carousel .carousel-nav{position:absolute;bottom:0;left:0;right:0;display:flex;align-items:center;gap:12px;justify-content:center;z-index:3}
+   .wangsu-carousel .wangsu-pages{position:relative;width:100%;flex:1;padding-bottom:5vh}
+   .wangsu-carousel{position:relative;margin:0.0vh 0;display:flex;flex-direction:column;gap:0.0vh;align-items:center;height:520px;min-height:520px}
+   .wangsu-carousel .carousel-nav .carousel-arrow{width:28px;height:28px;font-size:15px;flex-shrink:0}
+   .wangsu-carousel .carousel-nav .carousel-dots{display:flex;gap:8px;align-items:center;margin:0}
+   .wangsu-carousel .carousel-nav .carousel-dot{width:8px;height:8px;border-radius:50%;background:rgba(var(--ink-rgb),.2);transition:all .25s;cursor:pointer;border:none;padding:0}
+   body.dark-mode .wangsu-carousel .carousel-nav .carousel-dot{background:rgba(var(--paper-rgb),.2)}
+   .wangsu-carousel .carousel-nav .carousel-dot.active{background:rgba(var(--ink-rgb),.6)}
+   body.dark-mode .wangsu-carousel .carousel-nav .carousel-dot.active{background:rgba(var(--paper-rgb),.6)}
+   @media(max-width:768px){
+     .wangsu-carousel .carousel-arrow.prev{left:0px}
+     .wangsu-carousel .carousel-arrow.next{right:0px}
+   }
+
+   /* Wangsu page layout: left text + right image */
+   .wangsu-page{display:grid;grid-template-columns:1fr 1.5fr;gap:2vw;align-items:flex-start;opacity:0;pointer-events:none;position:absolute;inset:0;transition:opacity .35s ease}
+   .wangsu-page.active{opacity:1;pointer-events:auto;position:relative}
+   .wangsu-pages{position:relative;width:100%;flex:1;min-height:42vh}
+   .wangsu-page .text-col{display:flex;flex-direction:column;gap:1.2vh;padding-right:1vw}
+   .wangsu-page .img-col{display:flex;flex-direction:column;gap:1.2vh;align-items:center;justify-content:flex-start}
+   .wangsu-page .img-col .img-placeholder{width:100%;border-radius:4px;background:rgba(var(--ink-rgb),.04);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:11px;letter-spacing:.16em;opacity:.5;aspect-ratio:16/10;border:1px dashed rgba(var(--ink-rgb),.15);text-align:center;padding:1em}
+   body.dark-mode .wangsu-page .img-col .img-placeholder{background:rgba(var(--paper-rgb),.04);border-color:rgba(var(--paper-rgb),.15)}
+   .wangsu-page .img-col .img-placeholder.vertical{aspect-ratio:9/16;max-height:50vh}
+   .wangsu-page .img-col .img-placeholder.small{aspect-ratio:16/9;max-height:18vh}
+   .wangsu-page .page-title{font-family:var(--serif-zh);font-weight:700;font-size:clamp(16px,1.4vw,20px);line-height:1.3;letter-spacing:.01em;margin-bottom:.4vh}
+   .wangsu-page .page-sub{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;opacity:.5;margin-bottom:.2vh}
+   .wangsu-page .page-body{font-family:var(--sans-zh);font-size:clamp(12px,0.9vw,14px);line-height:1.65;opacity:.82}
+   .wangsu-page .page-body li{margin-bottom:.3vh;padding-left:.4em}
+   .wangsu-page .page-body ul{padding-left:1.2em;margin-bottom:.4vh}
+   .wangsu-page .page-highlight{border-left:3px solid rgba(var(--ink-rgb),.35);padding:.8vh 1vw;background:rgba(var(--ink-rgb),.04);border-radius:0 4px 4px 0;font-size:clamp(11px,0.85vw,13px);line-height:1.6;opacity:.85}
+   body.dark-mode .wangsu-page .page-highlight{background:rgba(var(--paper-rgb),.04);border-left-color:rgba(var(--paper-rgb),.3)}
+   .wangsu-page .page-metric{display:inline-block;font-family:var(--mono);font-size:clamp(18px,1.6vw,24px);font-weight:600;color:rgba(var(--ink-rgb),.8);line-height:1.2}
+   body.dark-mode .wangsu-page .page-metric{color:rgba(var(--paper-rgb),.8)}
+   .wangsu-page .page-metric-label{font-family:var(--sans-zh);font-size:clamp(11px,0.8vw,13px);opacity:.65;display:block}
+   .wangsu-page .page-tag{display:inline-block;font-family:var(--serif-en);font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:3px 10px;border:1px solid currentColor;opacity:.7;border-radius:2px;margin-right:4px;margin-bottom:4px}
+
+    /* ASCII Flow Diagram */
+    .ascii-container {
+      width: clamp(320px, 100%, 630px);
+      max-height: 100%;
+      overflow: auto; /* Handle both vertical and horizontal scrolls dynamically */
+      font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: clamp(9px, 0.65vw, 11px);
+      line-height: 1.2;
+      color: var(--ink);
+      padding: 0.8vh 0.6vw;
+      background: rgba(var(--ink-rgb), 0.015);
+      border: 1px solid rgba(var(--ink-rgb), 0.08);
+      border-radius: 6px;
+      -webkit-text-size-adjust: 100%;
+      text-align: left; /* Ensure the text block stays on the left edge */
+    }
+    body.dark-mode .ascii-container {
+      color: var(--paper);
+      background: rgba(var(--paper-rgb), 0.015);
+      border-color: rgba(var(--paper-rgb), 0.08);
+    }
+    .ascii-flow {
+      white-space: pre;
+      line-height: 1.12;
+      margin: 0;
+      font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      letter-spacing: 0;
+      font-variant-ligatures: none;
+      font-feature-settings: "liga" 0, "clig" 0, "calt" 0;
+      text-rendering: optimizeSpeed;
+      display: inline-block; /* Prevent collapsing, wrap, or centering overflow */
+      min-width: max-content; /* Ensure container matches natural drawing width */
+      text-align: left; /* Left align the actual box drawings */
+    }
+
+   @media(max-width:768px){
+     .wangsu-page.active{grid-template-columns:1fr;gap:2vh}
+     .wangsu-carousel .carousel-arrow.prev{left:0px}
+     .wangsu-carousel .carousel-arrow.next{right:0px}
+   }
+
+   /* Work image carousel */
+   .work-carousel{position:relative;margin:0.0vh 0;display:flex;flex-direction:column;gap:0.0vh;align-items:center}
+   .work-carousel .img-wrap{position:relative;width:100%;max-width:850px;margin:0 auto}
+   .work-carousel .img-wrap img{width:100%;border-radius:4px;object-fit:contain;aspect-ratio:16/10;transition:opacity .35s ease;mix-blend-mode:normal;display:block}
+   body.dark-mode .work-carousel .img-wrap img{mix-blend-mode:normal}
+   .work-carousel .carousel-arrow{position:absolute;top:50%;transform:translateY(-50%);background:rgba(var(--paper-rgb),.85);border:1px solid rgba(var(--ink-rgb),.2);color:rgba(var(--ink-rgb),.6);font-size:20px;width:36px;height:36px;border-radius:50%;cursor:pointer;transition:all .25s;display:flex;align-items:center;justify-content:center;font-family:var(--mono);line-height:1;z-index:2}
+   body.dark-mode .work-carousel .carousel-arrow{background:rgba(var(--ink-rgb),.85);border-color:rgba(var(--paper-rgb),.2);color:rgba(var(--paper-rgb),.55)}
+   .work-carousel .carousel-arrow:hover{border-color:rgba(var(--ink-rgb),.5);color:var(--ink);background:var(--paper)}
+   body.dark-mode .work-carousel .carousel-arrow:hover{border-color:rgba(var(--paper-rgb),.4);color:var(--paper);background:var(--ink)}
+   .work-carousel .carousel-arrow.prev{left:-200px}
+   .work-carousel .carousel-arrow.next{right:-200px}
+   .work-carousel .carousel-dot{width:8px;height:8px;border-radius:50%;background:rgba(var(--ink-rgb),.2);transition:all .25s;cursor:pointer;border:none;padding:0}
+   body.dark-mode .work-carousel .carousel-dot{background:rgba(var(--paper-rgb),.2)}
+   .work-carousel .carousel-dot.active{background:rgba(var(--ink-rgb),.6)}
+   body.dark-mode .work-carousel .carousel-dot.active{background:rgba(var(--paper-rgb),.6)}
+   .work-carousel .carousel-dots{display:flex;gap:8px;align-items:center;justify-content:center;margin-top:.2vh}
+  .research-paper h3{font-family:var(--serif-zh);font-weight:600;font-size:clamp(16px,1.6vw,22px);line-height:1.35;margin-bottom:.8vh;letter-spacing:.01em}
+  .research-paper h4{font-family:var(--serif-zh);font-weight:700;font-size:clamp(14px,1.2vw,17px);line-height:1.4;margin:2.2vh 0 1.6vh}
+  .research-paper h5{font-family:var(--sans-zh);font-size:clamp(13px,1vw,15px);letter-spacing:.08em;margin:.8vh 0 .4vh;opacity:.85;font-style:italic;font-weight:400}
+  .research-paper h5::before{content:"\00b7 ";font-weight:700}
+  .research-paper p,.research-paper li{font-family:var(--sans-zh);font-size:clamp(13px,1vw,15px);line-height:1.65;opacity:.82;margin-bottom:.8vh}
+  .research-paper ul,.research-paper ol{padding-left:1.2em;margin-bottom:.6vh}
+  .research-paper li{margin-bottom:.2vh}
+  .research-paper table{width:100%;border-collapse:collapse;font-family:var(--sans-zh);font-size:clamp(12px,0.9vw,14px);margin:1.2vh 0;opacity:.85}
+  .research-paper td,.research-paper th{border:1px solid rgba(var(--ink-rgb),.12);padding:6px 10px;text-align:left;line-height:1.5}
+  body.dark-mode .research-paper td,body.dark-mode .research-paper th{border-color:rgba(var(--paper-rgb),.12)}
+  .research-paper th{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;background:rgba(var(--ink-rgb),.04);opacity:.75}
+  body.dark-mode .research-paper th{background:rgba(var(--paper-rgb),.04)}
+   .research-paper .tag{font-size:11px;padding:3px 8px;margin-right:4px}
+   .research-paper strong{font-weight:600}
+   .research-paper hr{border:none;height:1px;background:rgba(var(--ink-rgb),.1);margin:1.6vh 0}
+   body.dark-mode .research-paper hr{background:rgba(var(--paper-rgb),.1)}
+   .goal-highlight{background:rgba(var(--ink-rgb),.06);padding:.5vh .8vw;border-radius:4px;margin:.6vh 0}
+   body.dark-mode .goal-highlight{background:rgba(var(--paper-rgb),.08)}
+   .bg-item{margin-bottom:2.5vh}
+
+   /* 🌟 Highlights / Innovation box */
+   .highlight-box{
+     border-left:3px solid rgba(var(--ink-rgb),.35);
+     padding:1.2vh 1.4vw;
+     margin:1.6vh 0;
+     background:rgba(var(--ink-rgb),.04);
+     border-radius:0 6px 6px 0;
+     font-family:var(--sans-zh);
+   }
+   body.dark-mode .highlight-box{background:rgba(var(--paper-rgb),.04);border-left-color:rgba(var(--paper-rgb),.3)}
+   .highlight-box .hl-title{
+     font-family:var(--mono);
+     font-size:10px;
+     letter-spacing:.22em;
+     text-transform:uppercase;
+     opacity:.6;
+     margin-bottom:.8vh;
+   }
+   .highlight-box .hl-item{
+     font-size:clamp(12px,0.95vw,14px);
+     line-height:1.65;
+     opacity:.85;
+     margin-bottom:.5vh;
+     padding-left:1em;
+     position:relative;
+   }
+   .highlight-box .hl-item::before{
+     content:"✦";
+     position:absolute;
+     left:0;
+     top:0;
+     opacity:.5;
+     font-size:10px;
+     line-height:1.65;
+   }
+
+   /* 🌟 Tooltip for academic terms */
+   .term-tooltip{
+     position:relative;
+     cursor:help;
+     border-bottom:1px dotted rgba(var(--ink-rgb),.35);
+     white-space:nowrap;
+   }
+   body.dark-mode .term-tooltip{border-bottom-color:rgba(var(--paper-rgb),.35)}
+   .term-tooltip::after{
+     content:attr(data-tip);
+     position:absolute;
+     bottom:calc(100% + 6px);
+     left:50%;
+     transform:translateX(-50%);
+     background:rgba(var(--ink-rgb),.92);
+     color:rgba(var(--paper-rgb),.95);
+     font-family:var(--sans-zh);
+     font-size:clamp(11px,0.8vw,13px);
+     line-height:1.5;
+     padding:6px 12px;
+     border-radius:4px;
+     white-space:normal;
+     width:max-content;
+     max-width:280px;
+     pointer-events:none;
+     opacity:0;
+     transition:opacity .2s ease;
+     z-index:100;
+     text-align:left;
+   }
+   body.dark-mode .term-tooltip::after{
+     background:rgba(var(--paper-rgb),.92);
+     color:rgba(var(--ink-rgb),.95);
+   }
+   .term-tooltip:hover::after{opacity:1}
+/* 🌟 以下是为你新增的论文内部三图并排样式 */
+  .research-image-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 2%;
+    margin: 2vh 0;
+    width: 100%;
+  }
+  .research-image-row img {
+    width: 32%;
+    border-radius: 4px;
+    object-fit: contain;
+    background: rgba(var(--ink-rgb), .03);
+  }
+  body.dark-mode .research-image-row img {
+    background: rgba(var(--paper-rgb), .03);
+  }
+  
+  @media(max-width: 768px) {
+    .research-image-row {
+      flex-direction: column;
+      gap: 1.5vh;
+    }
+    .research-image-row img {
+      width: 100%;
+    }
+  }
+
+  /* Responsive */
+  @media(max-width:768px){
+    .display-zh{font-size:9vw}
+    .h1-zh{font-size:6.5vw}
+    .h2-zh{font-size:4.5vw}
+    .h3-zh{font-size:3.2vw}
+    .section{padding:8vh 5vw 5vh}
+    .me-layout{grid-template-columns:1fr;gap:3vh}
+   .photo-placeholder{max-width:200px;justify-self:center}
+
+   .me-img-selfie{max-width:200px;justify-self:center}
+   .me-img-dark{max-height:40vh}
+
+    .research-layout{grid-template-columns:1fr;gap:2vh}
+    .research-sidebar{flex-direction:row;overflow-x:auto;padding-bottom:1vh;gap:.8vw}
+    .project-btn{border-left:none;border-bottom:2px solid rgba(var(--ink-rgb),.15);padding:.6vh 1em;white-space:nowrap;flex-shrink:0}
+    body.dark-mode .project-btn{border-bottom-color:rgba(var(--paper-rgb),.15)}
+    .project-btn.active{border-left:none;border-bottom-color:var(--ink)}
+    body.dark-mode .project-btn.active{border-bottom-color:var(--paper)}
+    .research-content{max-height:none;padding-right:0}
+    .work-layout{grid-template-columns:1fr;gap:2vh}
+    .work-sidebar{flex-direction:row;overflow-x:auto;padding-bottom:1vh;gap:.8vw}
+    .work-btn{border-left:none;border-bottom:2px solid rgba(var(--ink-rgb),.15);padding:.6vh 1em;white-space:nowrap;flex-shrink:0}
+    body.dark-mode .work-btn{border-bottom-color:rgba(var(--paper-rgb),.15)}
+    .work-btn.active{border-left:none;border-bottom-color:var(--ink)}
+    body.dark-mode .work-btn.active{border-bottom-color:var(--paper)}
+    .work-content{max-height:none;padding-right:0}
+    .work-carousel{gap:1.5vh}
+    .work-carousel .img-wrap{max-width:100%}
+    .work-carousel .carousel-arrow.prev{left:0px}
+    .work-carousel .carousel-arrow.next{right:0px}
+    #navbar .nav-links{position:fixed;top:60px;left:0;right:0;background:rgba(0,0,0,.85);backdrop-filter:blur(16px);flex-direction:column;padding:2vh 5vw;gap:1.6vh;transform:translateY(-110%);transition:transform .35s ease;opacity:0}
+    body.dark-mode #navbar .nav-links{background:rgba(var(--ink-rgb),.92)}
+    #navbar .nav-links.open{transform:translateY(0);opacity:1}
+    .nav-toggle{display:block}
+    #navbar .nav-links a{padding:1vh 0}
+    .nav-right{gap:8px}
+  }
+
+  /* Motion */
+  body.motion-ready [data-anim]{opacity:0;transform:translateY(20px)}
+  body.motion-ready [data-anim="left"]{transform:translateX(-20px)}
+  body.motion-ready [data-anim="right"]{transform:translateX(20px)}
+  body.motion-ready [data-anim="scale"]{transform:scale(.94)}
+  body.low-power *::after{animation:none!important;transition:none!important}
+  body.low-power [data-anim],
+  body.low-power [data-anim="left"],
+  body.low-power [data-anim="right"],
+  body.low-power [data-anim="scale"]{opacity:1!important;transform:none!important}
+
+  /* ==========================================================================
+     2026 Editorial Portfolio — interaction and visual experience layer
+     Content and asset paths below remain unchanged.
+     ========================================================================== */
+  :root{
+    --ink:#f4f7f5;
+    --ink-rgb:244,247,245;
+    --paper:#060807;
+    --paper-rgb:6,8,7;
+    --paper-tint:#0d1210;
+    --ink-tint:#d8e2dc;
+    --accent:#74f0a4;
+    --accent-rgb:116,240,164;
+    --accent-2:#72a7ff;
+    --line:rgba(244,247,245,.12);
+    --line-strong:rgba(244,247,245,.22);
+    --surface:rgba(14,19,17,.74);
+    --surface-strong:rgba(18,25,21,.94);
+    --shadow:0 28px 90px rgba(0,0,0,.42);
+    --radius-lg:30px;
+    --radius-md:20px;
+    --radius-sm:12px;
+    --sans:"Source Serif 4",Georgia,serif;
+    --display:"Playfair Display",Georgia,serif;
+    --mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+    --serif-en:"Source Serif 4",Georgia,serif;
+    --serif-body-en:"Source Serif 4",Georgia,serif;
+    --serif-zh:"Playfair Display",Georgia,serif;
+    --sans-zh:"Source Serif 4",Georgia,serif;
+  }
+
+  html{
+    overflow-x:hidden;
+    overflow-y:auto;
+    scroll-snap-type:y proximity;
+    background:#050706;
+  }
+  body,
+  body.dark-mode{
+    min-width:320px;
+    overflow-x:hidden;
+    overflow-y:auto;
+    background:#050706;
+    color:var(--ink);
+    font-family:var(--sans);
+  }
+  body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    z-index:1;
+    pointer-events:none;
+    background:
+      radial-gradient(circle at 16% 12%,rgba(var(--accent-rgb),.07),transparent 27%),
+      radial-gradient(circle at 86% 70%,rgba(114,167,255,.06),transparent 32%),
+      linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);
+    background-size:auto,auto,48px 48px,48px 48px;
+    mask-image:linear-gradient(to bottom,black,transparent 92%);
+  }
+  canvas#bg-light{display:none}
+  canvas#bg-dark{opacity:.64;filter:saturate(.72) contrast(1.04)}
+
+  ::selection{background:var(--accent);color:#07100a}
+  :focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+  button{color:inherit}
+
+  #navbar{
+    top:16px;
+    left:50%;
+    right:auto;
+    width:min(92vw,1120px);
+    height:54px;
+    padding:0 10px 0 20px;
+    transform:translateX(-50%);
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:999px;
+    background:rgba(7,10,8,.64);
+    box-shadow:0 10px 44px rgba(0,0,0,.2);
+    backdrop-filter:blur(20px) saturate(140%);
+    -webkit-backdrop-filter:blur(20px) saturate(140%);
+  }
+  #navbar.scrolled,
+  body.dark-mode #navbar.scrolled{
+    background:rgba(7,10,8,.88);
+    border-color:rgba(255,255,255,.16);
+  }
+  #navbar .brand,
+  body.dark-mode #navbar .brand{
+    color:var(--ink);
+    font-family:var(--display);
+    font-size:16px;
+    font-weight:500;
+    letter-spacing:-.01em;
+  }
+  #navbar .nav-links{gap:6px}
+  #navbar .nav-links a,
+  body.dark-mode #navbar .nav-links a{
+    min-height:38px;
+    display:flex;
+    align-items:center;
+    padding:0 16px;
+    border-radius:999px;
+    color:rgba(var(--ink-rgb),.54);
+    font-size:10px;
+    letter-spacing:.13em;
+    transition:background .28s ease,color .28s ease,transform .28s ease;
+  }
+  #navbar .nav-links a:hover{
+    color:var(--ink);
+    background:rgba(255,255,255,.06);
+    transform:translateY(-1px);
+  }
+  #navbar .nav-links a.active,
+  body.dark-mode #navbar .nav-links a.active{
+    color:#07100a;
+    background:var(--accent);
+  }
+  #navbar .nav-links a.active::after{display:none}
+  .nav-right:empty{display:none}
+
+  main{z-index:10}
+  .section,
+  body.dark-mode .section{
+    min-height:100svh;
+    padding:104px clamp(24px,5vw,76px) 32px;
+    scroll-snap-align:start;
+    color:var(--ink);
+    isolation:isolate;
+  }
+  .section::before,
+  body.dark-mode .section::before{
+    background:
+      linear-gradient(180deg,rgba(5,7,6,.82),rgba(5,7,6,.95)),
+      radial-gradient(circle at 10% 0%,rgba(var(--accent-rgb),.08),transparent 30%);
+  }
+  .section.hero::before,
+  body.dark-mode .section.hero::before{
+    background:linear-gradient(180deg,rgba(4,6,5,.28),rgba(4,6,5,.72));
+  }
+  .section.hero::after,
+  body.dark-mode .section.hero::after{
+    background:
+      linear-gradient(180deg,rgba(5,7,6,.08),transparent 28%,rgba(5,7,6,.78)),
+      radial-gradient(circle at 50% 42%,transparent 5%,rgba(5,7,6,.18) 74%);
+  }
+  #research::before{
+    background:
+      radial-gradient(circle at 78% 18%,rgba(114,167,255,.1),transparent 25%),
+      radial-gradient(circle at 14% 72%,rgba(var(--accent-rgb),.08),transparent 28%),
+      rgba(5,7,6,.96);
+  }
+
+  .chrome{
+    width:min(100%,1440px);
+    margin:0 auto 18px;
+    padding-bottom:12px;
+    border-bottom:1px solid var(--line);
+    color:rgba(var(--ink-rgb),.58);
+    opacity:1;
+    font-size:10px;
+  }
+  .chrome .right{
+    width:34px;
+    height:34px;
+    justify-content:center;
+    border:1px solid var(--line);
+    border-radius:50%;
+  }
+  .foot{
+    width:min(100%,1440px);
+    margin:18px auto 0;
+    padding-top:12px;
+    border-top:1px solid var(--line);
+    color:rgba(var(--ink-rgb),.5);
+    opacity:1;
+    font-size:9px;
+  }
+
+  /* About: turn the paired images into a floating editorial composition. */
+  .me-layout{
+    position:relative;
+    grid-template-columns:minmax(180px,260px) minmax(0,1fr);
+    gap:clamp(20px,4vw,70px);
+    min-height:0;
+    max-width:1380px;
+    padding:clamp(18px,3vw,44px);
+    border:1px solid var(--line);
+    border-radius:var(--radius-lg);
+    background:
+      linear-gradient(135deg,rgba(255,255,255,.055),rgba(255,255,255,.015)),
+      rgba(6,9,7,.56);
+    box-shadow:var(--shadow);
+    backdrop-filter:blur(18px);
+    overflow:hidden;
+  }
+  .me-layout::before{
+    content:"PROFILE / 2026";
+    position:absolute;
+    top:24px;
+    right:28px;
+    font-family:var(--mono);
+    font-size:9px;
+    letter-spacing:.2em;
+    color:rgba(var(--ink-rgb),.4);
+  }
+  .me-layout::after{
+    content:"";
+    position:absolute;
+    width:280px;
+    height:280px;
+    right:-100px;
+    bottom:-120px;
+    border:1px solid rgba(var(--accent-rgb),.22);
+    border-radius:50%;
+    box-shadow:0 0 100px rgba(var(--accent-rgb),.07);
+  }
+  .me-img{
+    position:relative;
+    z-index:1;
+    border-radius:var(--radius-md);
+  }
+  .light-img{display:none}
+  .dark-img,
+  body.dark-mode .dark-img{display:block}
+  .me-img-selfie{
+    max-width:260px;
+    border:1px solid rgba(255,255,255,.14);
+    box-shadow:0 24px 60px rgba(0,0,0,.36);
+    mask-image:none;
+    -webkit-mask-image:none;
+    transform:rotate(-1.5deg);
+    transition:transform .7s cubic-bezier(.16,1,.3,1),box-shadow .7s ease;
+  }
+  .me-img-selfie:hover{
+    transform:rotate(0) translateY(-6px);
+    box-shadow:0 34px 80px rgba(0,0,0,.48);
+  }
+  .me-img-timeline{
+    max-height:70svh;
+    width:100%;
+    padding:18px;
+    object-fit:contain;
+    border:1px solid var(--line);
+    background:rgba(255,255,255,.028);
+    mix-blend-mode:screen;
+    mask-image:none;
+    -webkit-mask-image:none;
+    transition:transform .7s cubic-bezier(.16,1,.3,1),border-color .4s ease;
+  }
+  .me-img-timeline:hover{
+    transform:translateY(-5px) scale(1.006);
+    border-color:rgba(var(--accent-rgb),.28);
+  }
+
+  /* Research: full-screen deck rather than an embedded document. */
+  #research{min-height:100svh}
+  .research-layout{
+    grid-template-columns:190px minmax(0,1fr);
+    gap:clamp(18px,3vw,48px);
+    max-width:1440px;
+    min-height:0;
+  }
+  .research-sidebar{
+    justify-content:center;
+    gap:12px;
+    padding:0;
+  }
+  .project-btn,
+  body.dark-mode .project-btn{
+    position:relative;
+    min-height:76px;
+    padding:16px 16px 16px 48px;
+    border:1px solid var(--line);
+    border-radius:var(--radius-sm);
+    background:rgba(255,255,255,.025);
+    color:rgba(var(--ink-rgb),.48);
+    font-size:10px;
+    line-height:1.5;
+    transition:transform .35s cubic-bezier(.16,1,.3,1),background .35s,border-color .35s,color .35s;
+  }
+  .project-btn::before{
+    content:"0" counter(project);
+    position:absolute;
+    left:16px;
+    top:18px;
+    color:rgba(var(--ink-rgb),.3);
+  }
+  .project-btn:nth-child(1){counter-reset:project 1}
+  .project-btn:nth-child(2){counter-reset:project 2}
+  .project-btn:nth-child(3){counter-reset:project 3}
+  .project-btn:nth-child(4){counter-reset:project 4}
+  .project-btn:hover{
+    transform:translateX(5px);
+    color:var(--ink);
+    border-color:var(--line-strong);
+    background:rgba(255,255,255,.045);
+  }
+  .project-btn.active,
+  body.dark-mode .project-btn.active{
+    color:#061009;
+    border-color:var(--accent);
+    background:var(--accent);
+    box-shadow:0 16px 48px rgba(var(--accent-rgb),.16);
+  }
+  .project-btn.active::before{color:rgba(6,16,9,.5)}
+  .research-content{
+    position:relative;
+    max-height:none;
+    min-height:0;
+    height:min(74svh,760px);
+    padding:0;
+    overflow:hidden;
+    border:1px solid var(--line);
+    border-radius:var(--radius-lg);
+    background:
+      linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.012) 54%),
+      rgba(8,12,9,.78);
+    box-shadow:var(--shadow);
+    backdrop-filter:blur(20px);
+  }
+  .research-content::before{
+    content:"";
+    position:absolute;
+    top:-90px;
+    right:-50px;
+    width:250px;
+    height:250px;
+    border:1px solid rgba(114,167,255,.16);
+    border-radius:50%;
+    pointer-events:none;
+  }
+  .research-paper{display:none;height:100%}
+  .research-paper.active{display:block;animation:projectIn .65s cubic-bezier(.16,1,.3,1)}
+  .research-deck{height:100%;position:relative}
+  .research-slide{
+    position:absolute;
+    inset:0;
+    display:grid;
+    grid-template-rows:minmax(0,1fr) auto;
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+    transform:translateX(36px) scale(.985);
+    transition:
+      opacity .5s ease,
+      transform .65s cubic-bezier(.16,1,.3,1),
+      visibility .5s;
+  }
+  .research-slide.is-active{
+    opacity:1;
+    visibility:visible;
+    pointer-events:auto;
+    transform:none;
+  }
+  .research-slide.is-before{transform:translateX(-36px) scale(.985)}
+  .research-slide__content{
+    position:relative;
+    padding:clamp(28px,4vw,62px) clamp(24px,4.8vw,76px) 30px;
+    overflow:auto;
+    scrollbar-width:thin;
+    scrollbar-color:rgba(var(--accent-rgb),.34) transparent;
+  }
+  .research-slide__content::before{
+    content:attr(data-slide);
+    display:block;
+    margin-bottom:18px;
+    color:var(--accent);
+    font-family:var(--mono);
+    font-size:9px;
+    letter-spacing:.22em;
+    text-transform:uppercase;
+  }
+  .research-slide__content::-webkit-scrollbar{width:5px}
+  .research-slide__content::-webkit-scrollbar-thumb{background:rgba(var(--accent-rgb),.3);border-radius:10px}
+  .research-slide__nav{
+    display:grid;
+    grid-template-columns:1fr auto;
+    align-items:center;
+    gap:18px;
+    min-height:72px;
+    padding:12px clamp(20px,3vw,46px);
+    border-top:1px solid var(--line);
+    background:rgba(4,7,5,.72);
+    backdrop-filter:blur(14px);
+  }
+  .slide-progress{
+    display:flex;
+    gap:6px;
+    min-width:0;
+  }
+  .slide-dot{
+    width:clamp(20px,4vw,54px);
+    height:3px;
+    padding:0;
+    border:0;
+    border-radius:99px;
+    background:rgba(255,255,255,.13);
+    cursor:pointer;
+    transition:background .3s,width .35s;
+  }
+  .slide-dot.is-active{background:var(--accent)}
+  .slide-actions{display:flex;gap:8px}
+  .slide-arrow{
+    width:42px;
+    height:42px;
+    display:grid;
+    place-items:center;
+    border:1px solid var(--line);
+    border-radius:50%;
+    background:rgba(255,255,255,.03);
+    cursor:pointer;
+    font-size:16px;
+    transition:background .25s,border-color .25s,transform .25s;
+  }
+  .slide-arrow:hover:not(:disabled){
+    background:var(--accent);
+    border-color:var(--accent);
+    color:#061009;
+    transform:translateY(-2px);
+  }
+  .slide-arrow:disabled{opacity:.22;cursor:not-allowed}
+
+  .research-paper h3{
+    max-width:19ch;
+    margin-bottom:18px;
+    font-family:var(--display);
+    font-size:clamp(32px,4vw,68px);
+    font-weight:500;
+    line-height:.98;
+    letter-spacing:-.045em;
+  }
+  .research-paper h4{
+    max-width:23ch;
+    margin:0 0 24px;
+    color:var(--ink);
+    font-family:var(--display);
+    font-size:clamp(28px,3.1vw,50px);
+    font-weight:500;
+    line-height:1.02;
+    letter-spacing:-.035em;
+  }
+  .research-paper h5{
+    font-family:var(--display);
+    font-size:clamp(20px,1.7vw,28px);
+    font-weight:500;
+  }
+  .research-paper p{
+    max-width:78ch;
+    margin-bottom:14px;
+    color:rgba(var(--ink-rgb),.74);
+    font-family:var(--sans);
+    font-size:clamp(14px,1.05vw,17px);
+    line-height:1.68;
+  }
+  .research-paper strong{color:rgba(var(--ink-rgb),.96)}
+  .research-paper hr{
+    width:80px;
+    height:1px;
+    margin:24px 0;
+    border:0;
+    background:var(--accent);
+  }
+  .highlight-box{
+    max-width:980px;
+    margin-top:26px;
+    padding:22px 24px;
+    border:1px solid rgba(var(--accent-rgb),.18);
+    border-radius:var(--radius-md);
+    background:linear-gradient(135deg,rgba(var(--accent-rgb),.09),rgba(114,167,255,.04));
+  }
+  .hl-title{
+    margin-bottom:12px;
+    color:var(--accent);
+    font-family:var(--mono);
+    font-size:10px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+  }
+  .hl-item{
+    padding:8px 0;
+    border-bottom:1px solid var(--line);
+    color:rgba(var(--ink-rgb),.76);
+    line-height:1.55;
+  }
+  .hl-item:last-child{border-bottom:0}
+  .goal-highlight,
+  .page-highlight{
+    padding:18px 20px!important;
+    border:1px solid rgba(var(--accent-rgb),.18)!important;
+    border-left:3px solid var(--accent)!important;
+    border-radius:0 var(--radius-sm) var(--radius-sm) 0!important;
+    background:rgba(var(--accent-rgb),.055)!important;
+  }
+  .research-paper table{
+    width:100%;
+    margin:22px 0 28px;
+    border-collapse:separate;
+    border-spacing:0;
+    overflow:hidden;
+    border:1px solid var(--line);
+    border-radius:var(--radius-sm);
+    background:rgba(255,255,255,.018);
+    font-size:clamp(11px,.82vw,13px);
+  }
+  .research-paper th,
+  .research-paper td{
+    padding:12px 14px;
+    border-right:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    text-align:left;
+    vertical-align:top;
+    line-height:1.48;
+  }
+  .research-paper th{
+    color:var(--accent);
+    background:rgba(var(--accent-rgb),.045);
+    font-family:var(--mono);
+    font-size:9px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+  }
+  .research-paper tr:last-child td{border-bottom:0}
+  .research-paper th:last-child,
+  .research-paper td:last-child{border-right:0}
+  .research-paper img{
+    border:1px solid var(--line);
+    border-radius:var(--radius-sm)!important;
+    box-shadow:0 18px 50px rgba(0,0,0,.28);
+  }
+  .research-image-row{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:14px;
+  }
+  .research-image-row img{width:100%;height:100%;object-fit:cover}
+  .methodology-tree{
+    max-width:1050px;
+    padding:22px!important;
+    border:1px solid var(--line);
+    border-radius:var(--radius-md);
+    background:rgba(255,255,255,.022);
+  }
+  .term-tooltip::after{
+    background:#eaf6ef;
+    color:#07100a;
+    box-shadow:0 12px 40px rgba(0,0,0,.32);
+  }
+
+  /* Work: retain the same text, but present each company as a premium case study. */
+  .work-layout{
+    grid-template-columns:190px minmax(0,1fr);
+    gap:clamp(18px,3vw,48px);
+    max-width:1440px;
+  }
+  .work-sidebar{justify-content:center;gap:12px;padding:0}
+  .work-btn,
+  body.dark-mode .work-btn{
+    min-height:68px;
+    padding:16px;
+    border:1px solid var(--line);
+    border-radius:var(--radius-sm);
+    background:rgba(255,255,255,.025);
+    color:rgba(var(--ink-rgb),.48);
+    transition:transform .35s cubic-bezier(.16,1,.3,1),background .35s,border-color .35s,color .35s;
+  }
+  .work-btn:hover{transform:translateX(5px);color:var(--ink);border-color:var(--line-strong)}
+  .work-btn.active,
+  body.dark-mode .work-btn.active{
+    color:#061009;
+    border-color:var(--accent);
+    background:var(--accent);
+  }
+  .work-content{
+    max-height:none;
+    height:min(74svh,760px);
+    padding:clamp(24px,3vw,42px);
+    overflow:auto;
+    border:1px solid var(--line);
+    border-radius:var(--radius-lg);
+    background:linear-gradient(145deg,rgba(255,255,255,.05),rgba(255,255,255,.012)),rgba(8,12,9,.78);
+    box-shadow:var(--shadow);
+    backdrop-filter:blur(20px);
+  }
+  .work-panel{animation:projectIn .55s cubic-bezier(.16,1,.3,1)}
+  .work-panel h3{
+    font-family:var(--display);
+    font-size:clamp(28px,3vw,48px);
+    font-weight:500;
+    line-height:1.05;
+    letter-spacing:-.035em;
+  }
+  .work-panel > p{color:rgba(var(--ink-rgb),.68);font-size:clamp(14px,1vw,17px);line-height:1.6}
+  .tag{
+    border-color:rgba(var(--accent-rgb),.42);
+    border-radius:999px;
+    color:var(--accent);
+    font-family:var(--mono);
+    font-size:9px;
+  }
+  .work-carousel .img-wrap img,
+  .wangsu-page .img-col img{
+    border:1px solid var(--line);
+    border-radius:var(--radius-md)!important;
+    box-shadow:0 20px 54px rgba(0,0,0,.3);
+  }
+  .work-carousel .carousel-arrow,
+  .wangsu-carousel .carousel-arrow,
+  body.dark-mode .wangsu-carousel .carousel-arrow{
+    border-color:var(--line);
+    background:rgba(7,10,8,.82);
+    color:var(--ink);
+    backdrop-filter:blur(12px);
+  }
+  .work-carousel .carousel-arrow:hover,
+  .wangsu-carousel .carousel-arrow:hover,
+  body.dark-mode .wangsu-carousel .carousel-arrow:hover{
+    border-color:var(--accent);
+    background:var(--accent);
+    color:#061009;
+  }
+  .carousel-dot,
+  body.dark-mode .wangsu-carousel .carousel-nav .carousel-dot{background:rgba(255,255,255,.16)}
+  .carousel-dot.active,
+  body.dark-mode .wangsu-carousel .carousel-nav .carousel-dot.active{background:var(--accent)}
+  .wangsu-page .page-title{font-family:var(--display);font-size:clamp(22px,2vw,34px);font-weight:500}
+  .wangsu-page .page-body{font-family:var(--sans);color:rgba(var(--ink-rgb),.72)}
+  .wangsu-page .img-col .img-placeholder,
+  body.dark-mode .wangsu-page .img-col .img-placeholder{
+    border-color:var(--line);
+    border-radius:var(--radius-md);
+    background:rgba(255,255,255,.025);
+  }
+  .ascii-container{
+    border:1px solid var(--line);
+    border-radius:var(--radius-md);
+    background:#030504;
+    overflow:auto;
+  }
+
+  .section.is-visible .chrome{animation:fadeUp .7s both}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+  @keyframes projectIn{from{opacity:0;transform:translateY(18px) scale(.99)}to{opacity:1;transform:none}}
+
+  @media(max-width:900px){
+    html{scroll-snap-type:none}
+    .section{min-height:auto;padding-top:92px}
+    .me-layout{grid-template-columns:170px minmax(0,1fr)}
+    .research-layout,.work-layout{grid-template-columns:1fr}
+    .research-sidebar,.work-sidebar{
+      flex-direction:row;
+      justify-content:flex-start;
+      overflow-x:auto;
+      padding-bottom:4px;
+    }
+    .project-btn,.work-btn{min-width:180px}
+    .project-btn:hover,.work-btn:hover{transform:translateY(-2px)}
+    .research-content,.work-content{height:min(76svh,720px)}
+    .wangsu-page{grid-template-columns:1fr}
+  }
+  @media(max-width:640px){
+    #navbar{top:10px;height:50px;width:calc(100vw - 20px)}
+    #navbar .nav-links{
+      top:68px;
+      left:10px;
+      right:10px;
+      padding:12px;
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:rgba(6,9,7,.96);
+    }
+    #navbar .nav-links a{width:100%;justify-content:center}
+    .nav-toggle{display:block;color:var(--ink)}
+    .section{padding:80px 16px 24px}
+    .chrome{margin-bottom:12px}
+    .me-layout{grid-template-columns:1fr;padding:18px}
+    .me-layout::before{display:none}
+    .me-img-selfie{max-width:150px;justify-self:center}
+    .me-img-timeline{max-height:none;padding:8px}
+    .research-content{height:76svh;border-radius:20px}
+    .research-slide__content{padding:26px 18px 20px}
+    .research-slide__nav{padding:10px 14px}
+    .research-paper h3{font-size:clamp(30px,10vw,44px)}
+    .research-paper h4{font-size:clamp(27px,8vw,38px)}
+    .research-paper table{display:block;overflow-x:auto;white-space:normal}
+    .research-image-row{grid-template-columns:1fr}
+    .research-image-row img{max-height:220px}
+    .methodology-tree{padding:14px!important;overflow-x:auto}
+    .work-content{height:auto;min-height:70svh;padding:20px;border-radius:20px}
+    .work-panel h3 .meta{display:block;margin:10px 0 0!important}
+    .wangsu-carousel{height:660px;min-height:660px}
+    .foot{margin-top:12px}
+  }
+  @media(prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+    canvas.bg{display:none}
+  }
+
+  /* ==========================================================================
+     Theme restoration — Light Creative / Dark Fintech
+     ========================================================================== */
+  :root{
+    color-scheme:light;
+    --ink:#111111;
+    --ink-rgb:17,17,17;
+    --paper:#f8f8f6;
+    --paper-rgb:248,248,246;
+    --paper-tint:#ffffff;
+    --ink-tint:#2a2a2a;
+    --accent:#6c5ce7;
+    --accent-rgb:108,92,231;
+    --accent-2:#ff8a5b;
+    --line:rgba(17,17,17,.09);
+    --line-strong:rgba(17,17,17,.18);
+    --surface:rgba(255,255,255,.76);
+    --surface-strong:rgba(255,255,255,.95);
+    --shadow:0 24px 70px rgba(28,25,45,.1);
+    --page-bg:#f8f8f6;
+    --nav-bg:rgba(255,255,255,.76);
+    --nav-bg-strong:rgba(255,255,255,.92);
+    --panel-bg:rgba(255,255,255,.78);
+    --panel-soft:rgba(255,255,255,.52);
+    --section-bg:rgba(248,248,246,.93);
+    --hero-bg:rgba(248,248,246,.24);
+    --chrome-bg:rgba(255,255,255,.74);
+    --grid-line:rgba(17,17,17,.025);
+    --active-text:#ffffff;
+    --control-bg:rgba(255,255,255,.72);
+  }
+  body.dark-mode{
+    color-scheme:dark;
+    --ink:#f4f7f5;
+    --ink-rgb:244,247,245;
+    --paper:#060807;
+    --paper-rgb:6,8,7;
+    --paper-tint:#0d1210;
+    --ink-tint:#d8e2dc;
+    --accent:#74f0a4;
+    --accent-rgb:116,240,164;
+    --accent-2:#72a7ff;
+    --line:rgba(244,247,245,.12);
+    --line-strong:rgba(244,247,245,.22);
+    --surface:rgba(14,19,17,.74);
+    --surface-strong:rgba(18,25,21,.94);
+    --shadow:0 28px 90px rgba(0,0,0,.42);
+    --page-bg:#050706;
+    --nav-bg:rgba(7,10,8,.64);
+    --nav-bg-strong:rgba(7,10,8,.88);
+    --panel-bg:rgba(8,12,9,.78);
+    --panel-soft:rgba(6,9,7,.56);
+    --section-bg:rgba(5,7,6,.95);
+    --hero-bg:rgba(4,6,5,.32);
+    --chrome-bg:rgba(4,7,5,.72);
+    --grid-line:rgba(255,255,255,.018);
+    --active-text:#061009;
+    --control-bg:rgba(7,10,8,.82);
+  }
+
+  html{background:var(--page-bg)}
+  body,
+  body.dark-mode{
+    background:var(--page-bg);
+    color:var(--ink);
+    transition:background .55s ease,color .45s ease;
+  }
+  body::before{
+    background:
+      radial-gradient(circle at 16% 12%,rgba(var(--accent-rgb),.08),transparent 27%),
+      radial-gradient(circle at 86% 70%,color-mix(in srgb,var(--accent-2) 8%,transparent),transparent 32%),
+      linear-gradient(var(--grid-line) 1px,transparent 1px),
+      linear-gradient(90deg,var(--grid-line) 1px,transparent 1px);
+    background-size:auto,auto,48px 48px,48px 48px;
+  }
+  canvas#bg-light{display:block;opacity:.58;filter:saturate(.72) contrast(.96)}
+  canvas#bg-dark{display:block;opacity:0}
+  body.dark-mode canvas#bg-light{opacity:0}
+  body.dark-mode canvas#bg-dark{opacity:.64;filter:saturate(.72) contrast(1.04)}
+
+  #navbar{
+    border-color:var(--line);
+    background:var(--nav-bg);
+    box-shadow:0 10px 44px rgba(18,16,30,.1);
+  }
+  #navbar.scrolled,
+  body.dark-mode #navbar.scrolled{
+    border-color:var(--line-strong);
+    background:var(--nav-bg-strong);
+  }
+  #navbar .brand,
+  body.dark-mode #navbar .brand,
+  #navbar .nav-links a,
+  body.dark-mode #navbar .nav-links a{color:rgba(var(--ink-rgb),.58)}
+  #navbar .brand,
+  body.dark-mode #navbar .brand{color:var(--ink)}
+  #navbar .nav-links a:hover{color:var(--ink);background:rgba(var(--ink-rgb),.055)}
+  #navbar .nav-links a.active,
+  body.dark-mode #navbar .nav-links a.active{
+    color:var(--active-text);
+    background:var(--accent);
+  }
+  .nav-right:empty{display:none}
+  .theme-toggle{
+    position:relative;
+    width:38px;
+    height:38px;
+    flex:0 0 38px;
+    display:grid;
+    place-items:center;
+    padding:0;
+    border:1px solid var(--line);
+    border-radius:50%;
+    background:var(--control-bg);
+    color:var(--ink);
+    cursor:pointer;
+    overflow:hidden;
+    transition:transform .3s cubic-bezier(.16,1,.3,1),background .3s,border-color .3s,color .3s;
+  }
+  .theme-toggle:hover{
+    transform:rotate(8deg) scale(1.06);
+    border-color:rgba(var(--accent-rgb),.48);
+    color:var(--accent);
+  }
+  .theme-toggle svg{width:16px;height:16px;stroke-width:1.8;transition:transform .4s,opacity .3s}
+  .theme-toggle .icon-sun{display:none}
+  body.dark-mode .theme-toggle .icon-sun{display:block}
+  body.dark-mode .theme-toggle .icon-moon{display:none}
+
+  .section,
+  body.dark-mode .section{color:var(--ink)}
+  .section::before,
+  body.dark-mode .section::before{
+    background:
+      radial-gradient(circle at 10% 0%,rgba(var(--accent-rgb),.07),transparent 30%),
+      var(--section-bg);
+  }
+  .section.hero::before,
+  body.dark-mode .section.hero::before{background:var(--hero-bg)}
+  .section.hero::after,
+  body.dark-mode .section.hero::after{
+    background:
+      linear-gradient(180deg,rgba(var(--paper-rgb),.08),transparent 28%,rgba(var(--paper-rgb),.74)),
+      radial-gradient(circle at 50% 42%,transparent 5%,rgba(var(--paper-rgb),.2) 74%);
+  }
+  #research::before{
+    background:
+      radial-gradient(circle at 78% 18%,color-mix(in srgb,var(--accent-2) 10%,transparent),transparent 25%),
+      radial-gradient(circle at 14% 72%,rgba(var(--accent-rgb),.08),transparent 28%),
+      var(--section-bg);
+  }
+  .chrome,.foot{border-color:var(--line);color:rgba(var(--ink-rgb),.58)}
+
+  .me-layout{
+    border-color:var(--line);
+    background:linear-gradient(135deg,rgba(var(--paper-rgb),.72),rgba(var(--paper-rgb),.28)),var(--panel-soft);
+    box-shadow:var(--shadow);
+  }
+  .me-img-selfie{border-color:var(--line-strong);box-shadow:0 24px 60px rgba(24,20,45,.16)}
+  .me-img-timeline{
+    border-color:var(--line);
+    background:rgba(var(--paper-rgb),.42);
+    mix-blend-mode:multiply;
+  }
+  .light-img{display:block}
+  .dark-img,
+  body .dark-img{display:none}
+  body.dark-mode .light-img{display:none}
+  body.dark-mode .dark-img{display:block}
+  body.dark-mode .me-img-selfie{box-shadow:0 24px 60px rgba(0,0,0,.36)}
+  body.dark-mode .me-img-timeline{background:rgba(255,255,255,.028);mix-blend-mode:screen}
+
+  .project-btn,
+  body.dark-mode .project-btn,
+  .work-btn,
+  body.dark-mode .work-btn{
+    border-color:var(--line);
+    background:rgba(var(--paper-rgb),.36);
+    color:rgba(var(--ink-rgb),.52);
+  }
+  .project-btn:hover,.work-btn:hover{
+    color:var(--ink);
+    border-color:var(--line-strong);
+    background:rgba(var(--paper-rgb),.62);
+  }
+  .project-btn.active,
+  body.dark-mode .project-btn.active,
+  .work-btn.active,
+  body.dark-mode .work-btn.active{
+    color:var(--active-text);
+    border-color:var(--accent);
+    background:var(--accent);
+  }
+  .project-btn.active::before{color:color-mix(in srgb,var(--active-text) 54%,transparent)}
+  .research-content,.work-content{
+    border-color:var(--line);
+    background:linear-gradient(145deg,rgba(var(--paper-rgb),.7),rgba(var(--paper-rgb),.28) 54%),var(--panel-bg);
+    box-shadow:var(--shadow);
+  }
+  .research-slide__nav{
+    border-color:var(--line);
+    background:var(--chrome-bg);
+  }
+  .slide-dot{background:rgba(var(--ink-rgb),.13)}
+  .slide-arrow{
+    border-color:var(--line);
+    background:rgba(var(--paper-rgb),.44);
+  }
+  .slide-arrow:hover:not(:disabled){
+    color:var(--active-text);
+    background:var(--accent);
+    border-color:var(--accent);
+  }
+  .research-paper h4{color:var(--ink)}
+  .research-paper p,.wangsu-page .page-body{color:rgba(var(--ink-rgb),.74)}
+  .research-paper strong{color:rgba(var(--ink-rgb),.96)}
+  .highlight-box,.goal-highlight,.page-highlight{background:rgba(var(--accent-rgb),.055)!important}
+  .research-paper table,.methodology-tree{background:rgba(var(--paper-rgb),.38)}
+  .work-carousel .carousel-arrow,
+  .wangsu-carousel .carousel-arrow,
+  body.dark-mode .wangsu-carousel .carousel-arrow{
+    border-color:var(--line);
+    background:var(--control-bg);
+    color:var(--ink);
+  }
+  .work-carousel .carousel-arrow:hover,
+  .wangsu-carousel .carousel-arrow:hover,
+  body.dark-mode .wangsu-carousel .carousel-arrow:hover{
+    color:var(--active-text);
+    border-color:var(--accent);
+    background:var(--accent);
+  }
+  .carousel-dot,
+  body.dark-mode .wangsu-carousel .carousel-nav .carousel-dot{background:rgba(var(--ink-rgb),.16)}
+  .wangsu-page .img-col .img-placeholder,
+  body.dark-mode .wangsu-page .img-col .img-placeholder{border-color:var(--line);background:rgba(var(--paper-rgb),.38)}
+  .ascii-container{border-color:var(--line);background:rgba(var(--paper-rgb),.72);color:var(--ink)}
+  body.dark-mode .ascii-container{background:#030504}
+
+  @media(max-width:640px){
+    #navbar .nav-links{
+      border-color:var(--line);
+      background:var(--nav-bg-strong);
+    }
+    .nav-right{gap:6px}
+    .theme-toggle{width:36px;height:36px;flex-basis:36px}
+  }
+
+  /* ==========================================================================
+     Feedback refinement — open navigation, immersive Me, unified decks
+     ========================================================================== */
+  #navbar,
+  #navbar.scrolled,
+  body.dark-mode #navbar.scrolled{
+    top:0;
+    left:0;
+    right:0;
+    width:100%;
+    height:68px;
+    padding:0 clamp(18px,4vw,64px);
+    transform:none;
+    border:0;
+    border-radius:0;
+    background:transparent;
+    box-shadow:none;
+    backdrop-filter:none;
+    -webkit-backdrop-filter:none;
+  }
+  #navbar.scrolled,
+  body.dark-mode #navbar.scrolled{
+    background:linear-gradient(180deg,var(--page-bg) 0%,color-mix(in srgb,var(--page-bg) 82%,transparent) 66%,transparent 100%);
+  }
+  .nav-identity{
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  #navbar .brand{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    min-height:46px;
+    padding:6px 16px 6px 8px;
+    border:1px solid rgba(18,18,18,.08);
+    border-radius:14px;
+    background:rgba(255,255,255,.94);
+    color:#171717;
+    box-shadow:0 8px 26px rgba(26,22,42,.08);
+    backdrop-filter:blur(14px) saturate(130%);
+    -webkit-backdrop-filter:blur(14px) saturate(130%);
+    transition:transform .3s cubic-bezier(.16,1,.3,1),box-shadow .3s ease,background .3s ease;
+  }
+  #navbar .brand:hover{
+    transform:translateY(-1px);
+    background:#fff;
+    box-shadow:0 12px 32px rgba(26,22,42,.12);
+  }
+  #navbar .brand,
+  body.dark-mode #navbar .brand{
+    color:#171717;
+  }
+  .brand-avatar{
+    width:30px;
+    height:30px;
+    flex:0 0 30px;
+    overflow:hidden;
+    border:1px solid var(--line-strong);
+    border-radius:50%;
+    background:var(--surface);
+    box-shadow:0 6px 18px rgba(0,0,0,.1);
+  }
+  .brand-avatar img{
+    width:100%;
+    height:100%;
+    display:block;
+    object-fit:cover;
+  }
+  .github-link{
+    width:46px;
+    height:46px;
+    flex:0 0 46px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    border:1px solid rgba(18,18,18,.08);
+    border-radius:50%;
+    background:#fff;
+    color:#171717;
+    text-decoration:none;
+    box-shadow:none;
+    transition:transform .3s cubic-bezier(.16,1,.3,1),background .3s ease;
+  }
+  .github-link:hover{transform:translateY(-1px);background:#fff}
+  .github-link:focus-visible{
+    outline:2px solid var(--accent);
+    outline-offset:3px;
+  }
+  .github-link svg{
+    width:21px;
+    height:21px;
+    display:block;
+    fill:currentColor;
+  }
+
+  #me .chrome{
+    margin-bottom:4px;
+    padding-bottom:0;
+    border-bottom:0;
+  }
+  #me .foot{
+    margin-top:4px;
+    padding-top:0;
+    border-top:0;
+  }
+  #me .me-layout{
+    display:grid;
+    grid-template-columns:minmax(0,1fr);
+    place-items:center;
+    width:min(100%,1500px);
+    min-height:calc(100svh - 178px);
+    margin:0 auto;
+    padding:0;
+    border:0;
+    border-radius:0;
+    background:transparent;
+    box-shadow:none;
+    backdrop-filter:none;
+    overflow:visible;
+  }
+  #me .me-layout::before,
+  #me .me-layout::after{display:none}
+  #me .me-img-timeline{
+    width:min(100%,1220px);
+    max-height:calc(100svh - 190px);
+    margin:auto;
+    padding:0;
+    border:0;
+    border-radius:0;
+    background:transparent;
+    box-shadow:none;
+    object-fit:contain;
+    mix-blend-mode:multiply;
+    filter:drop-shadow(0 26px 44px rgba(31,24,62,.09));
+  }
+  body:not(.dark-mode) #me .me-img-timeline.light-img{
+    mix-blend-mode:normal;
+    filter:brightness(1.1) contrast(.96) saturate(.98) drop-shadow(0 26px 44px rgba(31,24,62,.08));
+  }
+  body.dark-mode #me .me-img-timeline{
+    background:transparent;
+    mix-blend-mode:screen;
+    filter:drop-shadow(0 28px 56px rgba(0,0,0,.24));
+  }
+
+  #research .chrome{
+    margin-bottom:12px;
+    padding-bottom:0;
+    border-bottom:0;
+    align-items:center;
+  }
+  #research .chrome .right{
+    width:auto;
+    height:auto;
+    border:0;
+    border-radius:0;
+  }
+  #research .chrome .research-sidebar{
+    margin-left:auto;
+  }
+  #research .research-layout{
+    grid-template-rows:minmax(0,1fr);
+  }
+
+  .research-layout,
+  .work-layout{
+    grid-template-columns:minmax(0,1fr);
+    grid-template-rows:auto minmax(0,1fr);
+    gap:12px;
+  }
+  .research-sidebar,
+  .work-sidebar{
+    flex-direction:row;
+    justify-content:flex-start;
+    align-items:stretch;
+    gap:8px;
+    padding:0;
+    overflow-x:auto;
+    scrollbar-width:none;
+  }
+  .research-sidebar::-webkit-scrollbar,
+  .work-sidebar::-webkit-scrollbar{display:none}
+  .project-btn,
+  body.dark-mode .project-btn,
+  .work-btn,
+  body.dark-mode .work-btn{
+    min-width:190px;
+    min-height:46px;
+    padding:10px 16px 10px 42px;
+    border-radius:999px;
+    text-align:left;
+    white-space:nowrap;
+  }
+  .project-btn::before,
+  .work-btn::before{
+    position:absolute;
+    left:15px;
+    top:50%;
+    transform:translateY(-50%);
+    color:rgba(var(--ink-rgb),.3);
+    font-family:var(--mono);
+    font-size:10px;
+  }
+  .work-btn{position:relative}
+  .work-btn:nth-child(1)::before{content:"01"}
+  .work-btn:nth-child(2)::before{content:"02"}
+  .work-btn.active::before{color:color-mix(in srgb,var(--active-text) 54%,transparent)}
+  .project-btn:hover,
+  .work-btn:hover{transform:translateY(-2px)}
+  .research-content,
+  .work-content{height:min(73svh,740px)}
+
+  .research-paper h3{
+    max-width:32ch;
+    font-size:clamp(28px,3.25vw,54px);
+    line-height:1.02;
+  }
+  .research-paper h4{
+    max-width:38ch;
+    font-size:clamp(25px,2.55vw,42px);
+    line-height:1.06;
+  }
+
+  .work-content{
+    position:relative;
+    padding:clamp(24px,3vw,42px) clamp(24px,3.8vw,58px) 82px;
+    overflow:hidden;
+  }
+  .work-panel{
+    height:100%;
+    overflow:auto;
+    scrollbar-width:thin;
+    scrollbar-color:rgba(var(--accent-rgb),.34) transparent;
+  }
+  .work-panel::-webkit-scrollbar{width:5px}
+  .work-panel::-webkit-scrollbar-thumb{background:rgba(var(--accent-rgb),.3);border-radius:10px}
+  .work-carousel,
+  .wangsu-carousel{position:static}
+  .work-carousel .carousel-dots,
+  .wangsu-carousel .carousel-nav{
+    position:absolute;
+    left:clamp(24px,3.8vw,58px);
+    right:clamp(24px,3.8vw,58px);
+    bottom:0;
+    min-height:64px;
+    margin:0;
+    padding:10px 0;
+    display:flex;
+    align-items:center;
+    justify-content:flex-start;
+    gap:6px;
+    border-top:1px solid var(--line);
+    background:var(--chrome-bg);
+    z-index:8;
+  }
+  .work-carousel .carousel-dot,
+  .wangsu-carousel .carousel-nav .carousel-dot{
+    width:clamp(28px,4vw,54px);
+    height:3px;
+    flex:0 1 54px;
+    border-radius:99px;
+  }
+  .work-carousel .carousel-arrow,
+  .wangsu-carousel .carousel-arrow{
+    position:absolute;
+    top:auto;
+    bottom:11px;
+    width:42px;
+    height:42px;
+    transform:none;
+    z-index:10;
+  }
+  .work-carousel .carousel-arrow.prev,
+  .wangsu-carousel .carousel-arrow.prev{
+    left:auto;
+    right:calc(clamp(24px,3.8vw,58px) + 50px);
+  }
+  .work-carousel .carousel-arrow.next,
+  .wangsu-carousel .carousel-arrow.next{
+    right:clamp(24px,3.8vw,58px);
+  }
+  .work-carousel .carousel-arrow:hover,
+  .wangsu-carousel .carousel-arrow:hover{transform:translateY(-2px)}
+  .work-carousel .carousel-arrow:disabled,
+  .wangsu-carousel .carousel-arrow:disabled{opacity:.22;cursor:not-allowed}
+  .work-carousel .img-wrap{position:static;max-width:1050px}
+  .wangsu-carousel{height:calc(100% - 112px);min-height:420px}
+
+  @media(max-width:640px){
+    #navbar,
+    #navbar.scrolled,
+    body.dark-mode #navbar.scrolled{
+      top:0;
+      left:0;
+      right:0;
+      width:100vw;
+      height:58px;
+      padding:0 12px;
+    }
+    #navbar .brand{gap:7px;font-size:14px}
+    #navbar .brand{min-height:42px;padding:5px 12px 5px 6px;border-radius:12px}
+    .brand-avatar{width:28px;height:28px;flex-basis:28px}
+    .nav-identity{gap:6px}
+    .github-link{width:42px;height:42px;flex-basis:42px}
+    .github-link svg{width:19px;height:19px}
+    #navbar .nav-links{top:58px}
+    #me .me-layout{min-height:calc(100svh - 126px)}
+    #me .me-img-timeline{max-height:calc(100svh - 145px)}
+    .research-sidebar,.work-sidebar{padding-bottom:2px}
+    #research .chrome{
+      align-items:flex-start;
+      gap:10px;
+    }
+    #research .chrome .left{padding-top:13px}
+    #research .chrome .research-sidebar{max-width:65vw}
+    .project-btn,.work-btn{min-width:max-content}
+    .research-content,.work-content{height:76svh}
+    .research-paper h3{max-width:none;font-size:clamp(27px,8vw,38px)}
+    .research-paper h4{max-width:none;font-size:clamp(24px,7vw,34px)}
+    .work-content{min-height:0;padding:20px 16px 74px}
+    .work-carousel .carousel-dots,
+    .wangsu-carousel .carousel-nav{left:16px;right:16px;min-height:58px}
+    .work-carousel .carousel-arrow,
+    .wangsu-carousel .carousel-arrow{bottom:8px}
+    .work-carousel .carousel-arrow.prev{right:62px}
+    .work-carousel .carousel-arrow.next{right:16px}
+    .wangsu-carousel{height:calc(100% - 108px);min-height:500px}
+  }
+
+  /* ==========================================================================
+     Final refinement — Inter UI, feathered Me image, one deck system
+     ========================================================================== */
+  :root{
+    --ui:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    --card-body:"Source Serif 4",Georgia,serif;
+  }
+
+  body,
+  #navbar .brand,
+  #navbar .nav-links a,
+  .theme-toggle,
+  .chrome,
+  .foot,
+  .foot .title,
+  .kicker,
+  .meta,
+  .tag,
+  .project-btn,
+  .work-btn,
+  .project-btn::before,
+  .work-btn::before,
+  .research-slide__content::before,
+  .research-paper h3,
+  .research-paper h4,
+  .research-paper h5,
+  .research-paper th,
+  .work-panel h3,
+  .wangsu-page .page-title,
+  .wangsu-page .page-sub,
+  .slide-arrow,
+  .carousel-arrow{
+    font-family:var(--ui);
+  }
+
+  /* Keep long-form copy inside presentation cards editorial and readable. */
+  .research-paper p,
+  .research-paper li,
+  .research-paper td,
+  .research-paper .methodology-tree,
+  .research-paper .goal-highlight,
+  .research-paper .highlight-box,
+  .research-paper .hl-item,
+  .work-panel > p,
+  .wangsu-page .page-body,
+  .wangsu-page .page-highlight{
+    font-family:var(--card-body);
+  }
+
+  #navbar .brand,
+  body.dark-mode #navbar .brand{
+    border-radius:999px;
+    background:#fff;
+    box-shadow:none;
+  }
+  #navbar .brand:hover{
+    background:#fff;
+    box-shadow:none;
+  }
+  .brand-avatar{box-shadow:none}
+
+  /* Feather only the perimeter; the timeline content remains crisp. */
+  #me .me-img-timeline{
+    -webkit-mask-image:
+      linear-gradient(to right,transparent 0%,#000 5.5%,#000 94.5%,transparent 100%),
+      linear-gradient(to bottom,transparent 0%,#000 6.5%,#000 93.5%,transparent 100%);
+    -webkit-mask-composite:source-in;
+    mask-image:
+      linear-gradient(to right,transparent 0%,#000 5.5%,#000 94.5%,transparent 100%),
+      linear-gradient(to bottom,transparent 0%,#000 6.5%,#000 93.5%,transparent 100%);
+    mask-composite:intersect;
+  }
+
+  /* Research and Work share the same section header and project-tab placement. */
+  #research .chrome,
+  #work .chrome{
+    margin-bottom:12px;
+    padding-bottom:0;
+    border-bottom:0;
+    align-items:center;
+  }
+  #research .chrome .right,
+  #work .chrome .right{
+    width:auto;
+    height:auto;
+    border:0;
+    border-radius:0;
+  }
+  #research .chrome .research-sidebar,
+  #work .chrome .work-sidebar{margin-left:auto}
+  #work .legacy-section-index{display:none}
+
+  .research-layout,
+  .work-layout{
+    grid-template-columns:minmax(0,1fr);
+    grid-template-rows:minmax(0,1fr);
+    gap:12px;
+    max-width:1440px;
+  }
+  .research-content,
+  .work-content{
+    width:100%;
+    height:min(73svh,740px);
+    max-height:none;
+    padding:0;
+    overflow:hidden;
+    border:1px solid var(--line);
+    border-radius:var(--radius-lg);
+    background:
+      linear-gradient(145deg,rgba(var(--paper-rgb),.7),rgba(var(--paper-rgb),.28) 54%),
+      var(--panel-bg);
+    box-shadow:var(--shadow);
+    backdrop-filter:blur(20px);
+  }
+  .work-content::before{
+    content:"";
+    position:absolute;
+    top:-90px;
+    right:-50px;
+    width:250px;
+    height:250px;
+    border:1px solid color-mix(in srgb,var(--accent-2) 16%,transparent);
+    border-radius:50%;
+    pointer-events:none;
+  }
+  .work-panel{
+    position:relative;
+    z-index:1;
+    height:100%;
+    padding:clamp(28px,4vw,62px) clamp(24px,4.8vw,76px) 96px;
+    overflow:auto;
+    scrollbar-width:thin;
+    scrollbar-color:rgba(var(--accent-rgb),.34) transparent;
+  }
+  .work-panel::-webkit-scrollbar{width:5px}
+  .work-panel::-webkit-scrollbar-thumb{
+    background:rgba(var(--accent-rgb),.3);
+    border-radius:10px;
+  }
+  .work-panel.active{animation:projectIn .65s cubic-bezier(.16,1,.3,1)}
+
+  /* One bottom navigation language for every Research and Work card. */
+  .research-slide__nav,
+  .work-carousel .carousel-dots,
+  .wangsu-carousel .carousel-nav{
+    min-height:72px;
+    padding:12px clamp(20px,3vw,46px);
+    border-top:1px solid var(--line);
+    background:var(--chrome-bg);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+  }
+  .work-carousel .carousel-dots,
+  .wangsu-carousel .carousel-nav{
+    left:0;
+    right:0;
+    bottom:0;
+  }
+  .slide-progress,
+  .work-carousel .carousel-dots,
+  .wangsu-carousel .carousel-dots{
+    display:flex;
+    align-items:center;
+    justify-content:flex-start;
+    gap:6px;
+  }
+  .slide-dot,
+  .work-carousel .carousel-dot,
+  .wangsu-carousel .carousel-nav .carousel-dot{
+    width:clamp(20px,4vw,54px);
+    height:3px;
+    flex:0 1 54px;
+    padding:0;
+    border:0;
+    border-radius:99px;
+    background:rgba(var(--ink-rgb),.13);
+  }
+  .slide-dot.is-active,
+  .work-carousel .carousel-dot.active,
+  .wangsu-carousel .carousel-nav .carousel-dot.active{
+    background:var(--accent);
+  }
+  .slide-arrow,
+  .work-carousel .carousel-arrow,
+  .wangsu-carousel .carousel-arrow{
+    width:42px;
+    height:42px;
+    border:1px solid var(--line);
+    border-radius:50%;
+    background:rgba(var(--paper-rgb),.44);
+    color:var(--ink);
+    font-size:16px;
+  }
+  .work-carousel .carousel-arrow,
+  .wangsu-carousel .carousel-arrow{bottom:15px}
+  .work-carousel .carousel-arrow.prev,
+  .wangsu-carousel .carousel-arrow.prev{right:calc(clamp(20px,3vw,46px) + 50px)}
+  .work-carousel .carousel-arrow.next,
+  .wangsu-carousel .carousel-arrow.next{right:clamp(20px,3vw,46px)}
+
+  @media(max-width:640px){
+    #navbar .brand{border-radius:999px}
+    #research .chrome,
+    #work .chrome{
+      align-items:flex-start;
+      gap:10px;
+    }
+    #research .chrome .left,
+    #work .chrome .left{padding-top:13px}
+    #research .chrome .research-sidebar,
+    #work .chrome .work-sidebar{max-width:65vw}
+    .research-content,
+    .work-content{height:76svh}
+    .work-panel{padding:26px 18px 86px}
+    .work-carousel .carousel-arrow,
+    .wangsu-carousel .carousel-arrow{bottom:15px}
+    .work-carousel .carousel-arrow.prev,
+    .wangsu-carousel .carousel-arrow.prev{right:62px}
+    .work-carousel .carousel-arrow.next,
+    .wangsu-carousel .carousel-arrow.next{right:16px}
+  }
+
+  /* ==========================================================================
+     Wangsu refinement — second-line metadata and shared deck footer
+     ========================================================================== */
+  #work .work-meta-row{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    width:max-content;
+    max-width:100%;
+    margin:8px 0 24px;
+    color:rgba(var(--ink-rgb),.55);
+    font-size:10px;
+    line-height:1;
+    letter-spacing:.18em;
+    text-transform:uppercase;
+  }
+  #work .work-meta-row .tag{
+    display:inline-flex;
+    align-items:center;
+    min-height:27px;
+    padding:5px 15px;
+    border-radius:999px;
+    white-space:nowrap;
+  }
+
+  /* BYD imagery sits directly in the card without a framed media container. */
+  #carousel-byd > img{
+    display:block;
+    width:100%;
+    max-width:1050px;
+    aspect-ratio:16 / 10;
+    margin:0 auto;
+    border:0;
+    border-radius:0;
+    background:transparent;
+    box-shadow:none;
+    object-fit:contain;
+    mix-blend-mode:normal;
+    transition:opacity .35s ease;
+  }
+
+  /* The footer is a sibling of the scrollable panels, so it stays anchored
+     to the Work card instead of moving with either session's content. */
+  #work .work-deck-nav{
+    position:absolute;
+    inset:auto 0 0;
+    display:grid;
+    grid-template-columns:minmax(0,1fr) auto;
+    align-items:center;
+    gap:18px;
+    width:auto;
+    height:72px;
+    min-height:72px;
+    margin:0;
+    padding:12px clamp(20px,3vw,46px);
+    border-top:1px solid var(--line);
+    background:var(--chrome-bg);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    z-index:12;
+  }
+  #work .work-deck-nav[hidden]{
+    display:none;
+  }
+  #work .work-deck-nav .carousel-dots{
+    position:static;
+    display:flex;
+    align-items:center;
+    justify-content:flex-start;
+    gap:6px;
+    min-width:0;
+    margin:0;
+    padding:0;
+    border:0;
+    background:transparent;
+  }
+  #work .work-deck-nav .carousel-dot{
+    width:clamp(20px,4vw,54px);
+    height:3px;
+    flex:0 1 54px;
+    padding:0;
+    border:0;
+    border-radius:999px;
+    background:rgba(var(--ink-rgb),.13);
+    cursor:pointer;
+    transition:background-color .25s ease,flex-basis .25s ease;
+  }
+  #work .work-deck-nav .carousel-dot.active{
+    background:var(--accent);
+  }
+  #work .carousel-actions{
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  #work .work-deck-nav .carousel-arrow{
+    position:static;
+    inset:auto;
+    width:42px;
+    height:42px;
+    flex:0 0 42px;
+    transform:none;
+    border:1px solid var(--line);
+    border-radius:50%;
+    background:rgba(var(--paper-rgb),.44);
+    color:var(--ink);
+    cursor:pointer;
+    transition:transform .25s ease,border-color .25s ease,opacity .25s ease;
+  }
+  #work .work-deck-nav .carousel-arrow:hover{
+    transform:translateY(-2px);
+  }
+  #work .work-deck-nav .carousel-arrow:disabled{
+    opacity:.22;
+    cursor:not-allowed;
+  }
+
+  /* Remove the old Wangsu-only spacer that produced the white overlay. */
+  #work .wangsu-carousel{
+    height:auto;
+    min-height:0;
+  }
+  #work .wangsu-carousel .wangsu-pages{
+    min-height:0;
+    padding-bottom:0;
+  }
+  #work .work-panel{
+    padding-bottom:92px;
+  }
+
+  @media(max-width:640px){
+    #work .work-meta-row{
+      flex-wrap:wrap;
+      width:auto;
+      margin:7px 0 18px;
+      line-height:1.5;
+    }
+    #work .work-deck-nav{
+      height:64px;
+      min-height:64px;
+      padding:10px 16px;
+    }
+    #work .work-panel{padding-bottom:80px}
+  }
+
+  /* Final visual parity: Wangsu imagery is presented directly on the slide,
+     matching BYD, without a framed media surface or elevation. */
+  #carousel-wangsu .wangsu-page .img-col img,
+  body.dark-mode #carousel-wangsu .wangsu-page .img-col img{
+    border:0!important;
+    border-radius:0!important;
+    background:transparent!important;
+    box-shadow:none!important;
+  }
+
+  /* Keep the identity label typographically identical in both themes. */
+  #navbar .brand,
+  body.dark-mode #navbar .brand{
+    font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  }
+
+  /* HiMeet presents investigation, experiment and design as one continuous process. */
+  .research-paper.active.has-research-modules{
+    display:grid;
+    grid-template-rows:auto minmax(0,1fr);
+  }
+  .research-module-tabs{
+    position:relative;
+    z-index:3;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:58px;
+    padding:16px clamp(20px,3vw,44px) 18px;
+    border-bottom:1px solid var(--line);
+    background:transparent;
+  }
+  .research-module-btn{
+    position:relative;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    width:auto;
+    min-height:42px;
+    padding:10px 4px;
+    border:0;
+    border-radius:0;
+    background:transparent;
+    color:rgba(var(--ink-rgb),.46);
+    font-family:var(--mono);
+    font-size:10px;
+    line-height:1;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    cursor:pointer;
+    transition:color .25s ease;
+  }
+  .research-module-btn:not(:last-child)::after{
+    content:"";
+    position:absolute;
+    top:50%;
+    left:calc(100% + 17px);
+    width:24px;
+    height:8px;
+    border-top:1px solid rgba(var(--ink-rgb),.22);
+    transform:translateY(-1px);
+    pointer-events:none;
+  }
+  .research-module-btn:not(:last-child)::before{
+    content:"";
+    position:absolute;
+    top:50%;
+    left:calc(100% + 35px);
+    width:6px;
+    height:6px;
+    border-top:1px solid rgba(var(--ink-rgb),.28);
+    border-right:1px solid rgba(var(--ink-rgb),.28);
+    transform:translateY(-4px) rotate(45deg);
+    pointer-events:none;
+  }
+  .research-module-btn span{
+    opacity:.58;
+    font-weight:500;
+  }
+  .research-module-btn:hover{
+    color:var(--ink);
+  }
+  .research-module-btn.active{
+    color:var(--ink);
+  }
+  .research-module-btn.active span{color:var(--accent);opacity:1}
+  .research-module{
+    display:none;
+    min-height:0;
+    height:100%;
+  }
+  .research-module.active{display:block}
+  .research-module[hidden]{display:none}
+  .research-module > .research-deck{height:100%}
+
+  /* Design copy and highlights align with the full-width media placeholders. */
+  .research-module[data-module="design"] .research-slide__content > p,
+  .research-module[data-module="design"] .research-slide__content > .highlight-box,
+  .research-module[data-module="design"] .research-slide__content > .goal-highlight{
+    width:100%;
+    max-width:none;
+    box-sizing:border-box;
+  }
+
+  @media(max-width:640px){
+    .research-module-tabs{
+      justify-content:flex-start;
+      gap:42px;
+      padding:10px 14px;
+      overflow-x:auto;
+      scrollbar-width:none;
+    }
+    .research-module-tabs::-webkit-scrollbar{display:none}
+    .research-module-btn{
+      flex:0 0 auto;
+      min-height:34px;
+      padding:8px 4px;
+      font-size:9px;
+    }
+  }
+</style>
+</head>
+<body class="dark-mode">
+  <script>
+    (function(){
+      try{
+        var savedTheme=localStorage.getItem('simone-color-theme');
+        var prefersDark=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches;
+        document.body.classList.toggle('dark-mode',savedTheme?savedTheme==='dark':prefersDark);
+      }catch(error){}
+    })();
+  </script>
+  <canvas id="bg-light" class="bg"></canvas>
+  <canvas id="bg-dark" class="bg"></canvas>
+
+  <nav id="navbar">
+    <div class="nav-identity">
+      <a href="#me" class="brand">
+        <span class="brand-avatar" aria-hidden="true">
+          <img class="light-img" src="assets/fig./微信图片_20260621160850_75_10.jpg" alt="">
+          <img class="dark-img" src="assets/fig./darkmode- selfie.jpeg" alt="">
+        </span>
+        <span>Simone Weng</span>
+      </a>
+      <a class="github-link" href="https://github.com/wxyhuigenghao-glitch" target="_blank" rel="noopener noreferrer" aria-label="Visit Simone Weng on GitHub" title="GitHub">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 .7a11.6 11.6 0 0 0-3.67 22.6c.58.1.8-.25.8-.56v-2.23c-3.24.7-3.92-1.38-3.92-1.38-.53-1.35-1.3-1.7-1.3-1.7-1.06-.73.08-.72.08-.72 1.17.08 1.79 1.2 1.79 1.2 1.04 1.79 2.73 1.27 3.4.97.1-.76.4-1.27.74-1.56-2.59-.3-5.31-1.3-5.31-5.75 0-1.27.45-2.31 1.2-3.13-.12-.3-.52-1.48.11-3.09 0 0 .98-.31 3.19 1.2a11.1 11.1 0 0 1 5.82 0c2.21-1.51 3.18-1.2 3.18-1.2.64 1.61.24 2.8.12 3.09.75.82 1.2 1.86 1.2 3.13 0 4.47-2.73 5.45-5.32 5.74.42.36.79 1.07.79 2.16v3.2c0 .31.21.67.8.56A11.6 11.6 0 0 0 12 .7Z"/>
+        </svg>
+      </a>
+    </div>
+    <button class="nav-toggle" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links">
+      <a href="#me" class="active" data-i18n="nav_me">Me</a>
+      <a href="#research" data-i18n="nav_research">Research</a>
+      <a href="#work" data-i18n="nav_work">Work</a>
+      <div class="nav-right">
+        <button class="theme-toggle" id="modeToggle" type="button" aria-label="Switch to light mode" aria-pressed="true" title="Switch color theme">
+          <svg class="icon-sun" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"></path></svg>
+          <svg class="icon-moon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20.6 15.5A9 9 0 0 1 8.5 3.4a9 9 0 1 0 12.1 12.1Z"></path></svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+   <!-- ===== Me ===== -->
+    <section id="me" class="section light hero" data-theme="light">
+      <div class="chrome">
+        <div class="left"><span data-i18n="sec_me">About Me</span></div>
+        <div class="right" data-i18n="sec_me_sub">Introduction</div>
+      </div>
+      
+      <!-- 重点修改了这里面的内容 -->
+      <div class="me-layout">
+        <!-- 浅色模式图片组 (默认显示) -->
+        <img class="me-img me-img-timeline light-img" src="assets/fig./浅色模式.png" alt="Timeline Light" data-anim="up" data-anim-delay="0.06">
+
+        <!-- 深色模式图片组 (深色模式下显示) -->
+        <img class="me-img me-img-timeline dark-img" src="assets/fig./深色模式.png" alt="Timeline Dark" data-anim="up" data-anim-delay="0.06">
+      </div>
+      <!-- 修改结束 -->
+
+      <div class="foot">
+        <span class="title">update 2026/6/24 00:13</span>
+        <span>01 / 03</span>
+      </div>
+    </section>
+
+    <!-- ===== Research ===== -->
+    <section id="research" class="section dark" data-theme="dark">
+      <div class="chrome">
+        <div class="left"><span data-i18n="sec_research_sub">Plain-language brief for quick reading — not original text.</span></div>
+        <div class="right research-sidebar">
+          <button class="project-btn active" data-project="0" data-i18n="proj_btn_0">Visual Factors</button>
+          <button class="project-btn" data-project="1" data-i18n="proj_btn_1">SandplayAR</button>
+          <button class="project-btn" data-project="2">HiMeet</button>
+        </div>
+      </div>
+      <div class="research-layout">
+        <div class="research-content">
+          <!-- Paper 1: Emotion Regulation -->
+          <div class="research-paper active" data-project="0">
+            <h3>Research on the Influence of Visual Factors on Emotion Regulation Interaction</h3>
+            <p style="margin-bottom:.6vh"><span class="tag">Frontiers in Psychology (SSCI-Q1 IF 3.8)</span> <span class="tag">2022</span> <span class="tag">Vol.12</span></p>
+            <p> Zhiyong Xiong, <strong>Xinyu Weng</strong>(student first author), Yu Wei &middot; DOI: 10.3389/fpsyg.2021.772642</p>
+            <hr>
+
+            <!-- 🌟 Research Innovation Highlights -->
+            <div class="highlight-box">
+              <div class="hl-title">✦ Research Innovations</div>
+              <div class="hl-item"><strong>Methodological innovation — E-PrEmo</strong>： A context-specific refinement of PrEmo, capable of measuring complex, multi-dimensional emotional indices.</div>
+              <div class="hl-item"><strong>Empirical findings</strong>: Effects ranking of visual factors (VR > Stickers > Data Viz > Text > Geometry).</div>
+              <div class="hl-item"><strong>Design strategies by goal</strong>： For relaxation & liberation, prioritize VR; for joy & surprise, use stickers; for satisfaction & frequent use, employ data viz; for anticipation & desire for content, leverage text.</div>
+            </div>
+
+            <h4 id="p1-bg">1. Background</h4>
+<p>Software products are the most accessible and low‑cost psychotherapeutic tools for the general public to regulate emotions. Yet <strong>there is no clear research consensus on how specific visual design elements influence emotion regulation.</strong></p>
+            <p class="goal-highlight"><strong>Goal:</strong> Investigate the correlation between <em>visual factors</em> and <em>multi-dimensional complex emotions</em> to guide emotion regulation product design.</p>
+
+            <h4 id="p1-method">2. Methodology: PrEmo → E-PrEmo</h4>
+
+            <div class="methodology-tree" style="font-family:var(--sans-zh);font-size:clamp(12px,0.9vw,14px);line-height:1.7;opacity:.85">
+              <!-- Level 1 -->
+              <p style="margin-bottom:.8vh"><strong>🟡 Level 1: Initial Paradigm Selection</strong></p>
+              <p style="padding-left:2.4em;margin-bottom:.3vh">├─► <strong>Psychophysiological Methods</strong></p>
+              <p style="padding-left:4.2em;margin-bottom:.3vh;opacity:.7">│ &nbsp; e.g., Heart Rate, Skin Conductance</p>
+              <p style="padding-left:4.2em;margin-bottom:.3vh;opacity:.7">└── <span style="color:#c0392b">❌ EXCLUDED</span> — Can only confirm arousal level; cannot indicate valence (positive/negative).</p>
+              <p style="padding-left:2.4em;margin-bottom:.3vh">│</p>
+              <p style="padding-left:2.4em;margin-bottom:.3vh">└─► <strong>Self‑Report Assessment</strong><span style="color:#27ae60"> ✅ SELECTED</span></p>
+              <p style="padding-left:4.2em;margin-bottom:0;opacity:.75">│ &nbsp; Intuitively records subjective user experiences. Ideal for providing direct</p>
+              <p style="padding-left:4.2em;margin-bottom:0;opacity:.75">│ &nbsp; empirical guidance in product design.</p>
+              <p style="padding-left:4.2em;margin-bottom:.3vh">│</p>
+              <p style="padding-left:4.2em;margin-bottom:1vh">▼</p>
+
+              <!-- Level 2 -->
+              <p style="margin-bottom:.8vh"><strong>🔵 Level 2: Methodological Direction</strong></p>
+              <p style="padding-left:2.4em;margin-bottom:.3vh">├─► <strong>Dimension‑Based Methods</strong></p>
+              <p style="padding-left:4.2em;margin-bottom:.3vh;opacity:.7">│ &nbsp; e.g., Valence–Arousal Space</p>
+              <p style="padding-left:4.2em;margin-bottom:.3vh;opacity:.7">└── <span style="color:#c0392b">❌ EXCLUDED</span> — Generalized emotional states; hard to translate into design language.</p>
+              <p style="padding-left:2.4em;margin-bottom:.3vh">│</p>
+              <p style="padding-left:2.4em;margin-bottom:.3vh">└─► <strong>Classification‑Based Methods</strong><span style="color:#27ae60"> ✅ SELECTED</span></p>
+              <p style="padding-left:4.2em;margin-bottom:0;opacity:.75">│ &nbsp; Maps specific emotion categories directly to distinct design elements</p>
+              <p style="padding-left:4.2em;margin-bottom:0;opacity:.75">│ &nbsp; (e.g., Blue → calmness; Red → excitement).</p>
+              <p style="padding-left:4.2em;margin-bottom:.3vh">│</p>
+              <p style="padding-left:4.2em;margin-bottom:1vh">▼</p>
+
+              <!-- Level 3 -->
+              <p style="margin-bottom:.8vh"><strong>🟢 Level 3: Concrete Classification Tools</strong></p>
+              <p style="padding-left:2.4em;margin-bottom:.3vh">├─► <strong>Personal Profile Index (PPI)</strong></p>
+              <p style="padding-left:4.2em;margin-bottom:.3vh;opacity:.7">└── <span style="color:#c0392b">❌ EXCLUDED</span> — Too outdated (1996); trait‑like psychological profiles.</p>
+              <p style="padding-left:2.4em;margin-bottom:.3vh">├─► <strong>Differential Emotion Scale (DES)</strong></p>
+              <p style="padding-left:4.2em;margin-bottom:.3vh;opacity:.7">└── <span style="color:#c0392b">❌ EXCLUDED</span> — Text-based 30 items (10 subscales × 3 questions each); excessively tedious for users.</p>
+              <p style="padding-left:2.4em;margin-bottom:.3vh">│</p>
+              <p style="padding-left:2.4em;margin-bottom:.3vh">└─► <strong>PrEmo Method</strong> 🌟 <span style="color:#27ae60">🎯 FINAL FOCUS</span></p>
+              <p style="padding-left:4.2em;margin-bottom:0;opacity:.75">│ &nbsp; Specially built for products & design. Uses non‑verbal cartoon animations</p>
+              <p style="padding-left:4.2em;margin-bottom:1.6vh;opacity:.75">│ &nbsp; to bypass linguistic barriers and capture intuitive user experiences.</p>
+
+              <!-- PrEmo Image -->
+              <img src="assets/fig./pr-emo.webp" alt="PrEmo" style="width:55%;border-radius:4px;margin:.6vh auto 1.6vh;display:block">
+
+              <!-- E-PrEmo Innovation Table -->
+              <h5 style="margin:1.6vh 0 .6vh">E-PrEmo Innovation</h5>
+              <table>
+                <tr><th>Dimension</th><th>Traditional PrEmo</th><th>E-PrEmo (This Study)</th></tr>
+                <tr>
+                 <td>Emotion Pool Capacity<br><span style="font-weight:400;font-size:clamp(10px,0.75vw,12px);opacity:.7">(指标库库容)</span></td>
+                 <td><strong>Fixed & Rigid</strong><br><span style="font-weight:400;font-size:clamp(10px,0.75vw,12px);opacity:.8">Applies a static set of 14 generalized emotion labels regardless of the product type.</span></td>
+                 <td><strong>Context-Specific</strong><br><span style="font-weight:400;font-size:clamp(10px,0.75vw,12px);opacity:.8">Contextually pre-screens and customizes 10 specific emotions (5 positive & 5 negative) from a foundational pool of 60 emotions for distinct design factors.</span></td>
+               </tr>
+               <tr>
+                 <td>Data Quantification<br><span style="font-weight:400;font-size:clamp(10px,0.75vw,12px);opacity:.7">(数据量化机制)</span></td>
+                 <td><strong>Categorical Count</strong><br><span style="font-weight:400;font-size:clamp(10px,0.75vw,12px);opacity:.8">Users independently check "Presence/Absence" or rate on a discrete 3-point scale for each emotion.<br>— Analogous to an old-fashioned stethoscope.</span></td>
+                 <td><strong>Algorithmic Weighting</strong><br><span style="font-weight:400;font-size:clamp(10px,0.75vw,12px);opacity:.8">Users autonomously select and rank emotions based on multi-layered, complex psychological states. Converts subjective rankings into precise, continuous scores via the formula: <strong>10 × (n − m + 1) / n</strong>.<br>— Analogous to an ECG (Electrocardiogram).</span></td>
+              </tr>
+              <tr>
+                 <td>Core Application Scope<br><span style="font-weight:400;font-size:clamp(10px,0.75vw,12px);opacity:.7">(核心应用场景)</span></td>
+                 <td><strong>General / Physical Artifacts</strong><br><span style="font-weight:400;font-size:clamp(10px,0.75vw,12px);opacity:.8">Primarily oriented toward the aesthetic and psychological measurement of physical hardware (e.g., automobiles, consumer electronics).</span></td>
+                 <td><strong>Digital Interaction / Digital Therapeutics</strong><br><span style="font-weight:400;font-size:clamp(10px,0.75vw,12px);opacity:.8">Specially tailored for virtual software interfaces, UI/UX interactions, and digital sub-healthy psychological intervention contexts.</span></td>
+              </tr>
+            </table>
+            <div class="goal-highlight" style="font-family:var(--sans-zh);font-size:clamp(12px,0.9vw,14px);opacity:.85;margin:1.2vh 0 2.4vh 0">
+              <p><strong>Core Variables</strong></p>
+              <p style="margin:0.4vh 0;padding-left:1.2em">
+                <strong>n:</strong> Total number of emotion cards selected by a participant in a single-factor test.<br>
+                <strong>m:</strong> The subjective ranking of a specific emotion card within the total selection.
+              </p>
+              <p><strong>Weight Calculation</strong></p>
+              <p style="margin:0.4vh 0;padding-left:1.2em">
+                Determine the relative weight of a single emotion within the overall profile using the formula
+                <span style="font-family:Georgia,serif;font-style:italic;padding:0 0.2em">(n − m + 1) / n</span>.
+              </p>
+              <p><strong>Final Scoring</strong></p>
+              <p style="margin:0.4vh 0;padding-left:1.2em">
+                Scale the weight against a maximum score of 10 to output the final quantified score for each emotion index:
+                <br>
+                <span style="display:inline-block;margin:0.6vh 0 0.2vh;font-family:Georgia,serif;font-size:clamp(14px,1.1vw,18px);font-weight:600">
+                  Score = 10 × (n − m + 1) / n
+                </span>
+              </p>
+            </div>
+            </div>
+
+            <h4 id="p1-factors">3. Five Visual Factors & Hypotheses</h4>
+            <table>
+              <tr><th>#</th><th>Factor</th><th>Source</th></tr>
+              <tr><td>a</td><td>Text</td><td>Lin et al., 2012</td></tr>
+              <tr><td>b</td><td>Interactive data visualization</td><td>Fairclough & Dobbins, 2020</td></tr>
+              <tr><td>c</td><td>Emotional stickers</td><td>Nanda et al., 2012; Pfeifer et al., 2021</td></tr>
+              <tr><td>d</td><td>Figures / Geometry</td><td>—</td></tr>
+              <tr><td>e</td><td>Virtual reality vision</td><td>Barbosa et al., 2019</td></tr>
+            </table>
+            <p><strong>H1:</strong> Factors a, b, c, d, e can improve the positive emotion index of users.<br><strong>H2:</strong> The influence of each factor can be ranked as a < b < c < d < e.</p>
+
+            <h4 id="p1-exp">4. Experiment</h4>
+            <p>Quasi-experimental design with <strong>10 Asian young participants</strong>. Each experienced all five factors in randomized order, using E-PrEmo card selection + ranking after each task.</p>
+            <p><strong>Individual Weighting & Mean Aggregation</strong><br>
+            Applied a ranking-weight algorithm to compute each participant's emotional scores per design element.<br>
+            Aggregated and averaged data across 10 participants to extract a unique, dynamic "emotional fingerprint" for each factor.</p>
+            <img src="assets/fig./data1.png" alt="data1" style="width:60%;display:block;margin:1.2vh auto;border-radius:4px">
+            <p><strong>Positive vs. Negative Valence Evaluation</strong><br>
+            Compared score distribution between the positive group and the negative group.</p>
+            <img src="assets/fig./data2.png" alt="data2" style="width:60%;display:block;margin:1.2vh auto;border-radius:4px">
+
+            <h4 id="p1-results">5. Results</h4>
+            <p><strong>H1 confirmed</strong> ✅ — All factors boost positive emotions.</p>
+            <p><strong>Actual ranking (H2 rejected):</strong> e (VR) > c (Stickers) > b (Data viz) > a (Text) > d (Geometry). VR had the strongest positive emotional impact; geometry showed minimal effect.</p>
+            <table>
+              <tr><th>Factor</th><th>Dominant Emotion</th><th>Design Insight</th></tr>
+              <tr><td>VR</td><td>Relaxation, Liberation</td><td>Immersive scenes evoke imagination</td></tr>
+              <tr><td>Stickers</td><td>Joy, Surprise</td><td>Enhance delight; watch for negative user bias</td></tr>
+              <tr><td>Data viz</td><td>Satisfaction</td><td>Encourage repeat usage</td></tr>
+              <tr><td>Text</td><td>Anticipation, Relaxation</td><td>Content-driven emotional engagement</td></tr>
+            </table>
+
+            <h4 id="p1-conclusion">6. Conclusion</h4>
+            <p>VR-based emotional mapping scenes are the most effective positive emotion driver. E-PrEmo effectively captures multi-emotion responses. Design recommendation: prioritize <strong>VR > stickers > data viz > text</strong>; deprioritize geometry.</p>
+          </div>
+
+          <!-- Paper 2: SandplayAR -->
+          <div class="research-paper" data-project="1">
+            <h3>SandplayAR: Evaluation of Psychometric Game for People with Generalized Anxiety Disorder</h3>
+            <p style="margin-bottom:.6vh"><span class="tag">The Arts in Psychotherapy（SSCI-Q3 IF 1.7）</span> <span class="tag">2022</span> <span class="tag">Vol.80</span></p>
+            <p>Zhiyong Xiong, <strong>Xinyu Weng</strong>(student first author), Yu Wei &middot; DOI: 10.1016/j.aip.2022.101934</p>
+            <hr>
+
+            <!-- 🌟 Research Innovation Highlights -->
+            <div class="highlight-box"> 
+              <div class="hl-title">✦ Research Innovations</div>
+              <div class="hl-item">Developed a <strong>SandplayAR demo</strong>, bringing traditional sandplay therapy to smartphones.</div>
+              <div class="hl-item">SandplayAR outperformed in both <strong>unconscious emergence</strong> and <strong>activation of conscious perception</strong> (SIHEQ; Chinese Journal of Clinical Psychology).</div>
+              <div class="hl-item">SandplayAR helped <strong>relieve tension</strong> (pre/post skin conductance & systolic BP).</div>
+            </div>
+
+            <h4 id="p2-bg">1. Background</h4>
+            <p class="bg-item"><strong>· GAD & Need</strong> — Generalized Anxiety Disorder (GAD) affecting millions, creating an urgent need for accessible psychometric and psychotherapeutic tools.</p>
+            <p class="bg-item"><strong>· Why SPT</strong> — While cognitive-behavioral therapy (CBT) is effective for GAD, it faces barriers including logistical inconvenience, cost, social stigma(Harvey & Gumport, 2015). Sandplay Therapy (SPT), as a gamified alternative, is more widely accepted and commonly used in campus(Roesler, 2019).</p>
+            <p class="bg-item"><strong>· VR/AR Opportunity</strong> — However, traditional SPT relies on physical materials and 12–16 in-person sessions, limiting scalability. Virtual technologies are increasingly adopted, offering new avenues to digitize psychotherapeutic tools (Colombo et al., 2019).</p>
+            <p class="goal-highlight"><strong>Goal: </strong> Design <strong>SandplayAR</strong> and evaluate its effectiveness for young with anxiety.</p>
+
+            <h4 id="p2-why-ar">2. Why AR ？</h4>
+            <p>AR was chosen for <em>stronger self-presence</em> via virtual–real integration; <em>real-environment observation</em> better than fully digital; <em>more flexibly configures</em> per patient with symptom-specific needs (Eshuis et al., 2020; Zimmer et al., 2021).</p>
+            <table>
+              <tr><th>Dimension</th><th>VR</th><th>AR</th></tr>
+              <tr><td>Environment</td><td>Fully digital</td><td>Real + virtual 3D</td></tr>
+              <tr><td>Self-presence</td><td>—</td><td>Stronger (Eshuis et al., 2020)</td></tr>
+              <tr><td>Cost</td><td>Requires headset</td><td><strong>Smartphone-based</strong></td></tr>
+              <tr><td>Adaptability</td><td>Fixed scenarios</td><td>Flexible per patient</td></tr>
+            </table>
+
+            <h4 id="p2-system">3. SandplayAR System</h4>
+            <p class="bg-item"><strong>· Components:</strong> 2D recognition cards (green = land, blue = water), AR camera recognition, 3D world building, head-mounted cardboard, intelligent report generation, optional online counseling.</p>
+            <p class="bg-item"><strong>· Flow:</strong> Prepare → Scan cards → Build 3D world → Name & describe → System analysis → Report → Optional therapy call.</p>
+            
+            <div class="research-image-row">
+              <img src="assets/fig./fig1.png" alt="SandplayAR Flow">
+              <img src="assets/fig./fig2a.png" alt="SandplayAR Card">
+              <img src="assets/fig./fig2b.png" alt="SandplayAR 3D World">
+            </div>
+
+            <h4 id="p2-exp">4. Experiment Design</h4>
+            <table>
+              <tr><th>Participants</th><td><strong>20</strong> (GAD score > 5, Age 15–30), split into SandplayAR (experimental) vs traditional sandplay (control).</td></tr>
+              <tr><th>Metrics</th><td><strong>Subjective:</strong> SIHEQ (22-item, 3 dimensions, 7-point Likert)；SUS usability (10-item, 5-point Likert).<br><strong>Physiological:</strong> SC (skin conductance); SBP (systolic BP), recorded continuously pre- and post-test.</td></tr>
+            </table>
+
+<img src="assets/fig./fig5.png" alt="Experiment Design" style="width:45%;display:block;margin:1.2vh auto;border-radius:4px">
+
+            <h4 id="p2-results">5. Results</h4>
+            <table>
+              <tr><th>Hypothesis</th><th>Result</th><th>p-value</th></tr>
+              <tr><td><strong>Hoa</strong> (<span class="term-tooltip" data-tip="Unconscious emergence: the process by which unconscious psychological content (emotions, memories, archetypal imagery) spontaneously surfaces into conscious awareness through non-verbal symbolic expression.">Unconscious emergence</span>)</td><td><strong>Rejected</strong> ✅ SandplayAR significantly better</td><td>P < 0.05</td></tr>
+              <tr><td><strong>Hob</strong> (<span class="term-tooltip" data-tip="Activation of conscious perception: the process by which conscious awareness actively recognizes, reflects upon, and integrates psychological material emerging from the unconscious.">Conscious activation</span>)</td><td><strong>Rejected</strong> ✅ SandplayAR significantly better</td><td>P < 0.05</td></tr>
+              <tr><td><strong>Hoc</strong> (Memory recognition)</td><td>Not rejected ❌</td><td>n.s.</td></tr>
+            </table>
+            <p><strong>· SIHEQ Top items:</strong> showed significant effects (P < 0.05) on <span class="term-tooltip" data-tip="Unconscious emergence: the process by which unconscious psychological content (emotions, memories, archetypal imagery) spontaneously surfaces into conscious awareness through non-verbal symbolic expression.">unconscious emergence</span> and <span class="term-tooltip" data-tip="Activation of conscious perception: the process by which conscious awareness actively recognizes, reflects upon, and integrates psychological material emerging from the unconscious.">conscious feeling activation</span>. Specifically, Q8 "New experience different from past" — 6.0 (AR) vs 3.8 (control); Q4 "Creativity stimulated" — 5.8 vs 4.2; Q10 "Artistic beauty" — 5.8 vs 3.2.</p>
+            <p><strong>· Physiological:</strong> SBP dropped significantly in both groups. SC dropped <strong>only in the AR group</strong> (P = 0.023), indicating AR's superior physiological intervention.</p>
+            <p><strong>· SUS Usability:</strong> High willingness to use (4.0/5), easy to learn (4.0/5). Qualitative friction points: occasional camera defocusing, 3D model occlusion.</p>
+
+            <h4 id="p2-guidelines">6. Design Guidelines</h4>
+            <table>
+              <tr><th>Principle</th><th>Core</th></tr>
+              <tr><td><strong>Dynamic 3D objects</strong></td><td>Ensure rendering stability (no flickering and occlusion)</td></tr>
+              <tr><td><strong>Portable 2D cards</strong></td><td>Recognition accuracy is critical</td></tr>
+              <tr><td><strong>Biofeedback integration</strong></td><td>Real-time physiological data visualization — could help self-regulation & feedback</td></tr>
+            </table>
+
+            <h4 id="p2-future">7. Future work</h4>
+            <p>biofeedback, multiplayer mode, multi-sensory factors, clinical trials.</p>
+          </div>
+
+          <!-- Paper 3: HiMeet research programme -->
+          <div class="research-paper has-research-modules" data-project="2">
+            <div class="research-module-tabs" role="tablist" aria-label="HiMeet research phases">
+              <button class="research-module-btn active" type="button" role="tab" aria-selected="true" data-module-target="investigation">
+                <span>01</span> Investigation
+              </button>
+              <button class="research-module-btn" type="button" role="tab" aria-selected="false" data-module-target="experiment">
+                <span>02</span> Experiment
+              </button>
+              <button class="research-module-btn" type="button" role="tab" aria-selected="false" data-module-target="design">
+                <span>03</span> Design
+              </button>
+            </div>
+
+            <section class="research-module active" data-module="investigation" role="tabpanel">
+            <h3>Real-World Social Support, Social Anxiety, and Online Social Engagement</h3>
+            <p style="margin-bottom:.6vh"><span class="tag">Master's Thesis Study</span> <span class="tag">Correlation Study</span> <span class="tag">N = 101</span></p>
+            <p>Examining how real-world social support relates to online social engagement through the mediating role of social anxiety.</p>
+            <hr>
+            <div class="highlight-box">
+              <div class="hl-title">✦ Research Highlights</div>
+              <div class="hl-item"><strong>Core mechanism:</strong> Social anxiety fully mediated the relationship between real-world support and online social engagement.</div>
+              <div class="hl-item"><strong>Indirect effect:</strong> The mediation effect accounted for 74.33% of the total effect.</div>
+              <div class="hl-item"><strong>Design implication:</strong> Interventions should strengthen sustainable offline ties rather than merely increase online connections.</div>
+            </div>
+
+            <h4 id="p3-background">1. Research Background</h4>
+            <p>Social support helps individuals maintain social identity and gain emotional support, material assistance, information, services, and new social connections. Stronger support networks improve the ability to cope with environmental challenges, while insufficient support is associated with anxiety, depression, and more serious mental-health risks.</p>
+            <p>Online interaction can reduce pressures related to appearance, immediate verbal expression, and nonverbal self-presentation. Its virtuality, anonymity, and asynchronous nature may therefore be especially attractive to people with social anxiety.</p>
+            <p>However, online interaction is not equivalent to face-to-face interaction. Weak ties, high self-disclosure, accelerated intimacy, and the concealment of personal limitations may create support that differs from stable real-world support.</p>
+            <p class="goal-highlight"><strong>Research problem:</strong> Inadequate real-world support may intensify social anxiety; anxiety may encourage dependence on online socialization; prolonged online compensation may then reduce face-to-face interaction and the formation of strong ties.</p>
+
+            <h4 id="p3-objectives">2. Research Objectives and Hypotheses</h4>
+            <p>This study examined the real-world social relationships of people with social anxiety, their offline and online social engagement, and the associations among these factors. A mediation model tested whether social anxiety explained the pathway through which real-world support affected online engagement.</p>
+            <table>
+              <tr><th>Hypothesis</th><th>Statement</th></tr>
+              <tr><td><strong>H1</strong></td><td>Real-world social support significantly and negatively predicts online social engagement.</td></tr>
+              <tr><td><strong>H2</strong></td><td>Social anxiety mediates the relationship between real-world social support and online social engagement.</td></tr>
+            </table>
+
+            <h4 id="p3-method">3. Research Method</h4>
+            <h5>Participants</h5>
+            <p>An online survey was distributed in Guangdong Province using convenience cluster sampling. Of 120 questionnaires, 101 valid responses remained, yielding an 84.16% valid response rate. Participants were 18–33 years old (M = 23.96, SD = 2.71); 39 were men and 62 were women.</p>
+            <h5>Measures</h5>
+            <table>
+              <tr><th>Measure</th><th>Purpose</th><th>Reliability / Scoring</th></tr>
+              <tr><td><strong>SSRS</strong></td><td>Objective support, subjective support, and utilization of social support.</td><td>10 items; four-point scale; Cronbach's α = 0.92.</td></tr>
+              <tr><td><strong>LSAS</strong></td><td>Fear and avoidance across social and performance situations.</td><td>Social-anxiety threshold = 38; Cronbach's α = 0.92.</td></tr>
+              <tr><td><strong>Online Social Engagement Scale</strong></td><td>Scope, frequency, behavior, willingness, motives, and perceived impact of online interaction.</td><td>Higher scores indicate stronger dependence on online socialization.</td></tr>
+            </table>
+            <h5>Analysis</h5>
+            <p>SPSS 26.0 was used for descriptive statistics, partial correlations, independent-samples t tests, one-way ANOVA, and multiple-response cross-tabulation. Mediation was tested with Hayes' PROCESS Model 4 using 5,000 bias-corrected bootstrap resamples. Gender and age were controlled.</p>
+
+            <h4 id="p3-results">4. Results</h4>
+            <h5>Correlations</h5>
+            <p>After controlling for gender and age, real-world social support was negatively correlated with social anxiety (r = -0.341, p &lt; 0.001), while social anxiety was positively correlated with online social engagement (r = 0.245, p &lt; 0.01).</p>
+            <h5>Full Mediation by Social Anxiety</h5>
+            <p>Real-world support negatively predicted online engagement (c = -0.0931, p = 0.0115) and social anxiety (a = -1.9677, p &lt; 0.001). With both variables in the model, social anxiety positively predicted online engagement (b = 0.0352, p = 0.0142), while the direct effect of support was no longer significant (c′ = -0.0239, p = 0.7067).</p>
+            <p class="goal-highlight"><strong>Key result:</strong> The indirect effect was -0.0692, 95% CI [-0.1358, -0.0153], accounting for 74.33% of the total effect. Social anxiety fully mediated the relationship, supporting H1 and H2.</p>
+            <h5>Age, Severity, and Communication Mode</h5>
+            <p>Participants aged 18–25 reported lower real-world support and higher social anxiety than those aged 26–33. Among all participants, 78.22% reached the LSAS threshold for social anxiety. Face-to-face interaction decreased as anxiety increased, while text-based online communication was the most common online mode among socially anxious participants.</p>
+
+            <h4 id="p3-conclusions">5. Conclusions and Implications</h4>
+            <p>Weaker real-world social support was associated with higher social anxiety and greater dependence on online socialization. The effect of real-world support operated primarily through social anxiety rather than through a direct pathway.</p>
+            <p>Young adults aged 18–25 were especially vulnerable: they reported lower real-world support and higher anxiety while facing interpersonal, academic, romantic, and employment pressures.</p>
+            <p class="goal-highlight"><strong>Intervention implication:</strong> Design should help users gain face-to-face experience, develop offline social skills, and form sustainable strong ties so that weak online connections can become meaningful real-world support.</p>
+
+            <h4 id="p3-summary">6. Key Findings at a Glance</h4>
+            <table>
+              <tr><th>Key Question</th><th>Finding</th></tr>
+              <tr><td>Does real-world support affect online socialization?</td><td>Yes. The total effect was significant, but the direct effect became nonsignificant after social anxiety entered the model.</td></tr>
+              <tr><td>What role does social anxiety play?</td><td>It fully mediates the relationship and accounts for 74.33% of the total effect.</td></tr>
+              <tr><td>Who showed greater vulnerability?</td><td>Participants aged 18–25 reported lower support and higher social anxiety.</td></tr>
+              <tr><td>How did communication differ?</td><td>Higher anxiety was associated with less face-to-face interaction and greater preference for text-based communication.</td></tr>
+              <tr><td>What should interventions prioritize?</td><td>Offline skills, face-to-face experience, and sustainable strong relationships.</td></tr>
+            </table>
+            </section>
+
+            <section class="research-module" data-module="experiment" role="tabpanel" hidden>
+            <h3>Role-Play-Based Situational Exposure Experiment for Social Anxiety</h3>
+            <p style="margin-bottom:.6vh"><span class="tag">Master's Thesis Study</span> <span class="tag">Role-Play Experiment</span> <span class="tag">CBT</span></p>
+            <p>A controlled social scenario combining self-report, psychophysiological sensing, behavioral observation, and bodily-response assessment.</p>
+            <hr>
+            <div class="highlight-box">
+              <div class="hl-title">✦ Research Highlights</div>
+              <div class="hl-item"><strong>Ecological exposure:</strong> A scripted role-play meal recreated common social-anxiety triggers in a controlled setting.</div>
+              <div class="hl-item"><strong>Multimodal measurement:</strong> LSAS, SUDs, GSR, heart rate, video-coded behaviors, and bodily symptoms were aligned by event and time.</div>
+              <div class="hl-item"><strong>Actionable output:</strong> The study identified three recurring categories of frustration touchpoints for personalized intervention.</div>
+            </div>
+
+            <h4 id="p4-background">1. Research Background</h4>
+            <p>Social anxiety involves persistent fear of social situations in which a person may be scrutinized or negatively evaluated. Questionnaire scores can identify severity, but they provide limited evidence about when anxiety emerges, which social touchpoints trigger it, and how cognition, emotion, physiology, and behavior interact in a specific situation.</p>
+            <p>Role-play-based exposure creates a repeatable social setting in which participants encounter realistic interpersonal stressors while researchers observe changes across multiple channels.</p>
+            <p class="goal-highlight"><strong>Research problem:</strong> How can a controlled but realistic social scenario reveal the cognitive, emotional, physiological, behavioral, and bodily mechanisms of social anxiety more precisely than questionnaires alone?</p>
+
+            <h4 id="p4-objectives">2. Research Objectives</h4>
+            <p>The study aimed to design and validate a role-play-based situational exposure experiment for young people with social anxiety.</p>
+            <table>
+              <tr><th>Objective</th><th>Focus</th></tr>
+              <tr><td><strong>01</strong></td><td>Elicit authentic anxiety responses through common social situations involving unfamiliar people, public expression, and relationship initiation.</td></tr>
+              <tr><td><strong>02</strong></td><td>Capture self-cognition, subjective distress, physiological arousal, avoidance and safety behaviors, and bodily symptoms.</td></tr>
+              <tr><td><strong>03</strong></td><td>Identify critical frustration touchpoints and translate them into cognitive-behavioral intervention directions.</td></tr>
+            </table>
+
+            <h4 id="p4-method">3. Research Method</h4>
+            <h5>Participants and Grouping</h5>
+            <p>Participants were screened with the Liebowitz Social Anxiety Scale. Between-group analysis compared people without social anxiety (LSAS &lt; 38) with those showing mild or higher social anxiety (LSAS ≥ 38). Within-person analysis used time to examine physiological changes throughout the exposure.</p>
+            <h5>Four-Dimensional Measurement Framework</h5>
+            <table>
+              <tr><th>Dimension</th><th>Measurement</th></tr>
+              <tr><td><strong>Cognition</strong></td><td>Pre-exposure self-cognition covering negative body image, excessive self-focused attention, and expectations of others' evaluations.</td></tr>
+              <tr><td><strong>Emotion</strong></td><td>SUDs ratings for eight social touchpoints, supported by GSR and heart-rate measures of arousal.</td></tr>
+              <tr><td><strong>Behavior</strong></td><td>Video-coded avoidance and safety behaviors such as drinking water, avoiding eye contact, head scratching, and fidgeting.</td></tr>
+              <tr><td><strong>Bodily response</strong></td><td>Self-reported symptoms, including blushing and increased heart rate, corrected where observable through video review.</td></tr>
+            </table>
+            <p>A wrist-worn device transmitted 50 data packets per second containing skin conductance, acceleration, angular velocity, heart rate, and blood-oxygen data. Physiological signals were interpreted as arousal rather than emotional valence.</p>
+
+            <h4 id="p4-scenario">4. Exposure Scenario and Procedure</h4>
+            <h5>Scenario Design</h5>
+            <p>The exposure was staged as a meal at a Chaoshan beef hot-pot restaurant. The participant knew only Friend A, while A, B, and C already knew one another. The participant entered late, greeted the group, found a seat, introduced themselves, expressed an opinion in an artificial-intelligence discussion, remained alone with C after the friends left, initiated a conversation, and exchanged contact information.</p>
+            <p>Role players created controlled pressure through sustained attention, deliberately cool responses, silence, or looking at their phones. During the one-to-one stage, C generally waited for the participant to initiate conversation. The script was concealed from participants, who could interrupt or withdraw at any time.</p>
+            <h5>Procedure</h5>
+            <table>
+              <tr><th>Stage</th><th>Activity</th><th>Duration</th></tr>
+              <tr><td>1–2</td><td>Consent and LSAS screening</td><td>7 min</td></tr>
+              <tr><td>3–5</td><td>Scenario briefing, pre-exposure cognition scale, and physiological baseline</td><td>8 min</td></tr>
+              <tr><td>6</td><td>Role-play situational exposure</td><td>15–20 min</td></tr>
+              <tr><td>7–8</td><td>SUDs and bodily-symptom scales, followed by an interview for the social-anxiety group</td><td>18 min</td></tr>
+            </table>
+            <p>Video and physiological data were aligned by time. GSR and heart-rate values were cleaned and averaged in 30-second intervals, then matched with behavioral stages and observed safety behaviors.</p>
+
+            <h4 id="p4-results">5. Results</h4>
+            <h5>Subjective Distress</h5>
+            <p>The mild-or-higher social-anxiety group reported substantially greater distress than the no-anxiety group (38.00 ± 14.47 vs. 8.80 ± 6.54; t = 4.326, p &lt; 0.001), confirming that the scenario effectively elicited anxiety responses.</p>
+            <h5>Self-Cognition</h5>
+            <p>Self-cognition, social anxiety, and subjective distress were all positively correlated. Negative self-cognition significantly predicted social anxiety (coefficient = 2.037, p = 0.001), explaining 45.1% of its variance. Negative body image appeared in 88.24% of socially anxious participants with maladaptive self-cognition.</p>
+            <h5>Critical Touchpoints</h5>
+            <p>Arousal and anxiety behaviors increased during entry, greeting, self-introduction, public opinion-sharing, being left alone with an unfamiliar person, and requesting contact information. Responses eased when attention shifted away and after exposure ended.</p>
+            <p class="goal-highlight"><strong>Individual variation:</strong> Event-specific physiological changes appeared across anxiety levels, but their magnitude and duration varied substantially. Very severe anxiety produced sustained GSR elevation, while mild anxiety showed smaller peaks around public expression.</p>
+
+            <h4 id="p4-implications">6. Conclusions and Intervention Implications</h4>
+            <p>The role-play experiment successfully captured cognitive, emotional, physiological, behavioral, and bodily responses in a concrete social setting. Aligning subjective distress, sensor data, video behavior, and social touchpoints made it possible to locate when and how anxiety emerged.</p>
+            <p>Three major categories of frustration points were identified: entering and participating in gatherings with unfamiliar people; becoming the center of attention and expressing oneself; and being alone with an unfamiliar person while attempting to build a relationship.</p>
+            <table>
+              <tr><th>Strategy</th><th>Description</th></tr>
+              <tr><td><strong>Cognitive restructuring</strong></td><td>Correct distorted judgments of others' evaluations and build confidence in appearance.</td></tr>
+              <tr><td><strong>Skills training</strong></td><td>Practice eye contact, stronger speaking volume, and body orientation toward interaction partners.</td></tr>
+              <tr><td><strong>Attention retraining</strong></td><td>Shift attention from self-monitoring toward the interaction partner and conversation.</td></tr>
+              <tr><td><strong>Gradual exposure</strong></td><td>Enter real social situations progressively while reducing avoidance and safety behaviors.</td></tr>
+              <tr><td><strong>Constructive evaluation</strong></td><td>Assess social performance and its consequences more accurately and reduce excessive focus on failure.</td></tr>
+            </table>
+
+            <h4 id="p4-summary">7. Key Findings at a Glance</h4>
+            <table>
+              <tr><th>Key Question</th><th>Finding</th></tr>
+              <tr><td>Was the scenario effective?</td><td>Yes. The social-anxiety group reported significantly greater distress: 38.00 ± 14.47 vs. 8.80 ± 6.54, p &lt; 0.001.</td></tr>
+              <tr><td>What predicted social anxiety?</td><td>Negative self-cognition explained 45.1% of the variance.</td></tr>
+              <tr><td>What was the most prominent cognitive issue?</td><td>Negative body image appeared in 88.24% of participants with maladaptive self-cognition.</td></tr>
+              <tr><td>What were the main frustration points?</td><td>Gatherings with strangers, public self-expression, and one-to-one relationship initiation.</td></tr>
+              <tr><td>What did physiological sensing add?</td><td>GSR and heart rate located the timing and touchpoints of arousal, though they could not determine emotional valence alone.</td></tr>
+            </table>
+            </section>
+
+            <section class="research-module" data-module="design" role="tabpanel" hidden>
+            <h3>HiMeet: AR-Assisted Intervention System for Social Anxiety</h3>
+            <p style="margin-bottom:.6vh"><span class="tag">Master's Thesis Design</span> <span class="tag">AR + Mobile</span> <span class="tag">Digital Intervention</span></p>
+            <p>A connected two-terminal system that translates research on social anxiety into support before, during, and after real-world social interaction.</p>
+            <hr>
+            <div class="highlight-box">
+              <div class="hl-title">✦ Design Highlights</div>
+              <div class="hl-item"><strong>Research-led:</strong> Product requirements are derived from the cognitive, emotional, behavioral, and relationship challenges identified in the investigation and experiment.</div>
+              <div class="hl-item"><strong>In-situ intervention:</strong> AR provides social cues, contextual prompts, and interaction feedback at the moment anxiety occurs.</div>
+              <div class="hl-item"><strong>Offline first:</strong> Mobile learning and relationship tools support real-world interaction instead of replacing it.</div>
+            </div>
+
+            <h4 id="p5-opportunity">1. Design Opportunity</h4>
+            <p>Social anxiety spans the entire social journey. Before interaction, users may experience negative thoughts, expectations of failure, and insufficient social skills. During interaction, they may struggle to initiate contact, become overly self-focused, show attentional bias, or feel pressure to respond. After interaction, they may find it difficult to maintain relationships, stay in contact, and remember personal details about friends.</p>
+            <p>AR can place assistance directly within the real-world context in which anxiety occurs. AI adds contextual interpretation, personalized prompts, and supportive companionship. Together, they move intervention beyond a separate clinical or screen-based setting and into everyday social situations.</p>
+            <p class="goal-highlight"><strong>Design opportunity:</strong> Support the complete journey from cognitive preparation and real-world interaction to ongoing relationship maintenance.</p>
+            <img src="assets/thesis_fig/himeet-design-01.png" style="width:80%;margin:2.2vh auto 0;display:block;box-shadow:none">
+
+            <h4 id="p5-requirements">2. Requirement-to-Feature Translation</h4>
+            <p>Product requirements were organized around three stages of the social journey. Each psychological or behavioral need was translated into a product opportunity and assigned to the AR application, the mobile application, or both.</p>
+            <table>
+              <tr><th>Stage</th><th>User Need</th><th>Product Response</th><th>Terminal</th></tr>
+              <tr><td><strong>Before</strong></td><td>Correct negative cognition and learn social skills</td><td>Social Classroom, expert courses, user stories, and cognitive and skills training</td><td>Mobile</td></tr>
+              <tr><td><strong>During</strong></td><td>Find cues and initiate interaction</td><td>Permission-based profile cards, facial, action, and emotion recognition</td><td>AR</td></tr>
+              <tr><td><strong>During</strong></td><td>Receive encouragement and technique prompts</td><td>Context-aware AI assistant with positive reinforcement</td><td>AR</td></tr>
+              <tr><td><strong>During</strong></td><td>Redirect self-focused attention</td><td>Adaptive cues around the focused social partner</td><td>AR</td></tr>
+              <tr><td><strong>During</strong></td><td>Make interaction engaging and visible</td><td>Gesture interactions, social metrics, and Encounter Rose</td><td>AR + Mobile</td></tr>
+              <tr><td><strong>After</strong></td><td>Continue and maintain relationships</td><td>Limited chat, Dusty Friends reminders, and private friend notes</td><td>Mobile</td></tr>
+            </table>
+            <img src="assets/thesis_fig/Requirement-to-Feature Translation.png" style="width:80%;margin:2.2vh auto 0;display:block;box-shadow:none">
+
+
+            <h4 id="p5-definition">3. Product Definition</h4>
+            <table>
+              <tr><th>Dimension</th><th>Definition</th></tr>
+              <tr><td><strong>Product</strong></td><td>HiMeet</td></tr>
+              <tr><td><strong>Form</strong></td><td>One connected system with an AR application and a mobile application</td></tr>
+              <tr><td><strong>Primary users</strong></td><td>Young people with mild to moderate social anxiety</td></tr>
+              <tr><td><strong>Core context</strong></td><td>Face-to-face social interaction in real physical spaces</td></tr>
+              <tr><td><strong>Purpose</strong></td><td>Improve maladaptive social cognition and behavior while making real-world social experiences more approachable</td></tr>
+              <tr><td><strong>Long-term value</strong></td><td>Use digital intervention to support healthier offline social activity rather than replace it</td></tr>
+            </table>
+            <p class="goal-highlight"><strong>Value proposition:</strong> HiMeet is an AR-and-mobile intervention ecosystem that helps users prepare for, participate in, and sustain real-world social relationships.</p>
+            <h5>System Architecture</h5>
+            <table>
+              <tr><th>Layer</th><th>Responsibility</th></tr>
+              <tr><td><strong>AR application</strong></td><td>In-situ support, social cues, social interaction, user-state visualization, and system feedback</td></tr>
+              <tr><td><strong>Mobile application</strong></td><td>social class(Cognitive and skills training), IM (relationship maintenance),identity management</td></tr>
+              <tr><td><strong>Shared layer</strong></td><td>Permissions, profile and relationship data, computer vision, recognition, location services, and synchronization</td></tr>
+            </table>
+            <h5>End-to-End Journey</h5>
+            <p>Learn skills → configure identity and permissions → enter a real social setting → receive AR cues and AI prompts → connect through recognized interaction → maintain the relationship on mobile → share social experiences.</p>
+<img src="assets/thesis_fig/himeet-design-02.png" style="width:80%;margin:2.2vh auto 0;display:block;box-shadow:none">
+
+            <h4 id="p5-ar">4. AR Application Design</h4>
+            <h5>Feature List</h5>
+            <table>
+              <tr><th>Module</th><th>Features</th></tr>
+              <tr><td><strong>Social assistance</strong></td><td>AI prompts, positive reinforcement, attention redirection, and action demonstrations</td></tr>
+              <tr><td><strong>Social cues</strong></td><td>Focused-person cards, action recognition, and emotion recognition</td></tr>
+              <tr><td><strong>Social interaction</strong></td><td>Nod to like, wave to greet, handshake to connect, and Encounter Rose</td></tr>
+              <tr><td><strong>User state</strong></td><td>Intimacy, social popularity, social ability, heart rate, emotion, and anxiety indicators</td></tr>
+              <tr><td><strong>System state</strong></td><td>Visible spatial-scanning pulse and device status</td></tr>
+            </table>
+            <h5>Spatial Interaction Principles</h5>
+            <table>
+              <tr><th>Spatial Zone</th><th>Distance</th><th>Design Response</th></tr>
+              <tr><td><strong>Intimate</strong></td><td>Within 0.45 m</td><td>Show only urgent or private information through temporary gesture-triggered panels</td></tr>
+              <tr><td><strong>Personal</strong></td><td>Within 1.2 m</td><td>Provide rich profile, action, emotion, and interaction cues around the focused person</td></tr>
+              <tr><td><strong>Social</strong></td><td>Within 3.7 m</td><td>Reduce density, retain action markers, and use gaze for target selection</td></tr>
+              <tr><td><strong>Public</strong></td><td>Beyond 3.7 m</td><td>Keep the physical environment clear and retain only essential spatial information</td></tr>
+            </table>
+<img src="assets/thesis_fig/himeet-design-03.png" style="width:60%;margin:2.2vh auto;display:block;box-shadow:none">
+            <h5>Information Priority</h5>
+            <p><strong>Priority 1:</strong> user-state information and urgent alerts. <strong>Priority 2:</strong> AI assistance, near-field feedback, focused-person cards, recognized actions, and emotions. <strong>Priority 3:</strong> far-field feedback and movement. <strong>Priority 4:</strong> environmental and geographic information.</p>
+<img src="assets/thesis_fig/himeet-design-04.png" style="width:60%;margin:2.2vh auto;display:block;box-shadow:none">
+            <h5>Visual Identity and AI Assistant</h5>
+            <p>The visual direction combines the technological character of AR with the playful nature of a social product. AR visual elements use light pink, AR text interfaces use light blue-violet, and mobile interfaces use dark purple with high-contrast pink accents.</p>
+            <table>
+              <tr><th>Usage</th><th>Main Color</th><th>Supporting Colors</th></tr>
+              <tr><td><strong>Mobile application</strong></td><td><code>#281A4D</code></td><td><code>#EC4DC9</code>, <code>#A842E0</code></td></tr>
+              <tr><td><strong>AR avatar and atmosphere</strong></td><td><code>#F792C1</code></td><td><code>#7A599E</code>, <code>#FD0CED</code></td></tr>
+              <tr><td><strong>AR text interface</strong></td><td><code>#6A76FC</code></td><td><code>#B4ABFA</code>, <code>#D0F1F6</code></td></tr>
+            </table>
+            <p><strong>“H”</strong> is the emotional and functional representative of the system: healing, lively, approachable, simple, minimally anthropomorphic, transparent, futuristic, and intelligent.</p>
+            <img src="assets/thesis_fig/himeet-design-05.png" style="width:80%;margin:2.2vh auto 0;display:block;box-shadow:none">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:2.2vh 0 0">
+            <img src="assets/thesis_fig/AR Application Design-1.png" style="width:80%;margin:2.2vh auto 0;display:block;box-shadow:none">
+            <img src="assets/thesis_fig/AR Application Design-11.png" style="width:80%;margin:2.2vh auto 0;display:block;box-shadow:none">
+            <img src="assets/thesis_fig/AR Application Design-2.png" style="width:80%;margin:2.2vh auto 0;display:block;box-shadow:none">
+            <img src="assets/thesis_fig/AR Application Design-3.png" style="width:80%;margin:2.2vh auto 0;display:block;box-shadow:none">
+            <img src="assets/thesis_fig/AR Application Design-4.png" style="width:80%;margin:2.2vh auto 0;display:block;box-shadow:none">
+            <img src="assets/thesis_fig/AR Application Design-5.png" style="width:80%;margin:2.2vh auto 0;display:block;box-shadow:none">
+            <img src="assets/thesis_fig/AR Application Design-6.png" style="width:80%;margin:2.2vh auto 0;display:block;box-shadow:none">
+            </div>
+
+            <h4 id="p5-mobile">5. Mobile Application Design</h4>
+            <p>The mobile application supports preparation before social interaction and relationship management afterward.</p>
+            <table>
+              <tr><th>Module</th><th>Features</th></tr>
+              <tr><td><strong>Social Classroom</strong></td><td>Expert courses, user stories, and contextual AI learning support</td></tr>
+              <tr><td><strong>Account management</strong></td><td>Profile information, permission-based social profile cards, and social tokens</td></tr>
+              <tr><td><strong>Instant messaging</strong></td><td>Friend list, friend requests, and limited chat replenished through offline interaction</td></tr>
+              <tr><td><strong>Relationship maintenance</strong></td><td>Dusty Friends reminders and private notes for preferences, birthdays, and relationship details</td></tr>
+            </table>
+            <img src="assets/thesis_fig/mobile-1.png" style="width:80%;margin:2.2vh auto 0;display:block;box-shadow:none">
+            <img src="assets/thesis_fig/mobile-2.png" style="width:80%;margin:2.2vh auto 0;display:block;box-shadow:none">
+            <img src="assets/thesis_fig/mobile-3.png" style="width:80%;margin:2.2vh auto 0;display:block;box-shadow:none">
+
+
+            <h4 id="p5-demonstration">6. Design Demonstration</h4>
+            <p>HiMeet translates research on social anxiety into a connected two-terminal product system. The mobile application prepares users before social interaction and supports relationship management afterward. The AR application intervenes during face-to-face interaction with contextual cues, adaptive assistance, visible feedback, and playful social mechanisms.</p>
+            <p class="goal-highlight"><strong>Core product logic:</strong> Learn before meeting → receive support while meeting → build a relationship through real interaction → maintain the relationship afterward.</p>
+<video src="assets/thesis_fig/概念视频.mp4" style="width:80%;margin:2.2vh auto 0;display:block;box-shadow:none" alt="Final product story or video: before, during, and after social interaction"></video>
+            </section>
+          </div>
+        </div>
+      </div>
+      <div class="foot">
+        <span class="title">Simone Weng</span>
+        <span>02 / 03</span>
+      </div>
+    </section>
+
+    <!-- ===== Work ===== -->
+    <section id="work" class="section light" data-theme="light">
+      <div class="chrome">
+        <div class="left"><span data-i18n="sec_work">Work Experience</span><span class="sep"></span><span data-i18n="sec_work_sub">Professional</span></div>
+        <span class="legacy-section-index">03</span>
+        <div class="right work-sidebar">
+          <button class="work-btn active" data-work="0" data-i18n="work_btn_0">Work in BYD</button>
+          <button class="work-btn" data-work="1" data-i18n="work_btn_1">Work in Wangsu</button>
+        </div>
+      </div>
+      <div class="work-layout">
+        <div class="work-content">
+          <!-- Work Panel 0: BYD -->
+          <div class="work-panel active" data-work="0">
+            <h3 data-i18n="work_byd_title">BYD — Global Top Automaker</h3>
+            <div class="meta work-meta-row"><span class="tag" data-i18n="work_byd_role">Senior Product Manager</span> &nbsp; July 2023 – July 2025</div>
+            <p data-i18n="work_byd_desc">Independently in charge of SMART CHARGING APP and MOBILITY AI PROJECT; Daily work covers: requirements research, product design, communication and implementation</p>
+            <div class="work-carousel" id="carousel-byd">
+              <img src="assets/fig./market insight1.png" alt="BYD Work 1" id="byd-img" data-cidx="0">
+            </div>
+          </div>
+          <!-- Work Panel 1: Wangsu -->
+          <div class="work-panel" data-work="1">
+            <h3 data-i18n="work_wangsu_title">Wangsu — Global Cloud Service Provider</h3>
+            <div class="meta work-meta-row"><span class="tag" data-i18n="work_wangsu_role">Senior Product Planning Engineer</span> &nbsp; July 2025 – Present</div>
+            <p data-i18n="work_wangsu_desc" style="margin-bottom:3.2vh">Led the product planning and core feature design of SALESAI from 0 to 1. Daily work: product planning; product design; implementation</p>
+            <div class="wangsu-carousel" id="carousel-wangsu">
+              <div class="wangsu-pages" style="position:relative;width:100%">
+                <!-- Page 0: Background -->
+                <div class="wangsu-page active" data-wpage="0">
+                  <div class="text-col">
+                    <div class="page-sub">Page 01 / 04</div>
+                    <div class="page-title">Background</div>
+                    <div class="page-body">
+                      <p><strong>Sales team daily pain points:</strong></p>
+                      <ul>
+                        <li>Information collection and filtering is a heavy workload</li>
+                        <li>Lack of easy-to-use information management tools (opportunity management, customer management)</li>
+                        <li>Technical solutions, product specs, or pricing details are hard to remember — need to consult multiple documents separately</li>
+                      </ul>
+                      <p style="margin-top:.6vh"><strong>High-frequency needs:</strong> Pre-sales "lead acquisition," in-sales "knowledge base search" and "information management" — all are high-frequency sales needs and key opportunities for AI-powered efficiency gains.</p>
+                    </div>
+                    <div class="page-highlight">
+                      <strong>Product Roadmap:</strong> Planning feature matrix & roadmap from 25Q4 to 26Q3
+                    </div>
+                  </div>
+                  <div class="img-col">
+                    <img src="assets/fig./roadmap.png" alt="Feature Matrix & Roadmap" style="width:100%;border-radius:4px;object-fit:contain;aspect-ratio:16/10">
+                  </div>
+                </div>
+                <!-- Page 1: Prompt Engineering ➡️ Dual-Route Retrieval Corpus -->
+                <div class="wangsu-page" data-wpage="1">
+                  <div class="text-col">
+                    <div class="page-sub">Page 02 / 04</div>
+                    <div class="page-title" style="font-size:clamp(16px, 1.2vw, 20px)">Core：Hybrid Intent Recognition Architecture</div>
+                    <div class="page-body" style="line-height: 1.45">
+                      <p style="margin-bottom:0.6vh"><strong>Only Prompt Engineering</strong> has severe limitations: relying solely on natural language definition and few-shots is highly unstable, resulting in skyrocketing error rates as intents scale.</p>
+                      
+                      <p style="margin-bottom:0.3vh"><strong>Our Hybrid Strategies:</strong> Tailored for production-grade robustness—achieving minimal latency, multi-turn context retention, and zero-training maintenance.</p>
+                <br>
+                      <p style="margin-top:0.6vh; margin-bottom: 0.1vh"><strong>Performance Comparison:</strong></p>
+                      <ul style="margin-bottom: 0.4vh">
+                        <li><span class="page-metric" style="font-size:16px">66.1% ➜ 93.6%</span> <span class="page-metric-label" style="display:inline">Precision</span></li>
+                        <li><span class="page-metric" style="font-size:16px">73.5% ➜ 85.8%</span> <span class="page-metric-label" style="display:inline">Recall</span></li>
+                        <li><span class="page-metric" style="font-size:16px">66.8% ➜ 89.1%</span> <span class="page-metric-label" style="display:inline">F1</span></li>
+
+                        <li><span class="page-metric" style="font-size:16px">5s ➜ 0.46s</span> <span class="page-metric-label" style="display:inline">Response Latency</span></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="img-col">
+                    <div class="ascii-container">
+<pre class="ascii-flow">             ┌──────────────────────────────────────────────┐
+             │               USER QUERY INPUT               │
+             └──────────────────────┬───────────────────────┘
+                                    │
+            ┌───────────────────────┴───────────────────────┐
+            ▼                                               ▼
+[ 1. FAST-TRACK ROUTE ]                          [ 2. COGNITIVE ROUTE ]
+ Predefined Quick Commands                         Natural Language
+            │                                               │
+┌───────────┴───────────┐                         ┌─────────┴─────────┐
+│ Keyword Regex Trigger │                         │    LLM  Analyst   │
+│  (Latency < 10ms)     │                         │ (Context Continu- │
+└───────────┬───────────┘                         │  ity Inheritance) │
+            │                                     └─────────┬─────────┘
+            │                                               │ [Is Multi-Turn?]
+            │                                               ├ Yes ──► Inherit Previous Intent
+            │                                               │
+            │                                               ├ No [Initialize Intent Flow]
+            │                                               ▼
+            │                                     ┌───────────────────┐
+            │                                     │     Semantic      │
+            │                                     │   Vector Search   │
+            │                                     └─────────┬─────────┘
+            │                                               │
+            │                                     ┌─────────┴─────────┐
+            │                                     │ Dynamically-tuned │
+            │                                     │ Similarity        │
+            │                                     │ Threshold Filter  │
+            │                                     └─────────┬─────────┘
+            │                                               │
+            ▼                                               ▼
+┌─────────────────────────────────────────────────────────────────────┐
+│                      ROUTED INTENT & API ACTION                     │
+└─────────────────────────────────────────────────────────────────────┘</pre>
+                    </div>
+                  </div>
+                </div>
+                <!-- Page 2: General Framework Standards -->
+                <div class="wangsu-page" data-wpage="2">
+                  <div class="text-col">
+                    <div class="page-sub">Page 03 / 04</div>
+                    <div class="page-title">Base：General Framework Standards</div>
+                    <div class="page-body">
+                      <ul>
+                        <li>Digital Avatar</li>
+                        <li>Chat Window</li>
+                        <li>Data Dashboard</li>
+                        <li>Quick Commands</li>
+                        <li>Recommended Query</li>
+                        <li>Agents Store, etc.</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="img-col">
+                    <img src="assets/fig./1.png" alt="General Framework" style="width:100%;border-radius:4px;object-fit:contain;aspect-ratio:16/9;max-height:18vh">
+                    <div class="img-placeholder small">Key diagrams withheld for company data security reasons</div>
+                    <div class="img-placeholder small">Key diagrams withheld for company data security reasons</div>
+                  </div>
+                </div>
+                <!-- Page 3: AgenticRAG + Agent Workflow -->
+                <div class="wangsu-page" data-wpage="3">
+                  <div class="text-col">
+                    <div class="page-sub">Page 04 / 04</div>
+                    <div class="page-title">Features：AgenticRAG & AgentWorkflow</div>
+                    <div class="page-body">
+                      <p><strong># Expert — Dual knowledge base routing</strong></p>
+                      <ul>
+                        <li>Internal product parameter specs queried from local knowledge base + refusal mechanism to prevent hallucination</li>
+                        <li>Sales capability knowledge base + web knowledge</li>
+                      </ul>
+                      <p style="margin-top:.6vh"><strong># Bridges the gap between data and action — build agent workflows</strong></p>
+                      <ul>
+                        <li><strong>Smart Data Entry:</strong> Opened 13 business APIs, designed input/output parameters for AI invocation; built 4 agent workflows enabling natural language auto-trigger, auto-extraction, and auto-fill, replacing manual entry of complex information fields</li>
+                        <li><strong>Smart Customer Query:</strong> Atomized customer information, opened 8 business APIs, replacing multi-layer click interactions on traditional pages</li>
+                        <li><strong>Customer News Alerts:</strong> Custom subscription, sourcing high-quality external information API</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="img-col" style="max-width:55%;">
+                    <div class="img-placeholder">Key diagrams withheld for company data security reasons</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-nav work-deck-nav byd-deck-nav" data-work-nav="0">
+            <div class="carousel-dots">
+              <button class="carousel-dot active" data-dot="0"></button>
+              <button class="carousel-dot" data-dot="1"></button>
+              <button class="carousel-dot" data-dot="2"></button>
+              <button class="carousel-dot" data-dot="3"></button>
+            </div>
+            <div class="carousel-actions">
+              <button class="carousel-arrow prev" id="byd-arrow-prev" aria-label="Previous image">←</button>
+              <button class="carousel-arrow next" id="byd-arrow-next" aria-label="Next image">→</button>
+            </div>
+          </div>
+          <div class="carousel-nav work-deck-nav wangsu-deck-nav" data-work-nav="1" hidden>
+            <div class="carousel-dots" id="wangsu-dots">
+              <button class="carousel-dot active" data-wdot="0"></button>
+              <button class="carousel-dot" data-wdot="1"></button>
+              <button class="carousel-dot" data-wdot="2"></button>
+              <button class="carousel-dot" data-wdot="3"></button>
+            </div>
+            <div class="carousel-actions">
+              <button class="carousel-arrow prev" id="wangsu-arrow-prev" aria-label="Previous page">←</button>
+              <button class="carousel-arrow next" id="wangsu-arrow-next" aria-label="Next page">→</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="foot">
+        <span class="title">Simone Weng</span>
+        <span>03 / 03</span>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- WebGL Boot -->
+  <script>
+  var VS='attribute vec2 position;void main(){gl_Position=vec4(position,0.0,1.0);}';
+  var FS_DARK='precision highp float;\nuniform vec2 u_resolution;uniform float u_time;uniform vec2 u_mouse;\nvec3 palette(float t,vec3 a,vec3 b,vec3 c,vec3 d){return a+b*cos(6.28318*(c*t+d));}\nvoid main(){\n  vec2 uv=gl_FragCoord.xy/u_resolution.xy;\n  vec2 p=uv*2.0-1.0;p.x*=u_resolution.x/u_resolution.y;\n  vec2 m=u_mouse*2.0-1.0;m.x*=u_resolution.x/u_resolution.y;\n  float md=length(p-m);\n  float mr=sin(md*15.0-u_time*4.0)*exp(-md*3.0);p+=mr*0.08;\n  vec2 p0=p;\n  for(float i=1.0;i<4.0;i++){\n    p.x+=0.1/i*sin(i*3.0*p.y+u_time*0.4)+0.05;\n    p.y+=0.1/i*cos(i*2.0*p.x+u_time*0.3)-0.05;\n  }\n  float r=length(p);float ang=atan(p.y,p.x);\n  vec3 a=vec3(0.12,0.12,0.13),b=vec3(0.03,0.04,0.05);\n  vec3 c=vec3(1.0,1.0,1.0),d=vec3(0.1,0.2,0.4);\n  vec3 col=palette(r*1.5+p0.x*0.5+u_time*0.1,a,b,c,d);\n  float disp=sin(r*25.0-u_time*1.5+ang*2.0)*0.5+0.5;\n  col+=vec3(disp*0.015,disp*0.01,disp*0.02);\n  float hi=pow(sin(p.x*4.0+p.y*3.0+u_time)*0.5+0.5,8.0);\n  col+=hi*0.08;\n  gl_FragColor=vec4(mix(vec3(0.05,0.05,0.06),col,0.85),1.0);\n}';
+  var FS_LIGHT='precision highp float;\nuniform vec2 u_resolution;uniform float u_time;uniform vec2 u_mouse;\nfloat hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}\nfloat noise(vec2 p){vec2 i=floor(p),f=fract(p);float a=hash(i),b=hash(i+vec2(1,0));float c=hash(i+vec2(0,1)),d=hash(i+vec2(1,1));vec2 u=f*f*(3.0-2.0*f);return mix(a,b,u.x)+(c-a)*u.y*(1.0-u.x)+(d-b)*u.x*u.y;}\nfloat fbm(vec2 p){float v=0.0,a=0.5;mat2 m=mat2(0.80,0.60,-0.60,0.80);for(int i=0;i<5;i++){v+=a*noise(p);p=m*p*2.02;a*=0.5;}return v;}\nvoid main(){\n  vec2 uv=gl_FragCoord.xy/u_resolution.xy;\n  vec2 p=uv;p.x*=u_resolution.x/u_resolution.y;\n  vec2 m=u_mouse;m.x*=u_resolution.x/u_resolution.y;\n  vec2 md=p-m;float dl=length(md);\n  p+=normalize(md+vec2(0.0001))*exp(-dl*5.0)*0.03;\n  vec2 q=vec2(fbm(p*1.8+u_time*0.07),fbm(p*1.8+vec2(5.2,1.3)+u_time*0.06));\n  vec2 r=vec2(fbm(p*2.0+q*1.3+vec2(1.7,9.2)+u_time*0.05),fbm(p*2.0+q*1.3+vec2(8.3,2.8)+u_time*0.04));\n  float f=fbm(p*2.2+r*1.5);\n  vec3 col=mix(vec3(0.86,0.85,0.84),vec3(0.955,0.945,0.925),f);\n  float ph=r.x*2.2+u_time*0.35;\n  col+=vec3(0.78,0.62,0.92)*sin(ph)*0.055;\n  col+=vec3(0.55,0.72,0.95)*sin(ph*0.8+2.0)*0.05;\n  col+=smoothstep(0.48,0.92,f)*0.06;\n  gl_FragColor=vec4(col,1.0);\n}';
+  var mouse={x:.5,y:.5};
+  addEventListener('mousemove',function(e){mouse.x=e.clientX/innerWidth;mouse.y=e.clientY/innerHeight});
+  function bootGL(id,src){
+    var c=document.getElementById(id),gl=c.getContext('webgl',{alpha:false,antialias:true});
+    if(!gl)return function(){};
+    function mk(t,s){var sh=gl.createShader(t);gl.shaderSource(sh,s);gl.compileShader(sh);return sh}
+    var prog=gl.createProgram();
+    gl.attachShader(prog,mk(gl.VERTEX_SHADER,VS));
+    gl.attachShader(prog,mk(gl.FRAGMENT_SHADER,src));
+    gl.linkProgram(prog);gl.useProgram(prog);
+    var buf=gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER,buf);
+    gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),gl.STATIC_DRAW);
+    var pos=gl.getAttribLocation(prog,'position');
+    gl.enableVertexAttribArray(pos);gl.vertexAttribPointer(pos,2,gl.FLOAT,false,0,0);
+    var uRes=gl.getUniformLocation(prog,'u_resolution'),uTime=gl.getUniformLocation(prog,'u_time'),uMouse=gl.getUniformLocation(prog,'u_mouse');
+    function resize(){c.width=innerWidth;c.height=innerHeight;gl.viewport(0,0,c.width,c.height);gl.uniform2f(uRes,c.width,c.height)}
+    resize();addEventListener('resize',resize);
+    return function(t){gl.uniform1f(uTime,t/1e3);gl.uniform2f(uMouse,mouse.x,mouse.y);gl.drawArrays(gl.TRIANGLE_STRIP,0,4)};
+  }
+  var tickDark=bootGL('bg-dark',FS_DARK),tickLight=bootGL('bg-light',FS_LIGHT);
+  function loop(t){tickDark(t);tickLight(t);requestAnimationFrame(loop)}
+  requestAnimationFrame(loop);
+  </script>
+
+  <script type="module">
+  /* Motion is optional. Load it without blocking the site's core interactions. */
+  (async function(){
+    var motion;
+    try{motion=await import('./assets/motion.min.js')}catch(e){
+      try{motion=await import('https://cdn.jsdelivr.net/npm/motion@11.11.17/+esm')}catch(e2){
+        console.warn('[motion] unavailable');document.querySelectorAll('[data-anim]').forEach(function(el){el.style.opacity='1';el.style.transform='none'});
+      }
+    }
+    if(motion){
+      var animate=motion.animate;
+      document.body.classList.add('motion-ready');
+      var animSections=document.querySelectorAll('.section');
+      animSections.forEach(function(section){
+        var targets=[].slice.call(section.querySelectorAll('[data-anim]'));
+        if(!targets.length)return;
+        var played=false;
+        var obs=new IntersectionObserver(function(entries){
+          entries.forEach(function(entry){
+            if(entry.isIntersecting&&!played){
+              played=true;
+              var groups={};
+              targets.forEach(function(el){
+                var d=el.dataset.animDelay||'0';
+                if(!groups[d])groups[d]=[];
+                groups[d].push(el);
+              });
+              Object.entries(groups).forEach(function(pair){
+                var delay=pair[0],els=pair[1];
+                var opts={duration:.6,easing:[.22,1,.36,1]};
+                if(parseFloat(delay)>0)opts.delay=parseFloat(delay);
+                var dir=els[0].dataset.anim||'up';
+                if(dir==='left')animate(els,{x:0,opacity:1},{duration:.5,easing:[.22,1,.36,1],delay:opts.delay});
+                else if(dir==='right')animate(els,{x:0,opacity:1},{duration:.5,easing:[.22,1,.36,1],delay:opts.delay});
+                else if(dir==='scale')animate(els,{scale:1,opacity:1},{duration:.6,easing:[.22,1,.36,1],delay:opts.delay});
+                else animate(els,{y:0,opacity:1},{duration:.6,easing:[.22,1,.36,1],delay:opts.delay});
+              });
+              obs.unobserve(section);
+            }
+          });
+        },{threshold:.15});
+        obs.observe(section);
+      });
+    }
+  })();
+
+  /* ===== i18n Translations ===== */
+  var translations={
+    en:{
+      nav_me:'Me',
+      nav_research:'Research',
+      nav_work:'Work',
+      nav_other:'Other',
+      sec_me:'About Me',
+      sec_me_sub:'Introduction',
+      me_kicker:'Hi, I am',
+      me_name:'Simone Weng',
+      me_bio:'A researcher and designer exploring the intersection of emotion, technology, and human experience.',
+      me_detail:'',
+      photo_placeholder:'[ Photo ]',
+      sec_research:'Research Experience',
+      sec_research_sub:'Plain-language brief for quick reading — not original text.',
+      proj_btn_0:'Visual Factors',
+      proj_btn_1:'SandplayAR',
+      sec_work:'Work Experience',
+      sec_work_sub:'Professional',
+      work_title:'Work Experience',
+      work_placeholder:'[Coming soon]',
+      work_btn_0:'Work in BYD',
+      work_btn_1:'Work in Wangsu',
+      work_byd_title:'BYD — Global Top Automaker',
+      work_byd_role:'Senior Product Manager',
+      work_byd_desc:'Senior Product Manager, independently leading the SalesAI product; daily work covers: requirements planning, requirements design, requirements communication and implementation.',
+      work_wangsu_title:'Wangsu — Global Cloud Service Provider',
+      work_wangsu_role:'Product Manager',
+      work_wangsu_desc:'Senior Product Manager, designed and led the 0-to-1 development of SalesAI: architected intent recognition optimization and agent flows, boosting workflow efficiency by 80%.',
+      sec_other:'Other',
+      sec_other_sub:'Interests & Activities',
+      other_title:'Other',
+      other_placeholder:'[Coming soon]'
+    },
+    zh:{
+      nav_me:'关于我',
+      nav_research:'研究经历',
+      nav_work:'工作经历',
+      nav_other:'其他',
+      sec_me:'关于我',
+      sec_me_sub:'介绍',
+      me_kicker:'你好，我是',
+      me_name:'翁馨妤',
+      me_bio:'一位探索情感、科技与人类体验交叉点的研究者与设计师。专注于通过设计研究和技术创造有意义的交互。',
+      me_detail:'',
+      photo_placeholder:'[ 照片 ]',
+      sec_research:'研究经历',
+      sec_research_sub:'论文与项目',
+      proj_btn_0:'情绪调节·视觉因素',
+      proj_btn_1:'SandplayAR·沙盘游戏',
+      sec_work:'工作经历',
+      sec_work_sub:'专业',
+      work_title:'工作经历',
+      work_placeholder:'[待补充]',
+      work_btn_0:'比亚迪工作经历',
+      work_btn_1:'网宿工作经历',
+      work_byd_title:'比亚迪 — 全球顶级汽车制造商',
+      work_byd_role:'高级产品经理',
+      work_byd_desc:'高级产品经理，独立负责 SalesAI产品；日常工作主要涵盖：需求规划，需求设计，需求沟通与落地。',
+      work_wangsu_title:'网宿科技 — 全球云服务提供商',
+      work_wangsu_role:'产品经理',
+      work_wangsu_desc:'高级产品经理，从0到1主导SalesAI产品设计：架构意图识别优化与Agent流程，提升工作效率80%。',
+      sec_other:'其他',
+      sec_other_sub:'兴趣与活动',
+      other_title:'其他',
+      other_placeholder:'[待补充]'
+    },
+    it:{
+      nav_me:'Su di me',
+      nav_research:'Ricerca',
+      nav_work:'Esperienza',
+      nav_other:'Altro',
+      sec_me:'Su di me',
+      sec_me_sub:'Introduzione',
+      me_kicker:'Ciao, sono',
+      me_name:'Simone Weng',
+      me_bio:'Ricercatrice e designer che esplora l\'intersezione tra emozione, tecnologia ed esperienza umana.',
+      me_detail:'',
+      photo_placeholder:'[ Foto ]',
+      sec_research:'Esperienza di Ricerca',
+      sec_research_sub:'Pubblicazioni',
+      proj_btn_0:'Fattori Visivi',
+      proj_btn_1:'SandplayAR',
+      sec_work:'Esperienza Lavorativa',
+      sec_work_sub:'Professionale',
+      work_title:'Esperienza Lavorativa',
+      work_placeholder:'[In arrivo]',
+      work_btn_0:'Lavoro in BYD',
+      work_btn_1:'Lavoro in Wangsu',
+      work_byd_title:'BYD — Produttore Automobilistico Globale',
+      work_byd_role:'Senior Product Manager',
+      work_byd_desc:'Senior Product Manager, responsabile indipendente per il prodotto SalesAI; lavoro quotidiano: pianificazione dei requisiti, progettazione dei requisiti, comunicazione e implementazione dei requisiti.',
+      work_wangsu_title:'Wangsu — Fornitore Globale di Servizi Cloud',
+      work_wangsu_role:'Product Manager',
+      work_wangsu_desc:'Senior Product Manager, ha progettato e guidato lo sviluppo 0-to-1 di SalesAI: ha architettato l\'ottimizzazione del riconoscimento delle intenzioni e i flussi degli agenti, aumentando l\'efficienza del flusso di lavoro dell\'80%.',
+      sec_other:'Altro',
+      sec_other_sub:'Interessi',
+      other_title:'Altro',
+      other_placeholder:'[In arrivo]'
+    }
+  };
+
+  /* The portfolio is intentionally English-only. */
+
+  /* ===== Dark / Light Theme Toggle ===== */
+  (function(){
+    var toggle=document.getElementById('modeToggle');
+    if(!toggle)return;
+    function syncThemeControl(){
+      var isDark=document.body.classList.contains('dark-mode');
+      toggle.setAttribute('aria-pressed',String(isDark));
+      toggle.setAttribute('aria-label',isDark?'Switch to light mode':'Switch to dark mode');
+      toggle.title=isDark?'Switch to light mode':'Switch to dark mode';
+    }
+    toggle.addEventListener('click',function(){
+      var isDark=document.body.classList.toggle('dark-mode');
+      try{localStorage.setItem('simone-color-theme',isDark?'dark':'light')}catch(error){}
+      syncThemeControl();
+    });
+    syncThemeControl();
+  })();
+
+  /* ===== Research Presentation Deck ===== */
+  var deckControllers=new Map();
+  document.querySelectorAll('.research-paper:not(.has-research-modules), .research-module').forEach(function(deckRoot){
+    var originalNodes=[].slice.call(deckRoot.children);
+    var groups=[];
+    var current=[];
+    originalNodes.forEach(function(node){
+      if(node.tagName==='H4'&&current.length){
+        groups.push(current);
+        current=[];
+      }
+      current.push(node);
+    });
+    if(current.length)groups.push(current);
+    /* Empty reserved modules (for example HiMeet Design) have no slide deck. */
+    if(!groups.length)return;
+
+    var deck=document.createElement('div');
+    deck.className='research-deck';
+    var slides=[];
+    groups.forEach(function(nodes,index){
+      var slide=document.createElement('article');
+      slide.className='research-slide'+(index===0?' is-active':'');
+      slide.setAttribute('aria-hidden',index===0?'false':'true');
+
+      var content=document.createElement('div');
+      content.className='research-slide__content';
+      content.dataset.slide='Slide '+String(index+1).padStart(2,'0')+' / '+String(groups.length).padStart(2,'0');
+      nodes.forEach(function(node){content.appendChild(node)});
+
+      var nav=document.createElement('div');
+      nav.className='research-slide__nav';
+      var progress=document.createElement('div');
+      progress.className='slide-progress';
+      progress.setAttribute('aria-label','Presentation progress');
+      groups.forEach(function(_,dotIndex){
+        var dot=document.createElement('button');
+        dot.className='slide-dot'+(dotIndex===index?' is-active':'');
+        dot.type='button';
+        dot.dataset.slideTarget=dotIndex;
+        dot.setAttribute('aria-label','Go to slide '+(dotIndex+1));
+        progress.appendChild(dot);
+      });
+
+      var actions=document.createElement('div');
+      actions.className='slide-actions';
+      var previous=document.createElement('button');
+      previous.className='slide-arrow slide-prev';
+      previous.type='button';
+      previous.innerHTML='←';
+      previous.setAttribute('aria-label','Previous slide');
+      var next=document.createElement('button');
+      next.className='slide-arrow slide-next';
+      next.type='button';
+      next.innerHTML='→';
+      next.setAttribute('aria-label','Next slide');
+      actions.append(previous,next);
+      nav.append(progress,actions);
+      slide.append(content,nav);
+      deck.appendChild(slide);
+      slides.push(slide);
+    });
+    deckRoot.appendChild(deck);
+
+    var activeIndex=0;
+    function goTo(nextIndex){
+      nextIndex=Math.max(0,Math.min(slides.length-1,nextIndex));
+      slides.forEach(function(slide,index){
+        slide.classList.toggle('is-active',index===nextIndex);
+        slide.classList.toggle('is-before',index<nextIndex);
+        slide.setAttribute('aria-hidden',index===nextIndex?'false':'true');
+        slide.querySelectorAll('.slide-dot').forEach(function(dot,dotIndex){
+          dot.classList.toggle('is-active',dotIndex===nextIndex);
+        });
+        var prev=slide.querySelector('.slide-prev');
+        var next=slide.querySelector('.slide-next');
+        if(prev)prev.disabled=nextIndex===0;
+        if(next)next.disabled=nextIndex===slides.length-1;
+      });
+      slides[nextIndex].querySelector('.research-slide__content').scrollTop=0;
+      activeIndex=nextIndex;
+    }
+    deck.addEventListener('click',function(event){
+      var dot=event.target.closest('.slide-dot');
+      if(dot)goTo(parseInt(dot.dataset.slideTarget,10));
+      if(event.target.closest('.slide-prev'))goTo(activeIndex-1);
+      if(event.target.closest('.slide-next'))goTo(activeIndex+1);
+    });
+    goTo(0);
+    deckControllers.set(deckRoot,{goTo:goTo,next:function(){goTo(activeIndex+1)},previous:function(){goTo(activeIndex-1)}});
+  });
+
+  function getActiveResearchDeckRoot(){
+    var activePaper=document.querySelector('.research-paper.active');
+    if(!activePaper)return null;
+    if(activePaper.classList.contains('has-research-modules')){
+      return activePaper.querySelector('.research-module.active');
+    }
+    return activePaper;
+  }
+
+  function activateResearchModule(paper,moduleName){
+    if(!paper||!paper.classList.contains('has-research-modules'))return;
+    paper.querySelectorAll('.research-module-btn').forEach(function(button){
+      var isActive=button.dataset.moduleTarget===moduleName;
+      button.classList.toggle('active',isActive);
+      button.setAttribute('aria-selected',String(isActive));
+    });
+    paper.querySelectorAll('.research-module').forEach(function(module){
+      var isActive=module.dataset.module===moduleName;
+      module.classList.toggle('active',isActive);
+      module.hidden=!isActive;
+    });
+    var activeModule=paper.querySelector('.research-module.active');
+    var controller=deckControllers.get(activeModule);
+    if(controller)controller.goTo(0);
+  }
+
+  document.querySelectorAll('.has-research-modules').forEach(function(paper){
+    paper.querySelectorAll('.research-module-btn').forEach(function(button){
+      button.addEventListener('click',function(){
+        activateResearchModule(paper,button.dataset.moduleTarget);
+      });
+    });
+  });
+
+  document.addEventListener('keydown',function(event){
+    var researchSection=document.getElementById('research');
+    var researchRect=researchSection.getBoundingClientRect();
+    if(researchRect.top<=innerHeight*.45&&researchRect.bottom>=innerHeight*.55){
+      var controller=deckControllers.get(getActiveResearchDeckRoot());
+      if(!controller)return;
+      if(event.key==='ArrowRight'){event.preventDefault();controller.next()}
+      if(event.key==='ArrowLeft'){event.preventDefault();controller.previous()}
+      return;
+    }
+    var workSection=document.getElementById('work');
+    var workRect=workSection.getBoundingClientRect();
+    if(workRect.top>innerHeight*.45||workRect.bottom<innerHeight*.55)return;
+    var activeWork=document.querySelector('.work-panel.active');
+    if(!activeWork)return;
+    if(activeWork.dataset.work==='0'){
+      if(event.key==='ArrowRight'){event.preventDefault();setBydImg(bydIdx+1)}
+      if(event.key==='ArrowLeft'){event.preventDefault();setBydImg(bydIdx-1)}
+    }else{
+      if(event.key==='ArrowRight'){event.preventDefault();setWangsuPage(wangsuIdx+1)}
+      if(event.key==='ArrowLeft'){event.preventDefault();setWangsuPage(wangsuIdx-1)}
+    }
+  });
+
+  /* ===== Research Project Toggle ===== */
+  var projectBtns=document.querySelectorAll('.project-btn');
+  var papers=document.querySelectorAll('.research-paper');
+  projectBtns.forEach(function(btn){
+    btn.addEventListener('click',function(){
+      projectBtns.forEach(function(b){b.classList.remove('active')});
+      btn.classList.add('active');
+      var idx=btn.dataset.project;
+      papers.forEach(function(p){p.classList.remove('active')});
+      [].slice.call(papers).forEach(function(p){
+        if(p.dataset.project===idx)p.classList.add('active');
+      });
+      var activePaper=document.querySelector('.research-paper.active');
+      if(activePaper&&activePaper.classList.contains('has-research-modules')){
+        var firstModuleButton=activePaper.querySelector('.research-module-btn');
+        if(firstModuleButton)activateResearchModule(activePaper,firstModuleButton.dataset.moduleTarget);
+      }
+      var controller=deckControllers.get(getActiveResearchDeckRoot());
+      if(controller)controller.goTo(0);
+    });
+  });
+
+  /* Reveal section chrome only when it enters the viewport. */
+  var sectionObserver=new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      entry.target.classList.toggle('is-visible',entry.isIntersecting);
+    });
+  },{threshold:.22});
+  document.querySelectorAll('.section').forEach(function(section){sectionObserver.observe(section)});
+
+  /* ===== Nav scroll spy ===== */
+  var sections=document.querySelectorAll('.section');
+  var navLinks=document.querySelectorAll('.nav-links a');
+  function updateNav(){
+    var scrollY=window.scrollY+120,current=null;
+    sections.forEach(function(s){var top=s.offsetTop,bottom=top+s.offsetHeight;if(scrollY>=top&&scrollY<bottom)current=s});
+    if(!current&&sections.length&&window.scrollY>=sections[sections.length-1].offsetTop)current=sections[sections.length-1];
+    navLinks.forEach(function(a){a.classList.remove('active')});
+    if(current){
+      var id=current.getAttribute('id');
+      navLinks.forEach(function(a){if(a.getAttribute('href')==='#'+id)a.classList.add('active')});
+      /* All sections visually unified - no per-section theme toggle needed */
+    }
+    document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>40);
+  }
+  navLinks.forEach(function(a){a.addEventListener('click',function(e){var href=a.getAttribute('href');if(href&&href.startsWith('#')){e.preventDefault();var el=document.getElementById(href.slice(1));if(el){navLinks.forEach(function(link){link.classList.remove('active')});a.classList.add('active');window.scrollTo({top:el.offsetTop,behavior:'smooth'});(document.querySelector('.nav-links')||{}).classList&&document.querySelector('.nav-links').classList.remove('open')}}})});
+  (document.querySelector('.nav-toggle')||{}).addEventListener&&document.querySelector('.nav-toggle').addEventListener('click',function(){var nl=document.querySelector('.nav-links');if(nl)nl.classList.toggle('open')});
+  window.addEventListener('scroll',updateNav,{passive:true});
+  window.addEventListener('resize',updateNav,{passive:true});
+  updateNav();
+
+  /* ===== Work Panel Toggle ===== */
+  var workBtns=document.querySelectorAll('.work-btn');
+  var workPanels=document.querySelectorAll('.work-panel');
+  var workDeckNavs=document.querySelectorAll('.work-deck-nav');
+  workBtns.forEach(function(btn){
+    btn.addEventListener('click',function(){
+      workBtns.forEach(function(b){b.classList.remove('active')});
+      btn.classList.add('active');
+      var idx=btn.dataset.work;
+      workPanels.forEach(function(p){p.classList.remove('active')});
+      [].slice.call(workPanels).forEach(function(p){
+        if(p.dataset.work===idx)p.classList.add('active');
+      });
+      workDeckNavs.forEach(function(nav){
+        nav.hidden=nav.dataset.workNav!==idx;
+      });
+      var activePanel=document.querySelector('.work-panel.active');
+      if(activePanel)activePanel.scrollTop=0;
+      if(idx==='0')setBydImg(0);
+      if(idx==='1')setWangsuPage(0);
+    });
+  });
+
+  /* ===== BYD Image Carousel ===== */
+  var bydImg=document.getElementById('byd-img');
+  var bydArrowPrev=document.getElementById('byd-arrow-prev');
+  var bydArrowNext=document.getElementById('byd-arrow-next');
+  var bydDots=document.querySelectorAll('.byd-deck-nav .carousel-dot');
+  var bydImages=['assets/fig./market insight1.png','assets/fig./work1.jpg','assets/fig./work2.jpg','assets/fig./Frame 11.png'];
+  var bydIdx=0;
+  function setBydImg(idx){
+    idx=Math.max(0,Math.min(bydImages.length-1,idx));
+    bydIdx=idx;
+    if(bydImg){
+      bydImg.style.opacity='0';
+      setTimeout(function(){
+        bydImg.src=bydImages[idx];
+        bydImg.dataset.cidx=idx;
+        bydImg.style.opacity='1';
+      },180);
+    }
+    bydDots.forEach(function(d){d.classList.remove('active')});
+    var activeDot=document.querySelector('.byd-deck-nav .carousel-dot[data-dot="'+idx+'"]');
+    if(activeDot)activeDot.classList.add('active');
+    if(bydArrowPrev)bydArrowPrev.disabled=idx===0;
+    if(bydArrowNext)bydArrowNext.disabled=idx===bydImages.length-1;
+  }
+  if(bydArrowNext){
+    bydArrowNext.addEventListener('click',function(){
+      setBydImg(bydIdx+1);
+    });
+  }
+  if(bydArrowPrev){
+    bydArrowPrev.addEventListener('click',function(){
+      setBydImg(bydIdx-1);
+    });
+  }
+  bydDots.forEach(function(dot){
+    dot.addEventListener('click',function(){
+      setBydImg(parseInt(dot.dataset.dot));
+    });
+  });
+  setBydImg(0);
+
+  /* ===== Wangsu Page Carousel ===== */
+  var wangsuPages=document.querySelectorAll('#carousel-wangsu .wangsu-page');
+  var wangsuArrowPrev=document.getElementById('wangsu-arrow-prev');
+  var wangsuArrowNext=document.getElementById('wangsu-arrow-next');
+  var wangsuDots=document.querySelectorAll('.wangsu-deck-nav .carousel-dot');
+  var wangsuIdx=0;
+  function setWangsuPage(idx){
+    idx=Math.max(0,Math.min(wangsuPages.length-1,idx));
+    wangsuIdx=idx;
+    wangsuPages.forEach(function(p){p.classList.remove('active')});
+    var activePage=document.querySelector('#carousel-wangsu .wangsu-page[data-wpage="'+idx+'"]');
+    if(activePage) activePage.classList.add('active');
+    wangsuDots.forEach(function(d){d.classList.remove('active')});
+    var activeDot=document.querySelector('.wangsu-deck-nav .carousel-dot[data-wdot="'+idx+'"]');
+    if(activeDot) activeDot.classList.add('active');
+    if(wangsuArrowPrev)wangsuArrowPrev.disabled=idx===0;
+    if(wangsuArrowNext)wangsuArrowNext.disabled=idx===wangsuPages.length-1;
+  }
+  if(wangsuArrowNext){
+    wangsuArrowNext.addEventListener('click',function(){
+      setWangsuPage(wangsuIdx+1);
+    });
+  }
+  if(wangsuArrowPrev){
+    wangsuArrowPrev.addEventListener('click',function(){
+      setWangsuPage(wangsuIdx-1);
+    });
+  }
+  wangsuDots.forEach(function(dot){
+    dot.addEventListener('click',function(){
+      setWangsuPage(parseInt(dot.dataset.wdot));
+    });
+  });
+  setWangsuPage(0);
+  </script>
+
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script>lucide.createIcons();</script>
+</body>
+</html>

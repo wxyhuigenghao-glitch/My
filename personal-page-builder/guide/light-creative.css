@@ -1,0 +1,99 @@
+/* Premium Creative Marketplace Light CSS */
+
+:root{
+ --bg:#F8F8F6;
+ --surface:#fff;
+ --text:#111;
+ --secondary:#555;
+ --border:rgba(0,0,0,.08);
+ --shadow:0 20px 60px rgba(0,0,0,.08);
+ --radius:18px;
+}
+
+body{
+ margin:0;
+ background:var(--bg);
+ color:var(--text);
+ font-family:Inter,Arial,sans-serif;
+}
+
+.container{
+ width:min(calc(100% - 64px),1280px);
+ margin:auto;
+}
+
+.navbar{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ padding:18px 24px;
+ border-radius:999px;
+ background:rgba(255,255,255,.75);
+ backdrop-filter:blur(20px);
+ border:1px solid var(--border);
+}
+
+.hero{
+ min-height:100vh;
+ display:flex;
+ flex-direction:column;
+ justify-content:center;
+ align-items:center;
+ text-align:center;
+}
+
+.hero__title{
+ font-size:clamp(48px,6vw,88px);
+ line-height:.98;
+ letter-spacing:-.05em;
+ font-weight:500;
+}
+
+.hero__gallery{
+ position:relative;
+ width:min(900px,90vw);
+ height:260px;
+}
+
+.art-card{
+ position:absolute;
+ width:180px;
+ height:130px;
+ border-radius:18px;
+ overflow:hidden;
+ box-shadow:var(--shadow);
+ transition:.4s ease;
+}
+
+.art-card:hover{
+ transform:translateY(-12px);
+}
+
+.button{
+ height:44px;
+ padding:0 24px;
+ border-radius:999px;
+ font-weight:600;
+}
+
+.button-primary{
+ background:#111;
+ color:white;
+}
+
+.button-secondary{
+ background:white;
+ border:1px solid var(--border);
+}
+
+.tag{
+ padding:6px 14px;
+ border-radius:999px;
+ color:white;
+}
+
+@media(max-width:768px){
+ .hero__title{
+  font-size:48px;
+ }
+}
