@@ -2233,6 +2233,99 @@
       font-size:9px;
     }
   }
+
+  /* Me portrait and simplified navigation identity. */
+  #navbar .brand,
+  body.dark-mode #navbar .brand{
+    min-height:44px;
+    padding:6px 2px;
+    border:0;
+    border-radius:0;
+    background:transparent;
+    box-shadow:none;
+    backdrop-filter:none;
+    -webkit-backdrop-filter:none;
+    color:#111;
+  }
+  body.dark-mode #navbar .brand{color:#fff}
+  #navbar .brand:hover,
+  body.dark-mode #navbar .brand:hover{
+    transform:none;
+    background:transparent;
+    box-shadow:none;
+  }
+  .github-link,
+  body.dark-mode .github-link{
+    width:42px;
+    height:42px;
+    flex-basis:42px;
+    border:0;
+    border-radius:50%;
+    background:transparent;
+    box-shadow:none;
+    color:#111;
+  }
+  body.dark-mode .github-link{color:#fff}
+  .github-link:hover,
+  body.dark-mode .github-link:hover{
+    transform:translateY(-1px);
+    background:transparent;
+    opacity:.72;
+  }
+  .github-link svg{width:22px;height:22px}
+
+  #me .me-profile{
+    position:absolute;
+    z-index:3;
+    top:clamp(158px,19vh,204px);
+    left:clamp(28px,6.5vw,132px);
+    width:clamp(168px,11.5vw,224px);
+    aspect-ratio:1;
+    overflow:hidden;
+    border:1px solid rgba(18,18,18,.16);
+    border-radius:50%;
+    background:rgba(255,255,255,.08);
+    box-shadow:0 20px 52px rgba(20,18,32,.18);
+  }
+  body.dark-mode #me .me-profile{
+    border-color:rgba(255,255,255,.28);
+    background:rgba(255,255,255,.04);
+    box-shadow:0 22px 58px rgba(0,0,0,.34),0 0 0 1px rgba(255,255,255,.04);
+  }
+  #me .me-profile img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:center;
+    transform:scale(1.02);
+  }
+
+  @media(max-width:900px){
+    #me .me-profile{
+      top:112px;
+      left:50%;
+      width:clamp(112px,19vw,148px);
+      transform:translateX(-50%);
+    }
+    #me .me-layout{padding-top:clamp(112px,18vw,150px)}
+  }
+  @media(max-width:640px){
+    #navbar .brand,
+    body.dark-mode #navbar .brand{
+      min-height:42px;
+      padding:5px 0;
+      border-radius:0;
+    }
+    .github-link,
+    body.dark-mode .github-link{
+      width:38px;
+      height:38px;
+      flex-basis:38px;
+    }
+    .github-link svg{width:20px;height:20px}
+    #me .me-profile{top:102px;width:108px}
+    #me .me-layout{padding-top:108px}
+  }
 </style>
 </head>
 <body class="dark-mode">
@@ -2240,8 +2333,7 @@
     (function(){
       try{
         var savedTheme=localStorage.getItem('simone-color-theme');
-        var prefersDark=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches;
-        document.body.classList.toggle('dark-mode',savedTheme?savedTheme==='dark':prefersDark);
+        document.body.classList.toggle('dark-mode',savedTheme?savedTheme==='dark':true);
       }catch(error){}
     })();
   </script>
@@ -2251,10 +2343,6 @@
   <nav id="navbar">
     <div class="nav-identity">
       <a href="#me" class="brand">
-        <span class="brand-avatar" aria-hidden="true">
-          <img class="light-img" src="assets/fig./微信图片_20260621160850_75_10.jpg" alt="">
-          <img class="dark-img" src="assets/fig./darkmode- selfie.jpeg" alt="">
-        </span>
         <span>Simone Weng</span>
       </a>
       <a class="github-link" href="https://github.com/wxyhuigenghao-glitch" target="_blank" rel="noopener noreferrer" aria-label="Visit Simone Weng on GitHub" title="GitHub">
@@ -2282,9 +2370,9 @@
   <main>
    <!-- ===== Me ===== -->
     <section id="me" class="section light hero" data-theme="light">
-      <div class="chrome">
-        <div class="left"><span data-i18n="sec_me">About Me</span></div>
-        <div class="right" data-i18n="sec_me_sub">Introduction</div>
+      <div class="me-profile" data-anim="up" data-anim-delay="0.02">
+        <img class="light-img" src="assets/fig./微信图片_20260621160850_75_10.jpg" alt="Portrait of Simone Weng">
+        <img class="dark-img" src="assets/fig./darkmode-selfie.jpg" alt="Portrait of Simone Weng">
       </div>
       
       <!-- 重点修改了这里面的内容 -->
@@ -2319,7 +2407,7 @@
           <div class="research-paper active" data-project="0">
             <h3>Research on the Influence of Visual Factors on Emotion Regulation Interaction</h3>
             <p style="margin-bottom:.6vh"><span class="tag">Frontiers in Psychology (SSCI-Q1 IF 3.8)</span> <span class="tag">2022</span> <span class="tag">Vol.12</span></p>
-            <p> Zhiyong Xiong, <strong>Xinyu Weng</strong>(student first author), Yu Wei &middot; DOI: 10.3389/fpsyg.2021.772642</p>
+            <p style="white-space:nowrap"> Zhiyong Xiong(advisor), <strong>Xinyu Weng</strong>(student first author), Yu Wei &middot; DOI: <a href="https://doi.org/10.3389/fpsyg.2021.772642" target="_blank" rel="noopener noreferrer" style="color:inherit">10.3389/fpsyg.2021.772642</a></p>
             <hr>
 
             <!-- 🌟 Research Innovation Highlights -->
@@ -2457,7 +2545,7 @@
           <div class="research-paper" data-project="1">
             <h3>SandplayAR: Evaluation of Psychometric Game for People with Generalized Anxiety Disorder</h3>
             <p style="margin-bottom:.6vh"><span class="tag">The Arts in Psychotherapy（SSCI-Q3 IF 1.7）</span> <span class="tag">2022</span> <span class="tag">Vol.80</span></p>
-            <p>Zhiyong Xiong, <strong>Xinyu Weng</strong>(student first author), Yu Wei &middot; DOI: 10.1016/j.aip.2022.101934</p>
+            <p style="white-space:nowrap">Zhiyong Xiong(advisor), <strong>Xinyu Weng</strong>(student first author), Yu Wei &middot; DOI: <a href="https://www.sciencedirect.com/science/article/abs/pii/S0197455622000557?via%3Dihub" target="_blank" rel="noopener noreferrer" style="color:inherit">10.1016/j.aip.2022.101934</a></p>
             <hr>
 
             <!-- 🌟 Research Innovation Highlights -->
