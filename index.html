@@ -2122,6 +2122,23 @@
     box-shadow:none!important;
   }
 
+  /* Dark-mode visibility fix: the restored theme uses --ink as the
+     foreground colour and --paper as the background colour. Older Wangsu
+     overrides still referenced --paper for text, making page 02 content
+     nearly black on black. */
+  body.dark-mode #carousel-wangsu .page-metric{
+    color:rgba(var(--ink-rgb),.88);
+  }
+  body.dark-mode #carousel-wangsu .page-metric-label{
+    color:rgba(var(--ink-rgb),.68);
+    opacity:1;
+  }
+  body.dark-mode #carousel-wangsu .ascii-container{
+    color:var(--ink);
+    border-color:var(--line);
+    background:#030504;
+  }
+
   /* Keep the identity label typographically identical in both themes. */
   #navbar .brand,
   body.dark-mode #navbar .brand{
@@ -2326,6 +2343,304 @@
     #me .me-profile{top:102px;width:108px}
     #me .me-layout{padding-top:108px}
   }
+
+  /* ========================================================================
+     Research index rail + calibrated desktop scale
+     ======================================================================== */
+  #research .research-layout{
+    position:relative;
+  }
+  #research .research-sidebar{
+    display:flex;
+    flex-direction:column;
+    align-items:stretch;
+    justify-content:center;
+    gap:18px;
+    width:138px;
+    padding:0;
+    overflow:visible;
+  }
+  #research .project-btn,
+  body.dark-mode #research .project-btn{
+    display:grid;
+    grid-template-columns:36px minmax(0,1fr);
+    align-items:center;
+    gap:10px;
+    width:100%;
+    min-width:0;
+    min-height:38px;
+    padding:0;
+    border:0;
+    border-radius:0;
+    background:transparent;
+    box-shadow:none;
+    color:rgba(var(--ink-rgb),.4);
+    font-size:12px;
+    font-weight:500;
+    line-height:1.25;
+    letter-spacing:-.01em;
+    text-align:left;
+    text-transform:none;
+    white-space:normal;
+    transition:color .25s ease,transform .25s ease;
+  }
+  #research .project-btn::before{
+    position:static;
+    display:grid;
+    place-items:center;
+    width:36px;
+    height:36px;
+    border:1px solid rgba(var(--ink-rgb),.22);
+    border-radius:50%;
+    color:rgba(var(--ink-rgb),.43);
+    font-family:var(--ui);
+    font-size:12px;
+    font-weight:500;
+    line-height:1;
+    transform:none;
+    transition:background-color .25s ease,border-color .25s ease,color .25s ease;
+  }
+  #research .project-btn:nth-child(1)::before{content:"1"}
+  #research .project-btn:nth-child(2)::before{content:"2"}
+  #research .project-btn:nth-child(3)::before{content:"3"}
+  #research .project-btn:hover{
+    color:rgba(var(--ink-rgb),.76);
+    transform:translateX(3px);
+    background:transparent;
+  }
+  #research .project-btn.active,
+  body.dark-mode #research .project-btn.active{
+    border:0;
+    background:transparent;
+    box-shadow:none;
+    color:var(--ink);
+    font-weight:600;
+  }
+  #research .project-btn.active::before,
+  body.dark-mode #research .project-btn.active::before{
+    border-color:var(--accent);
+    background:var(--accent);
+    color:#07100a;
+  }
+
+  /* Work uses the same compact circular project index as Research. */
+  #work .work-sidebar{
+    display:flex;
+    flex-direction:column;
+    align-items:stretch;
+    justify-content:center;
+    gap:18px;
+    width:138px;
+    padding:0;
+    overflow:visible;
+  }
+  #work .work-btn,
+  body.dark-mode #work .work-btn{
+    position:relative;
+    display:grid;
+    grid-template-columns:36px minmax(0,1fr);
+    align-items:center;
+    gap:10px;
+    width:100%;
+    min-width:0;
+    min-height:38px;
+    padding:0;
+    border:0;
+    border-radius:0;
+    background:transparent;
+    box-shadow:none;
+    color:rgba(var(--ink-rgb),.4);
+    font-size:12px;
+    font-weight:500;
+    line-height:1.25;
+    letter-spacing:-.01em;
+    text-align:left;
+    text-transform:none;
+    white-space:normal;
+    transition:color .25s ease,transform .25s ease;
+  }
+  #work .work-btn::before{
+    position:static;
+    display:grid;
+    place-items:center;
+    width:36px;
+    height:36px;
+    border:1px solid rgba(var(--ink-rgb),.22);
+    border-radius:50%;
+    color:rgba(var(--ink-rgb),.43);
+    font-family:var(--ui);
+    font-size:12px;
+    font-weight:500;
+    line-height:1;
+    transform:none;
+    transition:background-color .25s ease,border-color .25s ease,color .25s ease;
+  }
+  #work .work-btn:nth-child(1)::before{content:"1"}
+  #work .work-btn:nth-child(2)::before{content:"2"}
+  #work .work-btn:hover{
+    color:rgba(var(--ink-rgb),.76);
+    transform:translateX(3px);
+    background:transparent;
+  }
+  #work .work-btn.active,
+  body.dark-mode #work .work-btn.active{
+    border:0;
+    background:transparent;
+    box-shadow:none;
+    color:var(--ink);
+    font-weight:600;
+  }
+  #work .work-btn.active::before,
+  body.dark-mode #work .work-btn.active::before{
+    border-color:var(--accent);
+    background:var(--accent);
+    color:#07100a;
+  }
+
+  /* The project rail lives inside the page width, to the right of the deck. */
+  @media(min-width:901px){
+    #research .research-layout{
+      display:grid;
+      grid-template-columns:minmax(0,1fr) 138px;
+      grid-template-rows:minmax(0,1fr);
+      gap:clamp(20px,2vw,30px);
+      width:100%;
+      max-width:1550px;
+      margin-right:auto;
+      margin-left:auto;
+      transform:none;
+    }
+    #work .work-layout{
+      display:grid;
+      grid-template-columns:minmax(0,1fr) 138px;
+      grid-template-rows:minmax(0,1fr);
+      gap:clamp(20px,2vw,30px);
+      width:100%;
+      max-width:1550px;
+      margin-right:auto;
+      margin-left:auto;
+      transform:none;
+    }
+    #research .research-content{
+      grid-column:1;
+      grid-row:1;
+    }
+    #work .work-content{
+      grid-column:1;
+      grid-row:1;
+    }
+    #research .research-sidebar{
+      position:static;
+      grid-column:2;
+      grid-row:1;
+      align-self:center;
+      transform:none;
+    }
+    #work .work-sidebar{
+      position:static;
+      grid-column:2;
+      grid-row:1;
+      align-self:center;
+      transform:none;
+    }
+  }
+
+  /* Keep the identity at top-left and the navigation at top-right. */
+  @media(min-width:641px){
+    #navbar,
+    #navbar.scrolled,
+    body.dark-mode #navbar.scrolled{
+      left:clamp(22px,4.5vw,68px);
+      right:clamp(22px,4.5vw,68px);
+      width:auto;
+      padding-right:0;
+      padding-left:0;
+      transform:none;
+      border:0;
+      border-radius:0;
+      background:transparent;
+      box-shadow:none;
+      backdrop-filter:none;
+      -webkit-backdrop-filter:none;
+    }
+    #navbar .nav-links{margin-left:auto}
+  }
+
+  /* Make 100% browser zoom feel like the previous 90% view without scaling the
+     document itself, so fixed navigation and responsive breakpoints stay stable. */
+  @media(min-width:901px){
+    #navbar{
+      top:14px;
+      height:50px;
+    }
+    .section,
+    body.dark-mode .section{
+      padding-top:94px;
+      padding-right:clamp(22px,4.5vw,68px);
+      padding-bottom:28px;
+      padding-left:clamp(22px,4.5vw,68px);
+    }
+    #me .me-img-timeline{width:min(100%,1100px)}
+    #me .me-profile{width:clamp(154px,10.5vw,204px)}
+    #research .research-content,
+    #work .work-content{height: 680px}
+    #research .research-slide__content{
+      padding:clamp(25px,3.6vw,56px) clamp(22px,4.3vw,68px) 27px;
+    }
+    #research .research-paper h3{
+      font-size:clamp(27px,3vw,49px);
+    }
+    #research .research-paper h4{
+      font-size:clamp(24px,2.35vw,38px);
+    }
+    #research .research-slide__nav,
+    #work .work-deck-nav{
+      min-height:66px;
+      height:66px;
+      padding-top:10px;
+      padding-bottom:10px;
+    }
+    #work .work-layout{max-width:1550px}
+    #work .work-panel{
+      padding:clamp(25px,3.6vw,56px) clamp(22px,4.3vw,68px) 84px;
+    }
+  }
+
+  @media(max-width:900px){
+    #research .research-layout,
+    #work .work-layout{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:10px;
+      transform:none;
+    }
+    #research .research-sidebar,
+    #work .work-sidebar{
+      position:static;
+      width:100%;
+      flex-direction:row;
+      justify-content:flex-start;
+      gap:18px;
+      overflow-x:auto;
+      transform:none;
+      scrollbar-width:none;
+    }
+    #research .research-sidebar::-webkit-scrollbar,
+    #work .work-sidebar::-webkit-scrollbar{display:none}
+    #research .project-btn,
+    body.dark-mode #research .project-btn,
+    #work .work-btn,
+    body.dark-mode #work .work-btn{
+      flex:0 0 auto;
+      grid-template-columns:38px auto;
+      gap:10px;
+      width:auto;
+      font-size:12px;
+      white-space:nowrap;
+    }
+    #research .project-btn::before,
+    #work .work-btn::before{width:36px;height:36px;font-size:12px}
+  }
 </style>
 </head>
 <body class="dark-mode">
@@ -2395,13 +2710,13 @@
     <section id="research" class="section dark" data-theme="dark">
       <div class="chrome">
         <div class="left"><span data-i18n="sec_research_sub">Plain-language brief for quick reading — not original text.</span></div>
-        <div class="right research-sidebar">
-          <button class="project-btn active" data-project="0" data-i18n="proj_btn_0">Visual Factors</button>
-          <button class="project-btn" data-project="1" data-i18n="proj_btn_1">SandplayAR</button>
-          <button class="project-btn" data-project="2">HiMeet</button>
-        </div>
       </div>
       <div class="research-layout">
+        <div class="research-sidebar" role="tablist" aria-label="Research projects">
+          <button class="project-btn active" role="tab" aria-selected="true" data-project="0" data-i18n="proj_btn_0">Visual Factors</button>
+          <button class="project-btn" role="tab" aria-selected="false" data-project="1" data-i18n="proj_btn_1">SandplayAR</button>
+          <button class="project-btn" role="tab" aria-selected="false" data-project="2">HiMeet</button>
+        </div>
         <div class="research-content">
           <!-- Paper 1: Emotion Regulation -->
           <div class="research-paper active" data-project="0">
@@ -2617,13 +2932,13 @@
           <div class="research-paper has-research-modules" data-project="2">
             <div class="research-module-tabs" role="tablist" aria-label="HiMeet research phases">
               <button class="research-module-btn active" type="button" role="tab" aria-selected="true" data-module-target="investigation">
-                <span>01</span> Investigation
+                <span>01</span> DISCOVERY
               </button>
               <button class="research-module-btn" type="button" role="tab" aria-selected="false" data-module-target="experiment">
-                <span>02</span> Experiment
+                <span>02</span> VALIDATION
               </button>
               <button class="research-module-btn" type="button" role="tab" aria-selected="false" data-module-target="design">
-                <span>03</span> Design
+                <span>03</span> SOLUTION
               </button>
             </div>
 
@@ -2894,10 +3209,6 @@
           </div>
         </div>
       </div>
-      <div class="foot">
-        <span class="title">Simone Weng</span>
-        <span>02 / 03</span>
-      </div>
     </section>
 
     <!-- ===== Work ===== -->
@@ -2905,12 +3216,12 @@
       <div class="chrome">
         <div class="left"><span data-i18n="sec_work">Work Experience</span><span class="sep"></span><span data-i18n="sec_work_sub">Professional</span></div>
         <span class="legacy-section-index">03</span>
-        <div class="right work-sidebar">
-          <button class="work-btn active" data-work="0" data-i18n="work_btn_0">Work in BYD</button>
-          <button class="work-btn" data-work="1" data-i18n="work_btn_1">Work in Wangsu</button>
-        </div>
       </div>
       <div class="work-layout">
+        <div class="work-sidebar" role="tablist" aria-label="Work projects">
+          <button class="work-btn active" role="tab" aria-selected="true" data-work="0" data-i18n="work_btn_0">Work in BYD</button>
+          <button class="work-btn" role="tab" aria-selected="false" data-work="1" data-i18n="work_btn_1">Work in Wangsu</button>
+        </div>
         <div class="work-content">
           <!-- Work Panel 0: BYD -->
           <div class="work-panel active" data-work="0">
@@ -3082,10 +3393,6 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="foot">
-        <span class="title">Simone Weng</span>
-        <span>03 / 03</span>
       </div>
     </section>
 
@@ -3445,8 +3752,12 @@
   var papers=document.querySelectorAll('.research-paper');
   projectBtns.forEach(function(btn){
     btn.addEventListener('click',function(){
-      projectBtns.forEach(function(b){b.classList.remove('active')});
+      projectBtns.forEach(function(b){
+        b.classList.remove('active');
+        b.setAttribute('aria-selected','false');
+      });
       btn.classList.add('active');
+      btn.setAttribute('aria-selected','true');
       var idx=btn.dataset.project;
       papers.forEach(function(p){p.classList.remove('active')});
       [].slice.call(papers).forEach(function(p){
@@ -3497,8 +3808,12 @@
   var workDeckNavs=document.querySelectorAll('.work-deck-nav');
   workBtns.forEach(function(btn){
     btn.addEventListener('click',function(){
-      workBtns.forEach(function(b){b.classList.remove('active')});
+      workBtns.forEach(function(b){
+        b.classList.remove('active');
+        b.setAttribute('aria-selected','false');
+      });
       btn.classList.add('active');
+      btn.setAttribute('aria-selected','true');
       var idx=btn.dataset.work;
       workPanels.forEach(function(p){p.classList.remove('active')});
       [].slice.call(workPanels).forEach(function(p){
