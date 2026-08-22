@@ -3750,26 +3750,31 @@
   /* ===== Research Project Toggle ===== */
   var projectBtns=document.querySelectorAll('.project-btn');
   var papers=document.querySelectorAll('.research-paper');
+
+  /* Activate a research project by its data-project index (also used by deep links). */
+  function activateProject(idx){
+    idx=String(idx);
+    projectBtns.forEach(function(b){
+      var isActive=b.dataset.project===idx;
+      b.classList.toggle('active',isActive);
+      b.setAttribute('aria-selected',String(isActive));
+    });
+    papers.forEach(function(p){p.classList.remove('active')});
+    [].slice.call(papers).forEach(function(p){
+      if(p.dataset.project===idx)p.classList.add('active');
+    });
+    var activePaper=document.querySelector('.research-paper.active');
+    if(activePaper&&activePaper.classList.contains('has-research-modules')){
+      var firstModuleButton=activePaper.querySelector('.research-module-btn');
+      if(firstModuleButton)activateResearchModule(activePaper,firstModuleButton.dataset.moduleTarget);
+    }
+    var controller=deckControllers.get(getActiveResearchDeckRoot());
+    if(controller)controller.goTo(0);
+  }
+
   projectBtns.forEach(function(btn){
     btn.addEventListener('click',function(){
-      projectBtns.forEach(function(b){
-        b.classList.remove('active');
-        b.setAttribute('aria-selected','false');
-      });
-      btn.classList.add('active');
-      btn.setAttribute('aria-selected','true');
-      var idx=btn.dataset.project;
-      papers.forEach(function(p){p.classList.remove('active')});
-      [].slice.call(papers).forEach(function(p){
-        if(p.dataset.project===idx)p.classList.add('active');
-      });
-      var activePaper=document.querySelector('.research-paper.active');
-      if(activePaper&&activePaper.classList.contains('has-research-modules')){
-        var firstModuleButton=activePaper.querySelector('.research-module-btn');
-        if(firstModuleButton)activateResearchModule(activePaper,firstModuleButton.dataset.moduleTarget);
-      }
-      var controller=deckControllers.get(getActiveResearchDeckRoot());
-      if(controller)controller.goTo(0);
+      activateProject(btn.dataset.project);
     });
   });
 
@@ -3904,6 +3909,56 @@
     });
   });
   setWangsuPage(0);
+
+  /* ===== Deep-link / anchor support (for links placed in PPT or elsewhere) =====
+     A URL such as index.html#p1-method will open the Research section,
+     activate the owning project (and module), advance to the slide that contains
+     the target heading, and scroll the heading into view. */
+  function resolveDeepLink(){
+    var hash=window.location.hash;
+    if(!hash||hash.length<2)return false;
+    var id=decodeURIComponent(hash.slice(1));
+    var target=document.getElementById(id);
+    if(!target)return false;
+    var slide=target.closest('.research-slide');
+    if(!slide)return false;
+    var deckRoot=slide.closest('.research-paper, .research-module');
+    if(!deckRoot)return false;
+    var paper=deckRoot.classList.contains('research-paper')?deckRoot:deckRoot.closest('.research-paper');
+    if(!paper)return false;
+
+    /* Bring the correct project (and HiMeet module) to the front. */
+    activateProject(paper.dataset.project);
+    if(deckRoot.classList.contains('research-module')){
+      activateResearchModule(paper,deckRoot.dataset.module);
+    }
+
+    /* Advance the slide deck to the slide that holds the target heading. */
+    var controller=deckControllers.get(deckRoot);
+    if(controller){
+      var slides=[].slice.call(deckRoot.querySelectorAll('.research-deck > .research-slide'));
+      var idx=slides.indexOf(slide);
+      if(idx>=0)controller.goTo(idx);
+    }
+
+    /* Bring the Research section into view. */
+    var researchSection=document.getElementById('research');
+    if(researchSection){
+      window.scrollTo({top:researchSection.offsetTop,behavior:'auto'});
+    }
+
+    /* Scroll the slide content so the target heading is visible near the top. */
+    var content=target.closest('.research-slide__content');
+    if(content){
+      requestAnimationFrame(function(){
+        content.scrollTop=Math.max(0,target.offsetTop-24);
+      });
+    }
+    return true;
+  }
+
+  window.addEventListener('hashchange',function(){resolveDeepLink()});
+  if(window.location.hash)resolveDeepLink();
   </script>
 
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
