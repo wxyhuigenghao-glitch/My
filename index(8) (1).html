@@ -558,7 +558,7 @@
   #navbar .brand,
   body.dark-mode #navbar .brand{
     color:var(--ink);
-    font-family:var(--display);
+    font-family:var(--ui);
     font-size:16px;
     font-weight:500;
     letter-spacing:-.01em;
@@ -572,8 +572,10 @@
     padding:0 16px;
     border-radius:999px;
     color:rgba(var(--ink-rgb),.54);
-    font-size:10px;
-    letter-spacing:.13em;
+    font-family:var(--ui);
+    font-weight:500;
+    font-size:12px;
+    letter-spacing:.01em;
     transition:background .28s ease,color .28s ease,transform .28s ease;
   }
   #navbar .nav-links a:hover{
@@ -585,6 +587,7 @@
   body.dark-mode #navbar .nav-links a.active{
     color:#07100a;
     background:var(--accent);
+    border-radius:8px;
   }
   #navbar .nav-links a.active::after{display:none}
   .nav-right:empty{display:none}
@@ -1510,7 +1513,6 @@
     display:block;
     fill:currentColor;
   }
-
   #me .chrome{
     margin-bottom:4px;
     padding-bottom:0;
@@ -2641,14 +2643,529 @@
     #research .project-btn::before,
     #work .work-btn::before{width:36px;height:36px;font-size:12px}
   }
+
+  /* ==========================================================================
+     2026 information architecture — editorial overview before project details
+     ========================================================================== */
+  .section-overview,
+  .awards-shell{
+    width:min(100%,1440px);
+    min-height:0;
+    margin:auto;
+  }
+  .section-overview{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    gap:clamp(24px,4vh,52px);
+  }
+  .overview-heading{
+    display:grid;
+    grid-template-columns:minmax(0,1fr);
+    gap:10px;
+    max-width:1180px;
+  }
+  .overview-kicker{
+    color:var(--accent);
+    font-family:var(--ui);
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+  }
+  .overview-heading h2{
+    max-width:24ch;
+    color:var(--ink);
+    font-family:var(--ui);
+    font-size:clamp(34px,4.5vw,70px);
+    font-weight:600;
+    line-height:1.02;
+    letter-spacing:-.055em;
+  }
+  .overview-action,
+  .detail-back{
+    width:max-content;
+    border:1px solid var(--line-strong);
+    border-radius:999px;
+    background:var(--control-bg);
+    color:var(--ink);
+    font-family:var(--ui);
+    font-size:12px;
+    font-weight:600;
+    line-height:1;
+    cursor:pointer;
+    transition:transform .25s ease,border-color .25s ease,background .25s ease,color .25s ease;
+  }
+  .overview-action{padding:12px 16px}
+  .detail-back{padding:11px 16px}
+  .overview-action span{margin-left:8px;color:var(--accent)}
+  .overview-action:hover,
+  .detail-back:hover{
+    transform:translateY(-2px);
+    border-color:var(--accent);
+  }
+
+  /* Homepage scroll only shows the overview; detail decks are opt-in. */
+  #research:not(.detail-open) > .chrome,
+  #research:not(.detail-open) > .research-layout,
+  #work:not(.detail-open) > .chrome,
+  #work:not(.detail-open) > .work-layout{display:none}
+  #research.detail-open > .research-overview,
+  #work.detail-open > .work-overview{display:none}
+  #research.detail-open > .chrome,
+  #work.detail-open > .chrome{display:flex}
+  #research.detail-open > .research-layout,
+  #work.detail-open > .work-layout{display:grid}
+
+  /* Me — statement-led identity with a reserved roadmap image area. */
+  #me{justify-content:flex-start}
+  #me .me-new{
+    flex:1 1 auto;
+    display:grid;
+    grid-template-rows:auto auto auto;
+    align-content:center;
+    gap:clamp(22px,3.4vh,42px);
+    width:min(100%,1440px);
+    min-height:0;
+    margin:auto;
+  }
+  #me .me-manifesto{
+    max-width:none;
+    color:var(--ink);
+    font-family:var(--ui);
+    font-size:clamp(30px,3.9vw,58px);
+    font-weight:600;
+    line-height:.96;
+    letter-spacing:-.065em;
+    white-space:nowrap;
+  }
+  #me .me-intro-grid{
+    display:grid;
+    grid-template-columns:clamp(118px,10.5vw,174px) minmax(0,1fr);
+    gap:clamp(34px,5vw,82px);
+    align-items:center;
+    margin-top:14px;
+  }
+  #me .me-identity-block{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  #me .me-portrait{
+    position:relative;
+    width:clamp(118px,10.5vw,174px);
+    aspect-ratio:1;
+    overflow:hidden;
+    border:1px solid var(--line-strong);
+    border-radius:50%;
+    background:var(--surface);
+  }
+  #me .me-portrait img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  #me .me-statement{
+    display:grid;
+    gap:9px;
+    max-width:none;
+    color:rgba(var(--ink-rgb),.72);
+    font-family:var(--card-body);
+    font-size:clamp(12.5px,0.9vw,15px);
+    line-height:1.5;
+  }
+  #me .roadmap-placeholder{
+    position:relative;
+    overflow:hidden;
+    border-radius:var(--radius-md);
+    width:min(100%,1300px);
+    justify-self:center;
+    margin-top:-10px;
+  }
+  #me .roadmap-placeholder span{
+    color:var(--accent);
+    font-family:var(--ui);
+    font-size:10px;
+    font-weight:600;
+    letter-spacing:.18em;
+  }
+  #me .roadmap-placeholder strong{
+    font-family:var(--ui);
+    font-size:clamp(15px,1.25vw,19px);
+    font-weight:500;
+  }
+  #me .roadmap-placeholder img{
+    position:static;
+    width:100%;
+    height:auto;
+    aspect-ratio:1945 / 734;
+    object-fit:cover;
+    border:0;
+    background:transparent;
+    -webkit-mask-image:
+      linear-gradient(to bottom, transparent, #000 7%, #000 93%, transparent),
+      linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
+    -webkit-mask-composite: source-in;
+    mask-image:
+      linear-gradient(to bottom, transparent, #000 7%, #000 93%, transparent),
+      linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
+    mask-composite: intersect;
+  }
+
+  /* Research overview — three connected stages. */
+  .research-overview .overview-heading,
+  .work-overview .overview-heading{
+    width:100%;
+    max-width:1380px;
+  }
+  .research-overview .overview-heading h2,
+  .work-overview .overview-heading h2{
+    max-width:34ch;
+    font-size:clamp(30px,3.6vw,56px);
+    line-height:1.06;
+  }
+  .research-journey{
+    position:relative;
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:clamp(24px,5vw,86px);
+    width:min(100%,1260px);
+    margin-right:auto;
+    margin-left:auto;
+    padding-top:18px;
+  }
+  .research-journey::before{
+    content:"";
+    position:absolute;
+    top:83px;
+    left:7%;
+    right:7%;
+    height:2px;
+    background:linear-gradient(90deg,transparent,var(--accent-2) 12%,var(--accent-2) 88%,transparent);
+    opacity:.62;
+  }
+  .research-overview-item{
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    min-width:0;
+    text-align:center;
+  }
+  .journey-phase{
+    margin-bottom:18px;
+    color:var(--accent-2);
+    font-family:var(--ui);
+    font-size:12px;
+    font-weight:600;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+  }
+  .journey-number{
+    position:relative;
+    z-index:2;
+    width:70px;
+    height:70px;
+    display:grid;
+    place-items:center;
+    border:1px solid color-mix(in srgb,var(--accent-2) 65%,transparent);
+    border-radius:50%;
+    background:var(--page-bg);
+    color:var(--ink);
+    font-family:var(--ui);
+    font-size:20px;
+    font-weight:500;
+  }
+  .research-overview-item:last-child .journey-number{
+    border-color:var(--accent-2);
+    background:var(--accent-2);
+    color:#07100a;
+  }
+  .research-overview-item h3{
+    margin:22px 0 8px;
+    font-family:var(--ui);
+    font-size:clamp(24px,2.2vw,36px);
+    font-weight:600;
+    letter-spacing:-.035em;
+  }
+  .research-overview-item p{
+    max-width:34ch;
+    min-height:4.8em;
+    color:rgba(var(--ink-rgb),.66);
+    font-family:var(--card-body);
+    font-size:clamp(13px,.95vw,16px);
+    line-height:1.55;
+  }
+  .research-overview-item .overview-action{margin-top:18px}
+  .overview-thread{
+    align-self:center;
+    width:min(100%,1060px);
+    padding:15px 22px;
+    border:1px solid color-mix(in srgb,var(--accent-2) 46%,transparent);
+    border-radius:14px;
+    background:color-mix(in srgb,var(--accent-2) 7%,transparent);
+    color:var(--ink);
+    font-family:var(--ui);
+    font-size:clamp(15px,1.35vw,21px);
+    font-weight:600;
+    text-align:center;
+  }
+  .overview-thread span{padding:0 18px;color:var(--accent-2)}
+
+  /* Work overview — compact vertical professional timeline. */
+  .work-overview{gap:clamp(22px,3vh,36px)}
+  .work-overview .overview-heading h2{
+    max-width:none;
+    font-size:clamp(28px,2.75vw,48px);
+    letter-spacing:-.055em;
+    white-space:nowrap;
+  }
+  .work-timeline{
+    --work-timeline-pad:clamp(44px,4vw,60px);
+    position:relative;
+    display:grid;
+    gap:0;
+    width:min(100%,1320px);
+    max-height:calc(100svh - 270px);
+    margin-right:auto;
+    margin-left:auto;
+    padding:4px 18px 8px var(--work-timeline-pad);
+    overflow-y:auto;
+    scrollbar-width:thin;
+    scrollbar-color:rgba(var(--accent-rgb),.35) transparent;
+  }
+  .work-timeline::-webkit-scrollbar{width:5px}
+  .work-timeline::-webkit-scrollbar-thumb{background:rgba(var(--accent-rgb),.3);border-radius:10px}
+  .awards-timeline::before{
+    content:"";
+    position:absolute;
+    top:8px;
+    bottom:8px;
+    left:18px;
+    width:1px;
+    background:linear-gradient(var(--accent),color-mix(in srgb,var(--accent-2) 72%,transparent));
+  }
+  .work-overview-item{
+    position:relative;
+    display:grid;
+    grid-template-columns:clamp(135px,14vw,210px) minmax(0,1fr);
+    gap:clamp(22px,4vw,70px);
+    padding:0 0 clamp(24px,3vh,36px);
+  }
+  .work-overview-item:last-child{padding-bottom:0}
+  .work-overview-item::before,
+  .award-item::before{
+    content:"";
+    position:absolute;
+    top:7px;
+    width:11px;
+    height:11px;
+    border:2px solid var(--page-bg);
+    border-radius:50%;
+    background:var(--accent);
+    box-shadow:0 0 0 1px var(--accent);
+  }
+  .work-overview-item::before{left:calc(12px - var(--work-timeline-pad))}
+  .work-overview-item::before{z-index:2}
+  .work-overview-item::after{
+    content:"";
+    position:absolute;
+    z-index:1;
+    top:0;
+    bottom:0;
+    left:calc(18px - var(--work-timeline-pad));
+    width:1px;
+    background:color-mix(in srgb,var(--accent-2) 72%,var(--accent));
+  }
+  .work-overview-item:last-child::after{
+    bottom:auto;
+    height:15px;
+  }
+  .timeline-date{
+    color:rgba(var(--ink-rgb),.5);
+    font-family:var(--ui);
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+  }
+  .timeline-content{
+    padding-bottom:clamp(20px,2.5vh,32px);
+    border-bottom:1px solid var(--line);
+  }
+  .work-overview-item:last-child .timeline-content{border-bottom:0;padding-bottom:0}
+  .company-row{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:8px 20px;
+  }
+  .company-row h3{
+    font-family:var(--ui);
+    font-size:clamp(21px,1.8vw,30px);
+    font-weight:600;
+    letter-spacing:-.03em;
+  }
+  .company-row span,
+  .role-row{
+    color:rgba(var(--ink-rgb),.48);
+    font-family:var(--ui);
+    font-size:11px;
+    letter-spacing:.05em;
+  }
+  .role-row{margin:5px 0 11px;color:var(--accent-2)}
+  .timeline-content h4{
+    margin-bottom:7px;
+    font-family:var(--ui);
+    font-size:clamp(15px,1.1vw,18px);
+    font-weight:600;
+  }
+  .timeline-content ul{
+    display:grid;
+    gap:3px;
+    max-width:105ch;
+    padding-left:1.15em;
+    color:rgba(var(--ink-rgb),.66);
+    font-family:var(--card-body);
+    font-size:clamp(12px,.85vw,14px);
+    line-height:1.45;
+  }
+  .timeline-content .overview-action{margin-top:12px}
+  .work-overview-item--internship{
+    padding-bottom:clamp(16px,2vh,24px);
+  }
+  .work-overview-item--internship .timeline-content{
+    padding-bottom:clamp(16px,2vh,24px);
+  }
+  .work-overview-item--internship .company-row h3{
+    font-size:clamp(18px,1.45vw,24px);
+  }
+  .work-overview-item--internship .role-row{
+    margin:6px 0 0;
+    color:rgba(var(--ink-rgb),.58);
+    font-size:12px;
+  }
+
+  /* Awards — one continuous, scrollable vertical timeline. */
+  #awards{justify-content:flex-start}
+  #awards::before{
+    background:
+      radial-gradient(circle at 82% 18%,color-mix(in srgb,var(--accent-2) 9%,transparent),transparent 28%),
+      var(--section-bg);
+  }
+  .awards-shell{
+    flex:1;
+    display:grid;
+    grid-template-columns:minmax(300px,.75fr) minmax(520px,1.25fr);
+    gap:clamp(50px,8vw,130px);
+    align-items:start;
+    overflow:hidden;
+  }
+  .awards-heading{position:sticky;top:0}
+  .awards-heading h2{
+    max-width:18ch;
+    font-size:clamp(30px,3.6vw,56px);
+    line-height:1.06;
+  }
+  .awards-timeline{
+    --awards-timeline-pad:clamp(44px,4vw,60px);
+    position:relative;
+    display:grid;
+    gap:0;
+    max-height:calc(100svh - 150px);
+    padding:4px 22px 12px var(--awards-timeline-pad);
+    overflow-y:auto;
+    scrollbar-width:thin;
+    scrollbar-color:rgba(var(--accent-rgb),.35) transparent;
+  }
+  .awards-timeline::-webkit-scrollbar{width:5px}
+  .awards-timeline::-webkit-scrollbar-thumb{background:rgba(var(--accent-rgb),.3);border-radius:10px}
+  .award-item{
+    position:relative;
+    display:grid;
+    grid-template-columns:96px minmax(0,1fr);
+    gap:22px;
+    padding:0 0 clamp(18px,2.3vh,28px);
+  }
+  .awards-timeline::before{left:18px}
+  .award-item::before{left:calc(12px - var(--awards-timeline-pad))}
+  .award-item time{
+    color:var(--accent);
+    font-family:var(--ui);
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+  }
+  .award-item h3{
+    font-family:var(--ui);
+    font-size:clamp(16px,1.2vw,20px);
+    font-weight:400;
+    line-height:1.25;
+    letter-spacing:-.02em;
+  }
+  .award-item p{
+    margin-top:5px;
+    color:rgba(var(--ink-rgb),.52);
+    font-family:var(--card-body);
+    font-size:13px;
+    line-height:1.45;
+  }
+  .award-item a{color:var(--accent-2);text-decoration:none}
+  .award-item a:hover{text-decoration:underline}
+  .awards-foot{width:min(100%,1440px);margin-right:auto;margin-left:auto}
+
+  @media(max-width:900px){
+    .overview-heading h2{font-size:clamp(34px,7vw,58px)}
+    #me .me-new{grid-template-rows:auto auto auto;gap:24px}
+    #me .me-intro-grid{grid-template-columns:1fr;gap:22px}
+    #me .me-statement{max-width:none}
+    .research-journey{gap:20px}
+    .research-overview-item p{min-height:6.2em}
+    .overview-thread span{padding:0 8px}
+    .awards-shell{grid-template-columns:1fr;gap:28px;overflow:visible}
+    .awards-heading{position:static}
+    .awards-heading h2{max-width:22ch}
+    .awards-timeline{max-height:58svh}
+  }
+
+  @media(max-width:640px){
+    .section-overview{justify-content:flex-start;padding-top:24px;overflow-y:auto}
+    .overview-heading h2{font-size:clamp(31px,10vw,44px)}
+    #me .me-new{display:block;overflow-y:auto;padding-top:18px}
+    #me .me-manifesto{font-size:clamp(36px,12vw,54px);white-space:normal}
+    #me .me-intro-grid{display:grid;margin-top:28px}
+    #me .me-portrait{width:92px}
+    #me .roadmap-placeholder{margin-top:24px}
+    #me .foot{display:none}
+    .research-journey{grid-template-columns:1fr;padding:4px 0 10px 36px}
+    .research-journey::before{top:18px;bottom:12px;left:11px;right:auto;width:1px;height:auto;background:var(--accent-2)}
+    .research-overview-item{display:grid;grid-template-columns:56px minmax(0,1fr);column-gap:16px}
+    .journey-phase{grid-column:2;margin:0 0 5px}
+    .journey-number{grid-column:1;grid-row:1 / span 5;width:46px;height:46px;margin-left:-48px;font-size:15px}
+    .research-overview-item h3{grid-column:2;margin:0 0 5px;font-size:24px}
+    .research-overview-item p{grid-column:2;min-height:0;font-size:13px}
+    .research-overview-item .overview-action{grid-column:2;margin:10px 0 18px}
+    .overview-thread{display:none}
+    .work-overview{padding-bottom:22px}
+    .work-overview .overview-heading h2{white-space:normal}
+    .work-overview-item{grid-template-columns:1fr;gap:7px}
+    .company-row{display:block}
+    .company-row span{display:block;margin-top:4px}
+    .timeline-content ul{font-size:13px}
+    .awards-shell{display:flex;flex-direction:column;overflow:hidden}
+    .work-timeline{--work-timeline-pad:44px;width:100%;max-height:64svh;padding-left:var(--work-timeline-pad);padding-right:6px}
+    .awards-timeline{--awards-timeline-pad:44px;width:100%;max-height:62svh;padding-left:var(--awards-timeline-pad);padding-right:6px}
+    .award-item{grid-template-columns:76px minmax(0,1fr);gap:13px}
+    .award-item::before{left:calc(12px - var(--awards-timeline-pad))}
+    .awards-foot{display:none}
+  }
 </style>
 </head>
-<body class="dark-mode">
+<body>
   <script>
     (function(){
       try{
         var savedTheme=localStorage.getItem('simone-color-theme');
-        document.body.classList.toggle('dark-mode',savedTheme?savedTheme==='dark':true);
+        document.body.classList.toggle('dark-mode',savedTheme?savedTheme==='dark':false);
       }catch(error){}
     })();
   </script>
@@ -2673,6 +3190,7 @@
       <a href="#me" class="active" data-i18n="nav_me">Me</a>
       <a href="#research" data-i18n="nav_research">Research</a>
       <a href="#work" data-i18n="nav_work">Work</a>
+      <a href="#awards">Awards</a>
       <div class="nav-right">
         <button class="theme-toggle" id="modeToggle" type="button" aria-label="Switch to light mode" aria-pressed="true" title="Switch color theme">
           <svg class="icon-sun" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"></path></svg>
@@ -2685,31 +3203,70 @@
   <main>
    <!-- ===== Me ===== -->
     <section id="me" class="section light hero" data-theme="light">
-      <div class="me-profile" data-anim="up" data-anim-delay="0.02">
-        <img class="light-img" src="assets/fig./微信图片_20260621160850_75_10.jpg" alt="Portrait of Simone Weng">
-        <img class="dark-img" src="assets/fig./darkmode-selfie.jpg" alt="Portrait of Simone Weng">
-      </div>
-      
-      <!-- 重点修改了这里面的内容 -->
-      <div class="me-layout">
-        <!-- 浅色模式图片组 (默认显示) -->
-        <img class="me-img me-img-timeline light-img" src="assets/fig./浅色模式.png" alt="Timeline Light" data-anim="up" data-anim-delay="0.06">
+      <div class="me-new">
+        <h1 class="me-manifesto" data-anim="up">Understanding people. Building for real life.</h1>
 
-        <!-- 深色模式图片组 (深色模式下显示) -->
-        <img class="me-img me-img-timeline dark-img" src="assets/fig./深色模式.png" alt="Timeline Dark" data-anim="up" data-anim-delay="0.06">
+        <div class="me-intro-grid">
+          <div class="me-identity-block" data-anim="up" data-anim-delay="0.04">
+            <div class="me-portrait">
+              <img class="light-img" src="assets/fig./微信图片_20260621160850_75_10.jpg" alt="Portrait of Xinyu Weng">
+              <img class="dark-img" src="assets/fig./darkmode-selfie.jpg" alt="Portrait of Xinyu Weng">
+            </div>
+          </div>
+
+          <div class="me-statement" data-anim="up" data-anim-delay="0.08">
+            <p>Hi, I'm Xinyu. My earlier research examined how user emotions and states can be measured through psychometric methods, physiological sensing, and behavioral observation, then translating evidences into design strategies. In the future, I aspire to pursue research in physical AI. <strong>I've always believed Intelligence is not always about efficiency—it can be more stories about “joy” and “companion”,</strong> better understanding such nuanced and diverse human emotions and affection is vital to shaping the future of Human-AI symbiosis, especially in tracks like digital companionship and home care.</p>
+            <p><strong>I wanna continue to link understanding human affect with real-world assistance. The carrier does not have to be humanoid, the research focus is accurate interpretation and appropriate action.</strong></p>
+            <p><strong>Key words:</strong> HCI; Human-AI/robots interaction; Affective Computing; Multimodal Perception; Digital Health.</p>
+          </div>
+        </div>
+
+        <div class="roadmap-placeholder" data-anim="up" data-anim-delay="0.12">
+          <img class="light-img" src="assets/fig./experience_road_light.png" alt="Future research roadmap — light mode">
+          <img class="dark-img" src="assets/fig./experience_road_dark1.png" alt="Future research roadmap — dark mode">
+        </div>
       </div>
-      <!-- 修改结束 -->
 
       <div class="foot">
-        <span class="title">update 2026/6/24 00:13</span>
-        <span>01 / 03</span>
+        <span class="title">Researcher × AI Product Manager</span>
+        <span>01 / 04</span>
       </div>
     </section>
 
     <!-- ===== Research ===== -->
     <section id="research" class="section dark" data-theme="dark">
+      <div class="section-overview research-overview">
+        <div class="overview-heading">
+          <span class="overview-kicker">Research Overview</span>
+          <h2>One consistent thread: measure human states, then translate evidence into interaction.</h2>
+        </div>
+        <div class="research-journey" aria-label="Research project overview">
+          <article class="research-overview-item">
+            <span class="journey-phase">Analyze</span>
+            <div class="journey-number">01</div>
+            <h3>Visual Factors</h3>
+            <p>Refined emotion measurement through E-PrEmo and tested how five visual factors shape positive affect.</p>
+            <button class="overview-action" type="button" data-open-research="0">View details <span>↗</span></button>
+          </article>
+          <article class="research-overview-item">
+            <span class="journey-phase">Apply</span>
+            <div class="journey-number">02</div>
+            <h3>SandplayAR</h3>
+            <p>Built and evaluated a smartphone AR psychometric tool using subjective scales and physiological measures.</p>
+            <button class="overview-action" type="button" data-open-research="1">View details <span>↗</span></button>
+          </article>
+          <article class="research-overview-item">
+            <span class="journey-phase">Full-stack</span>
+            <div class="journey-number">03</div>
+            <h3>HiMeet</h3>
+            <p>Connected causal analysis, multimodal role-play research, and an AR + AI concept for real-world social interaction.</p>
+            <button class="overview-action" type="button" data-open-research="2">View details <span>↗</span></button>
+          </article>
+        </div>
+        <div class="overview-thread">Measurement innovation <span>→</span> multimodal validation <span>→</span> evidence-led design</div>
+      </div>
       <div class="chrome">
-        <div class="left"><span data-i18n="sec_research_sub">Plain-language brief for quick reading — not original text.</span></div>
+        <div class="left"><button class="detail-back" type="button" data-close-detail="research">← Back to overview</button></div>
       </div>
       <div class="research-layout">
         <div class="research-sidebar" role="tablist" aria-label="Research projects">
@@ -3213,8 +3770,65 @@
 
     <!-- ===== Work ===== -->
     <section id="work" class="section light" data-theme="light">
+      <div class="section-overview work-overview">
+        <div class="overview-heading">
+          <span class="overview-kicker">Work Overview</span>
+          <h2>From consumer-scale mobility to enterprise AI.</h2>
+        </div>
+        <div class="work-timeline" aria-label="Professional experience overview">
+          <article class="work-overview-item">
+            <div class="timeline-date">Jul. 2025 — Present</div>
+            <div class="timeline-content">
+              <div class="company-row"><h3>Wangsu Science &amp; Technology Co., Ltd.</h3><span>Global CDN Provider · 3K+ Edge Nodes</span></div>
+              <div class="role-row">Senior Product Manager</div>
+              <h4>SalesAI: an AI assistant for Sales Teams (0-to-1)</h4>
+              <ul>
+                <li>Planned SalesAI's roadmap and core features across pre-sale lead acquisition, in-sale knowledge retrieval, and after-sale information management.</li>
+                <li>Designed hybrid intent recognition (regex + LLM context + vector retrieval + dynamic thresholds), lifting F1 from 66.8% to 89.1%.</li>
+                <li>Defined UX standards: Digital Avatar, Data Dashboard, Agents Store, ShortCuts, etc.</li>
+                <li>Built dual-route AgenticRAG (local expert vs. general web retrieval) to curb hallucination, plus AgentWorkflows exposing 21 APIs for NLP-triggered auto data entry and customer info queries.</li>
+              </ul>
+              <button class="overview-action" type="button" data-open-work="1">View details <span>↗</span></button>
+            </div>
+          </article>
+          <article class="work-overview-item">
+            <div class="timeline-date">Jul. 2023 — Jul. 2025</div>
+            <div class="timeline-content">
+              <div class="company-row"><h3>BYD Auto Industry Co., Ltd.</h3><span>Global Top Automaker · 20M+ Users</span></div>
+              <div class="role-row">Senior Product Manager · Recognized as High-Potential Talent</div>
+              <h4>Smart Charging App · Comprehensive Upgrade</h4>
+              <ul>
+                <li>Revitalized a neglected product into a high-marketing-value asset, raising utilization from 13% to 30% and UX score from 6 to 7.5.</li>
+                <li>Conducted fieldwork in Manchester and identified a UK home/public charging ratio opposite to the domestic market.</li>
+              </ul>
+              <button class="overview-action" type="button" data-open-work="0">View details <span>↗</span></button>
+            </div>
+          </article>
+          <article class="work-overview-item work-overview-item--internship">
+            <div class="timeline-date">Jun. 2022 — Sep. 2022</div>
+            <div class="timeline-content">
+              <div class="company-row"><h3>Huawei Technologies Co., Ltd.</h3></div>
+              <div class="role-row">UX Design &amp; Research Intern</div>
+            </div>
+          </article>
+          <article class="work-overview-item work-overview-item--internship">
+            <div class="timeline-date">Oct. 2021 — Apr. 2022</div>
+            <div class="timeline-content">
+              <div class="company-row"><h3>NetEase Interactive Entertainment</h3></div>
+              <div class="role-row">Community Product Manager Intern</div>
+            </div>
+          </article>
+          <article class="work-overview-item work-overview-item--internship">
+            <div class="timeline-date">Jun. 2021 — Sep. 2021</div>
+            <div class="timeline-content">
+              <div class="company-row"><h3>NetEase Interactive Entertainment</h3></div>
+              <div class="role-row">Game Interaction Designer Intern</div>
+            </div>
+          </article>
+        </div>
+      </div>
       <div class="chrome">
-        <div class="left"><span data-i18n="sec_work">Work Experience</span><span class="sep"></span><span data-i18n="sec_work_sub">Professional</span></div>
+        <div class="left"><button class="detail-back" type="button" data-close-detail="work">← Back to overview</button></div>
         <span class="legacy-section-index">03</span>
       </div>
       <div class="work-layout">
@@ -3394,6 +4008,51 @@
           </div>
         </div>
       </div>
+    </section>
+
+    <!-- ===== Awards ===== -->
+    <section id="awards" class="section dark" data-theme="dark">
+      <div class="awards-shell">
+        <div class="overview-heading awards-heading">
+          <span class="overview-kicker">Awards &amp; Recognition</span>
+          <h2>A record of academic, design, and innovation achievements.</h2>
+        </div>
+        <div class="awards-timeline">
+          <article class="award-item">
+            <time>Aug. 2023</time>
+            <div><h3>Institute 3rd Prize · BYD Innovation Proposal Contest</h3><p>Work: Parking Assistant Product Demo</p></div>
+          </article>
+          <article class="award-item">
+            <time>Jan. 2022</time>
+            <div><h3>National Scholarship · Top 1%</h3><p>Ministry of Education</p></div>
+          </article>
+          <article class="award-item">
+            <time>Jan. 2022</time>
+            <div><h3>Practice-Oriented Graduate Student Honor · Top 1%</h3><p>Graduate School of South China University of Technology</p></div>
+          </article>
+          <article class="award-item">
+            <time>Oct. 2021</time>
+            <div><h3>National 3rd Prize · UXDA</h3><p>International User Experience Innovation Competition · <a href="https://www.figma.com/proto/IoKF1HQGETLtMadKt8ZtEC/%E7%BF%81%E5%BF%83%E5%AE%87%E4%BD%9C%E5%93%81%E9%9B%86%EF%BC%88new%EF%BC%89?node-id=416-40&amp;p=f&amp;t=eoehvM8xKqJZQpWr-1&amp;scaling=scale-down-width&amp;content-scaling=fixed&amp;page-id=0%3A1" target="_blank" rel="noopener noreferrer">Campus Pick-up Service Design ↗</a></p></div>
+          </article>
+          <article class="award-item">
+            <time>Aug. 2019</time>
+            <div><h3>National 1st Prize · China Packaging Creative Design Contest</h3><p>Work: Waxing and Waning</p></div>
+          </article>
+          <article class="award-item">
+            <time>May 2019</time>
+            <div><h3>Enterprise 2nd Prize · Shanghai Jifeng Packaging Design Contest</h3><p>Work: Circular Duck</p></div>
+          </article>
+          <article class="award-item">
+            <time>Apr. 2019</time>
+            <div><h3>National 2nd &amp; Provincial 1st Prize · China Collegiate Computing Contest</h3><p>Digital Media category · Work: Dream Shatter</p></div>
+          </article>
+          <article class="award-item">
+            <time>Mar. 2019</time>
+            <div><h3>S Prize · Interdisciplinary Contest in Modeling (ICM)</h3><p>International mathematical modeling competition</p></div>
+          </article>
+        </div>
+      </div>
+      <div class="foot awards-foot"><span class="title">Recognition across research, product, and design</span><span>04 / 04</span></div>
     </section>
 
   </main>
@@ -3778,6 +4437,19 @@
     });
   });
 
+  document.querySelectorAll('[data-open-research]').forEach(function(button){
+    button.addEventListener('click',function(){
+      var researchSection=document.getElementById('research');
+      activateProject(button.dataset.openResearch);
+      researchSection.classList.add('detail-open');
+      window.scrollTo({top:researchSection.offsetTop,behavior:'smooth'});
+      requestAnimationFrame(function(){
+        var activePaper=researchSection.querySelector('.research-paper.active');
+        if(activePaper)activePaper.scrollTop=0;
+      });
+    });
+  });
+
   /* Reveal section chrome only when it enters the viewport. */
   var sectionObserver=new IntersectionObserver(function(entries){
     entries.forEach(function(entry){
@@ -3801,7 +4473,7 @@
     }
     document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>40);
   }
-  navLinks.forEach(function(a){a.addEventListener('click',function(e){var href=a.getAttribute('href');if(href&&href.startsWith('#')){e.preventDefault();var el=document.getElementById(href.slice(1));if(el){navLinks.forEach(function(link){link.classList.remove('active')});a.classList.add('active');window.scrollTo({top:el.offsetTop,behavior:'smooth'});(document.querySelector('.nav-links')||{}).classList&&document.querySelector('.nav-links').classList.remove('open')}}})});
+  navLinks.forEach(function(a){a.addEventListener('click',function(e){var href=a.getAttribute('href');if(href&&href.startsWith('#')){e.preventDefault();var el=document.getElementById(href.slice(1));if(el){document.querySelectorAll('#research.detail-open,#work.detail-open').forEach(function(section){section.classList.remove('detail-open')});navLinks.forEach(function(link){link.classList.remove('active')});a.classList.add('active');window.scrollTo({top:el.offsetTop,behavior:'smooth'});(document.querySelector('.nav-links')||{}).classList&&document.querySelector('.nav-links').classList.remove('open')}}})});
   (document.querySelector('.nav-toggle')||{}).addEventListener&&document.querySelector('.nav-toggle').addEventListener('click',function(){var nl=document.querySelector('.nav-links');if(nl)nl.classList.toggle('open')});
   window.addEventListener('scroll',updateNav,{passive:true});
   window.addEventListener('resize',updateNav,{passive:true});
@@ -3831,6 +4503,29 @@
       if(activePanel)activePanel.scrollTop=0;
       if(idx==='0')setBydImg(0);
       if(idx==='1')setWangsuPage(0);
+    });
+  });
+
+  document.querySelectorAll('[data-open-work]').forEach(function(button){
+    button.addEventListener('click',function(){
+      var workSection=document.getElementById('work');
+      var target=[].slice.call(workBtns).find(function(btn){return btn.dataset.work===button.dataset.openWork});
+      if(target)target.click();
+      workSection.classList.add('detail-open');
+      window.scrollTo({top:workSection.offsetTop,behavior:'smooth'});
+    });
+  });
+
+  document.querySelectorAll('[data-close-detail]').forEach(function(button){
+    button.addEventListener('click',function(){
+      var section=document.getElementById(button.dataset.closeDetail);
+      if(!section)return;
+      section.classList.remove('detail-open');
+      window.scrollTo({top:section.offsetTop,behavior:'smooth'});
+      requestAnimationFrame(function(){
+        var firstAction=section.querySelector('.section-overview .overview-action');
+        if(firstAction)firstAction.focus({preventScroll:true});
+      });
     });
   });
 
@@ -3944,6 +4639,7 @@
     /* Bring the Research section into view. */
     var researchSection=document.getElementById('research');
     if(researchSection){
+      researchSection.classList.add('detail-open');
       window.scrollTo({top:researchSection.offsetTop,behavior:'auto'});
     }
 
