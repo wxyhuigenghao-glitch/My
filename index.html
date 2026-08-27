@@ -2771,42 +2771,83 @@
     font-size:clamp(12.5px,0.9vw,15px);
     line-height:1.5;
   }
-  #me .roadmap-placeholder{
-    position:relative;
-    overflow:hidden;
-    border-radius:var(--radius-md);
+  /* Experience roadmap — editable SVG; the same typeface as .me-statement. */
+  #me .experience-roadmap{
+    --roadmap-research:#608e08;
+    --roadmap-byd:#b22ac8;
+    --roadmap-wangsu:#2868bf;
+    --roadmap-area-opacity:.52;
     width:min(100%,1300px);
+    min-width:0;
     justify-self:center;
-    margin-top:-10px;
+    margin:-10px 0 0;
+    font-family:var(--card-body);
+    color:rgba(var(--ink-rgb),.78);
   }
-  #me .roadmap-placeholder span{
-    color:var(--accent);
-    font-family:var(--ui);
-    font-size:10px;
-    font-weight:600;
-    letter-spacing:.18em;
+  body.dark-mode #me .experience-roadmap{
+    --roadmap-research:#a7d34a;
+    --roadmap-byd:#e982f3;
+    --roadmap-wangsu:#82b5ff;
+    --roadmap-area-opacity:.34;
   }
-  #me .roadmap-placeholder strong{
-    font-family:var(--ui);
-    font-size:clamp(15px,1.25vw,19px);
-    font-weight:500;
+  #me .roadmap-scroll{
+    max-width:100%;
+    overflow-x:auto;
+    overflow-y:hidden;
+    overscroll-behavior-x:contain;
+    scrollbar-width:thin;
+    scrollbar-color:var(--line-strong) transparent;
+    border-radius:8px;
   }
-  #me .roadmap-placeholder img{
-    position:static;
+  #me .roadmap-scroll:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+  #me .roadmap-svg{
+    display:block;
     width:100%;
     height:auto;
+    min-width:1040px;
     aspect-ratio:1945 / 734;
-    object-fit:cover;
-    border:0;
-    background:transparent;
-    -webkit-mask-image:
-      linear-gradient(to bottom, transparent, #000 7%, #000 93%, transparent),
-      linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
-    -webkit-mask-composite: source-in;
-    mask-image:
-      linear-gradient(to bottom, transparent, #000 7%, #000 93%, transparent),
-      linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
-    mask-composite: intersect;
+    overflow:hidden;
+    font-family:inherit;
+    font-size:20px;
+    line-height:1.4;
+    isolation:isolate;
+  }
+  #me .roadmap-svg text{
+    font-family:inherit;
+    letter-spacing:0;
+    fill:currentColor;
+    user-select:text;
+    -webkit-user-select:text;
+  }
+  #me .roadmap-svg .rm-title{font-size:25px;font-weight:600}
+  #me .roadmap-svg .rm-role{font-size:24px;font-weight:500;fill:var(--ink)}
+  #me .roadmap-svg .rm-date{font-size:22px;font-weight:500}
+  #me .roadmap-svg .rm-phase{font-size:26px;font-weight:600;fill:var(--ink)}
+  #me .roadmap-svg .rm-skills{font-size:22px;font-weight:600}
+  #me .roadmap-svg .rm-research{color:var(--roadmap-research)}
+  #me .roadmap-svg .rm-byd{color:var(--roadmap-byd)}
+  #me .roadmap-svg .rm-wangsu{color:var(--roadmap-wangsu)}
+  #me .roadmap-svg .rm-orbits{fill:none;stroke:var(--ink);stroke-width:1;opacity:.075}
+  #me .roadmap-svg .rm-curve{fill:none;stroke:url(#rm-curve-fade);stroke-width:2.3;stroke-linecap:round;stroke-linejoin:round;opacity:.68}
+  #me .roadmap-svg .rm-curve-stop{stop-color:var(--ink)}
+  #me .roadmap-svg .rm-axis{fill:none;stroke:currentColor;stroke-width:2}
+  #me .roadmap-svg .rm-guide{fill:none;stroke:currentColor;stroke-width:1.2;opacity:.6}
+  #me .roadmap-svg .rm-area{opacity:var(--roadmap-area-opacity)}
+  #me .roadmap-svg .rm-rule{stroke:currentColor;stroke-width:2.5;opacity:.85}
+  #me .roadmap-svg .rm-dot{fill:var(--paper);stroke:var(--ink);stroke-width:1.5}
+  #me .roadmap-mobile-hint{display:none}
+  @media(max-width:1180px){
+    #me .roadmap-mobile-hint{
+      display:block;
+      margin-top:8px;
+      font-family:inherit;
+      font-size:12px;
+      color:rgba(var(--ink-rgb),.55);
+      text-align:center;
+    }
+  }
+  @media(max-width:640px){
+    #me .experience-roadmap{margin-top:24px}
   }
 
   /* Research overview — three connected stages. */
@@ -3097,8 +3138,8 @@
   }
   .award-item h3{
     font-family:var(--ui);
-    font-size:clamp(16px,1.2vw,20px);
-    font-weight:400;
+    font-size:clamp(15px,1.1vw,18px);
+    font-weight:600;
     line-height:1.25;
     letter-spacing:-.02em;
   }
@@ -3134,7 +3175,6 @@
     #me .me-manifesto{font-size:clamp(36px,12vw,54px);white-space:normal}
     #me .me-intro-grid{display:grid;margin-top:28px}
     #me .me-portrait{width:92px}
-    #me .roadmap-placeholder{margin-top:24px}
     #me .foot{display:none}
     .research-journey{grid-template-columns:1fr;padding:4px 0 10px 36px}
     .research-journey::before{top:18px;bottom:12px;left:11px;right:auto;width:1px;height:auto;background:var(--accent-2)}
@@ -3221,10 +3261,161 @@
           </div>
         </div>
 
-        <div class="roadmap-placeholder" data-anim="up" data-anim-delay="0.12">
-          <img class="light-img" src="assets/fig./experience_road_light.png" alt="Future research roadmap — light mode">
-          <img class="dark-img" src="assets/fig./experience_road_dark1.png" alt="Future research roadmap — dark mode">
-        </div>
+        <figure class="experience-roadmap" data-anim="up" data-anim-delay="0.12" aria-label="Education, research and industry experience roadmap">
+          <div class="roadmap-scroll" tabindex="0" role="region" aria-label="Experience roadmap. Scroll horizontally on smaller screens.">
+            <!-- Edit the text and tspan elements below to update this roadmap.
+                 All type inherits --card-body, shared with the personal statement.
+                 The curve is an illustrative journey, not a quantitative chart. -->
+            <svg class="roadmap-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1945 734" role="img" aria-labelledby="rm-title rm-description">
+              <title id="rm-title">From design awakening to research, industry practice and a future Ph.D</title>
+              <desc id="rm-description">Zhengzhou University, B.S. in Packaging Engineering, September 2016 to June 2020. South China University of Technology, M.S. in Industrial Design Engineering, September 2020 to June 2023. BYD Auto Industry Co., Ltd., Senior Product Manager, July 2023 to July 2025. Wangsu Technology Co., Ltd., Senior Product Manager, July 2025 to present. A curved timeline connects these stages and continues toward a Ph.D. All text is selectable.</desc>
+              <defs>
+                <!-- Fade the journey curve at both ends; colour follows the theme. -->
+                <linearGradient id="rm-curve-fade" gradientUnits="userSpaceOnUse" x1="100" y1="0" x2="1735" y2="0">
+                  <stop class="rm-curve-stop" offset="0" stop-opacity="0"/>
+                  <stop class="rm-curve-stop" offset=".12" stop-opacity=".55"/>
+                  <stop class="rm-curve-stop" offset=".28" stop-opacity="1"/>
+                  <stop class="rm-curve-stop" offset=".70" stop-opacity="1"/>
+                  <stop class="rm-curve-stop" offset=".90" stop-opacity=".45"/>
+                  <stop class="rm-curve-stop" offset="1" stop-opacity="0"/>
+                </linearGradient>
+                <linearGradient id="rm-research-fill" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="rgb(139,208,24)" stop-opacity="0"/>
+                  <stop offset=".18" stop-color="rgb(139,208,24)" stop-opacity=".55"/>
+                  <stop offset="1" stop-color="rgb(139,208,24)"/>
+                </linearGradient>
+                <linearGradient id="rm-byd-fill" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="rgb(221,51,238)" stop-opacity="0"/>
+                  <stop offset=".18" stop-color="rgb(221,51,238)" stop-opacity=".45"/>
+                  <stop offset="1" stop-color="rgb(221,51,238)"/>
+                </linearGradient>
+                <linearGradient id="rm-wangsu-fill" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="rgb(65,139,244)" stop-opacity="0"/>
+                  <stop offset=".18" stop-color="rgb(65,139,244)" stop-opacity=".5"/>
+                  <stop offset="1" stop-color="rgb(65,139,244)"/>
+                </linearGradient>
+              </defs>
+
+              <!-- Light orbital arcs and the original three coloured stages. -->
+              <g class="rm-orbits" aria-hidden="true">
+                <ellipse cx="935" cy="593" rx="905" ry="735"/>
+                <ellipse cx="935" cy="593" rx="777" ry="612"/>
+                <ellipse cx="935" cy="593" rx="657" ry="486"/>
+                <ellipse cx="935" cy="593" rx="476" ry="322"/>
+              </g>
+              <g class="rm-area" aria-hidden="true">
+                <path d="M475 375 H1050 V600 H475 Z" fill="url(#rm-research-fill)"/>
+                <path d="M1050 360 H1428 V600 H1050 Z" fill="url(#rm-byd-fill)"/>
+                <path d="M1428 398 H1735 V600 H1428 Z" fill="url(#rm-wangsu-fill)"/>
+              </g>
+
+              <!-- Education and employment labels: editable text, not images. -->
+              <g>
+                <text class="rm-title" x="66" y="253">Zhengzhou University</text>
+                <text class="rm-role" x="66" y="280">B.S. in Packaging Engineering</text>
+                <path class="rm-rule" d="M66 295 H454"/>
+                <text x="60" y="329">
+                  <tspan x="60">•</tspan><tspan x="89">Overall Rank: Top 5%</tspan>
+                  <tspan x="60" dy="34">•</tspan><tspan x="89">Awarded in 10+ National competitions</tspan>
+                  <tspan x="89" dy="32">4-years University Merit Scholarship</tspan>
+                  <tspan x="60" dy="34">•</tspan><tspan x="89">Founded a photography studio, making</tspan>
+                  <tspan x="89" dy="27">profit of 10K+ RMB per month.</tspan>
+                </text>
+              </g>
+              <g>
+                <text class="rm-title rm-research" x="475" y="151">South China University of Technology</text>
+                <text class="rm-role" x="475" y="179">M.S. in Industrial Design Engineering</text>
+                <path class="rm-rule rm-research" d="M475 199 H1035"/>
+                <text x="475" y="232">
+                  <tspan x="475">•</tspan><tspan x="505">National Scholarship (Top 1% for academic excellence)</tspan>
+                  <tspan x="475" dy="39">•</tspan><tspan x="505">Practice-Oriented Graduate Student Honor (1%)</tspan>
+                  <tspan x="475" dy="39">•</tspan><tspan x="505">Published 2 papers in top SSCI journals (Q1 &amp; Q3)</tspan>
+                  <tspan x="475" dy="39">•</tspan><tspan x="505">Master’s thesis received Double-A (Top 5%)</tspan>
+                </text>
+              </g>
+              <g>
+                <text class="rm-title rm-byd" x="1045" y="79">BYD Auto Industry Co., Ltd.</text>
+                <text class="rm-role" x="1045" y="106">Senior Product Manager</text>
+                <path class="rm-rule rm-byd" d="M1045 123 H1418"/>
+                <text x="1043" y="157">
+                  <tspan x="1043">•</tspan><tspan x="1073">Recognized as High-Potential Talent</tspan>
+                  <tspan x="1043" dy="34">•</tspan><tspan x="1073">Independently took charge of the</tspan>
+                  <tspan x="1073" dy="26">charging app, boosting its usage rate</tspan>
+                  <tspan x="1073" dy="26">from 13% to 30%, and UX scores</tspan>
+                  <tspan x="1073" dy="26">from 5/10 to 8/10</tspan>
+                  <tspan x="1043" dy="34">•</tspan><tspan x="1073">Conduct on-site research in</tspan>
+                  <tspan x="1073" dy="26">Manchester for localized design</tspan>
+                </text>
+              </g>
+              <g>
+                <text class="rm-title rm-wangsu" x="1443" y="156">Wangsu Technology Co., Ltd.</text>
+                <text class="rm-role" x="1443" y="184">Senior Product Manager</text>
+                <path class="rm-rule rm-wangsu" d="M1443 201 H1780"/>
+                <text x="1443" y="233">
+                  <tspan x="1443">•</tspan><tspan x="1473">Led the 0-to-1 plan and design of</tspan>
+                  <tspan x="1473" dy="26">SalesAI (AI Assistant app)</tspan>
+                  <tspan x="1443" dy="37">•</tspan><tspan x="1473">Constructed domain-specific agent</tspan>
+                  <tspan x="1473" dy="26">workflows, and optimized LLM Intent</tspan>
+                  <tspan x="1473" dy="26">recognition strategy</tspan>
+                </text>
+              </g>
+
+              <!-- Smooth Bézier journey and milestone guides. -->
+              <g aria-hidden="true">
+                <path class="rm-curve" d="M100 573 C124 563 136 561 148 560 S174 548 205 546 S254 537 276 536 S309 522 328 518 S382 529 407 524 S461 500 475 491 S503 488 521 478 S562 451 589 447 S623 446 658 434 S697 424 715 427 S763 432 782 435 S842 390 870 377 S908 373 929 376 S974 393 992 392 S1028 382 1059 374 S1083 374 1104 373 S1176 363 1207 362 S1287 374 1320 385 S1372 432 1413 449 S1480 454 1519 448 S1556 448 1581 440 S1631 436 1663 432 S1714 418 1735 416"/>
+                <path class="rm-guide" d="M328 497 V518 M734 357 V420"/>
+                <path class="rm-guide rm-byd" d="M1158 337 V363"/>
+                <path class="rm-guide rm-wangsu" d="M1534 412 V439"/>
+                <circle class="rm-dot" cx="328" cy="518" r="3.5"/>
+                <circle class="rm-dot" cx="870" cy="377" r="3.5"/>
+                <circle class="rm-dot" cx="1207" cy="362" r="3.5"/>
+                <circle class="rm-dot" cx="1581" cy="440" r="3.5"/>
+              </g>
+              <text class="rm-skills rm-research" text-anchor="middle" x="765" y="484">
+                <tspan x="765">Affective Computing</tspan>
+                <tspan x="765" dy="25">Immersive HCI (AR)</tspan>
+                <tspan x="765" dy="25">Digital Health</tspan>
+                <tspan x="765" dy="25">Quantitative Experimental Design</tspan>
+              </text>
+              <text class="rm-skills rm-byd" text-anchor="middle" x="1240" y="493">
+                <tspan x="1240">C-End Product Thinking</tspan>
+                <tspan x="1240" dy="25">Global Vision</tspan>
+                <tspan x="1240" dy="25">User Growth</tspan>
+              </text>
+              <text class="rm-skills rm-wangsu" text-anchor="middle" x="1582" y="496">
+                <tspan x="1582">B-End Product Thinking</tspan>
+                <tspan x="1582" dy="25">AI Product Thinking</tspan>
+                <tspan x="1582" dy="25">Agent Implementation</tspan>
+              </text>
+
+              <!-- Time axis, phase labels, and the Ph.D destination. -->
+              <g aria-hidden="true">
+                <path class="rm-axis" d="M98 600 H465" stroke-dasharray="8 7" opacity=".5"/>
+                <path d="M465 594 L475 600 L465 606 Z" fill="currentColor" opacity=".5"/>
+                <path class="rm-axis rm-research" d="M475 600 H1039"/>
+                <path class="rm-research" d="M1039 593 L1051 600 L1039 607 Z" fill="currentColor"/>
+                <path class="rm-axis rm-byd" d="M1051 600 H1417"/>
+                <path class="rm-byd" d="M1417 593 L1429 600 L1417 607 Z" fill="currentColor"/>
+                <path class="rm-axis rm-wangsu" d="M1429 600 H1735"/>
+                <path class="rm-axis rm-wangsu" d="M1735 600 H1798" stroke-dasharray="6 4"/>
+                <path class="rm-guide" d="M670 593 V607 M860 593 V607 M1240 593 V607"/>
+                <g transform="translate(1798 560)">
+                  <path d="M0 42 V0" stroke="#f14e72" stroke-width="3"/>
+                  <path d="M1 3 C13 -1 23 8 39 3 V24 C23 29 13 19 1 23 Z" fill="#f69cad" stroke="#f14e72" stroke-width="3"/>
+                </g>
+              </g>
+              <text class="rm-date" text-anchor="middle" x="275" y="632">Sep. 2016 – Jun. 2020</text>
+              <text class="rm-date" text-anchor="middle" x="765" y="632">Sep. 2020 – Jun. 2023</text>
+              <text class="rm-date" text-anchor="middle" x="1240" y="632">July 2023 – July 2025</text>
+              <text class="rm-date" text-anchor="middle" x="1582" y="632">July 2025 – Present</text>
+              <text class="rm-phase" text-anchor="middle" x="275" y="678">Design Awakening</text>
+              <text class="rm-phase" text-anchor="middle" x="765" y="678">Research</text>
+              <text class="rm-phase" text-anchor="middle" x="1420" y="678">Industry Practice</text>
+              <text class="rm-phase" text-anchor="middle" x="1804" y="678">Ph.D</text>
+            </svg>
+          </div>
+          <figcaption class="roadmap-mobile-hint">Scroll horizontally to explore the roadmap →</figcaption>
+        </figure>
       </div>
 
       <div class="foot">
