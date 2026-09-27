@@ -71,6 +71,7 @@
   /* Sections */
   main{position:relative;z-index:10}
   .section{min-height:100vh;width:100%;position:relative;padding:9vh 6vw 6vh;display:flex;flex-direction:column;justify-content:center;overflow:hidden}
+  main > .section[hidden]{display:none!important}
   .section::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;transition:background .7s ease}
   .section::before{background:rgba(var(--paper-rgb),.92)}
   .section.hero{min-height:100vh;justify-content:center}
@@ -449,9 +450,9 @@
     .work-carousel .img-wrap{max-width:100%}
     .work-carousel .carousel-arrow.prev{left:0px}
     .work-carousel .carousel-arrow.next{right:0px}
-    #navbar .nav-links{position:fixed;top:60px;left:0;right:0;background:rgba(0,0,0,.85);backdrop-filter:blur(16px);flex-direction:column;padding:2vh 5vw;gap:1.6vh;transform:translateY(-110%);transition:transform .35s ease;opacity:0}
+    #navbar .nav-links{position:fixed;top:60px;left:0;right:0;background:rgba(0,0,0,.85);backdrop-filter:blur(16px);flex-direction:column;padding:2vh 5vw;gap:1.6vh;transform:translateY(-110%);transition:transform .35s ease;opacity:0;visibility:hidden;pointer-events:none}
     body.dark-mode #navbar .nav-links{background:rgba(var(--ink-rgb),.92)}
-    #navbar .nav-links.open{transform:translateY(0);opacity:1}
+    #navbar .nav-links.open{transform:translateY(0);opacity:1;visibility:visible;pointer-events:auto}
     .nav-toggle{display:block}
     #navbar .nav-links a{padding:1vh 0}
     .nav-right{gap:8px}
@@ -502,7 +503,7 @@
   html{
     overflow-x:hidden;
     overflow-y:auto;
-    scroll-snap-type:y proximity;
+    scroll-snap-type:none;
     background:#050706;
   }
   body,
@@ -3485,7 +3486,7 @@
     </section>
 
     <!-- ===== Research ===== -->
-    <section id="research" class="section dark" data-theme="dark">
+    <section hidden id="research" class="section dark" data-theme="dark">
       <div class="section-overview research-overview">
         <div class="overview-heading">
           <span class="overview-kicker">Research &amp; Projects</span>
@@ -4102,7 +4103,7 @@
     </section>
 
     <!-- ===== Work ===== -->
-    <section id="work" class="section light" data-theme="light">
+    <section hidden id="work" class="section light" data-theme="light">
       <div class="section-overview work-overview">
         <div class="overview-heading">
           <span class="overview-kicker">Work Overview</span>
@@ -4344,7 +4345,7 @@
     </section>
 
     <!-- ===== Awards ===== -->
-    <section id="awards" class="section dark" data-theme="dark">
+    <section hidden id="awards" class="section dark" data-theme="dark">
       <div class="awards-shell">
         <div class="overview-heading awards-heading">
           <span class="overview-kicker">Awards &amp; Recognition</span>
@@ -4814,26 +4815,45 @@
   },{threshold:.22});
   document.querySelectorAll('.section').forEach(function(section){sectionObserver.observe(section)});
 
-  /* ===== Nav scroll spy ===== */
-  var sections=document.querySelectorAll('.section');
+  /* ===== Independent sections: navigation controls the visible module ===== */
+  var sections=document.querySelectorAll('main > .section');
   var navLinks=document.querySelectorAll('.nav-links a');
   function updateNav(){
-    var scrollY=window.scrollY+120,current=null;
-    sections.forEach(function(s){var top=s.offsetTop,bottom=top+s.offsetHeight;if(scrollY>=top&&scrollY<bottom)current=s});
-    if(!current&&sections.length&&window.scrollY>=sections[sections.length-1].offsetTop)current=sections[sections.length-1];
-    navLinks.forEach(function(a){a.classList.remove('active')});
-    if(current){
-      var id=current.getAttribute('id');
-      navLinks.forEach(function(a){if(a.getAttribute('href')==='#'+id)a.classList.add('active')});
-      /* All sections visually unified - no per-section theme toggle needed */
-    }
     document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>40);
   }
-  navLinks.forEach(function(a){a.addEventListener('click',function(e){var href=a.getAttribute('href');if(href&&href.startsWith('#')){e.preventDefault();var el=document.getElementById(href.slice(1));if(el){document.querySelectorAll('#research.detail-open,#work.detail-open').forEach(function(section){section.classList.remove('detail-open')});navLinks.forEach(function(link){link.classList.remove('active')});a.classList.add('active');window.scrollTo({top:el.offsetTop,behavior:'smooth'});(document.querySelector('.nav-links')||{}).classList&&document.querySelector('.nav-links').classList.remove('open')}}})});
-  (document.querySelector('.nav-toggle')||{}).addEventListener&&document.querySelector('.nav-toggle').addEventListener('click',function(){var nl=document.querySelector('.nav-links');if(nl)nl.classList.toggle('open')});
+  function showSection(id){
+    var current=document.getElementById(id);
+    if(!current||!current.matches('main > .section'))return false;
+    sections.forEach(function(section){
+      section.hidden=section!==current;
+      section.classList.remove('detail-open');
+    });
+    navLinks.forEach(function(link){
+      var active=link.getAttribute('href')==='#'+id;
+      link.classList.toggle('active',active);
+      if(active)link.setAttribute('aria-current','page');
+      else link.removeAttribute('aria-current');
+    });
+    document.querySelector('.nav-links').classList.remove('open');
+    document.querySelector('.nav-toggle').setAttribute('aria-expanded','false');
+    window.scrollTo({top:0,behavior:'instant'});
+    updateNav();
+    return true;
+  }
+  document.querySelectorAll('#navbar a[href^="#"]').forEach(function(link){
+    link.addEventListener('click',function(event){
+      var id=link.getAttribute('href').slice(1);
+      if(!showSection(id))return;
+      event.preventDefault();
+      if(window.location.hash!=='#'+id)history.pushState(null,'','#'+id);
+    });
+  });
+  document.querySelector('.nav-toggle').addEventListener('click',function(){
+    var open=document.querySelector('.nav-links').classList.toggle('open');
+    this.setAttribute('aria-expanded',String(open));
+  });
   window.addEventListener('scroll',updateNav,{passive:true});
-  window.addEventListener('resize',updateNav,{passive:true});
-  updateNav();
+  showSection('me');
 
   /* ===== Work Panel Toggle ===== */
   var workBtns=document.querySelectorAll('.work-btn');
@@ -4972,16 +4992,20 @@
      the target heading, and scroll the heading into view. */
   function resolveDeepLink(){
     var hash=window.location.hash;
-    if(!hash||hash.length<2)return false;
-    var id=decodeURIComponent(hash.slice(1));
+    if(!hash||hash.length<2)return showSection('me');
+    var id;
+    try{id=decodeURIComponent(hash.slice(1));}catch(error){return false;}
     var target=document.getElementById(id);
     if(!target)return false;
+    if(target.matches('main > .section'))return showSection(id);
     var slide=target.closest('.research-slide');
     if(!slide)return false;
     var deckRoot=slide.closest('.research-paper, .research-module');
     if(!deckRoot)return false;
     var paper=deckRoot.classList.contains('research-paper')?deckRoot:deckRoot.closest('.research-paper');
     if(!paper)return false;
+
+    showSection('research');
 
     /* Bring the correct project (and HiMeet module) to the front. */
     activateProject(paper.dataset.project);
