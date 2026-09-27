@@ -3198,6 +3198,65 @@
     .award-item::before{left:calc(12px - var(--awards-timeline-pad))}
     .awards-foot{display:none}
   }
+
+  /* Research catalog: reuses the existing theme, typography, and control tokens. */
+  #research:not(.detail-open){justify-content:flex-start}
+  #research .research-overview{flex:none;justify-content:flex-start;gap:32px;overflow:visible;padding-top:0;margin:0 auto}
+  #research .research-overview .overview-heading h2{max-width:34ch}
+  .research-filter-bar{display:flex;align-items:center;justify-content:space-between;gap:20px}
+  .research-filters{display:flex;gap:8px;flex-wrap:wrap}
+  .research-filter{padding:10px 17px;border:1px solid var(--line-strong);border-radius:999px;background:var(--control-bg);color:rgba(var(--ink-rgb),.7);font-family:var(--ui);font-size:12px;line-height:1.4;cursor:pointer;transition:background .2s,border-color .2s,color .2s}
+  .research-filter:hover{border-color:var(--accent);color:var(--ink)}
+  .research-filter.active{background:rgba(var(--accent-rgb),.12);border-color:var(--accent);color:var(--ink)}
+  .research-filter:focus-visible,.research-resource:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+  .research-result-count{white-space:nowrap;color:rgba(var(--ink-rgb),.5);font-family:var(--ui);font-size:11px}
+  .research-project-list{width:100%}
+  .research-entry{display:grid;grid-template-columns:minmax(0, .8fr) minmax(0, 1.65fr);gap:clamp(28px,4vw,64px);padding:36px 0;border-bottom:1px solid var(--line);align-items:center}
+  .research-entry:first-child{padding-top:12px}
+  .research-entry:last-child{border-bottom:0}
+  .research-entry[hidden]{display:none}
+  .research-entry-cover{width:100%;aspect-ratio:16/10;display:flex;align-items:center;justify-content:center;overflow:hidden;border-radius:var(--radius-sm)}
+  .research-entry-cover img{width:100%;height:100%;object-fit:contain;display:block}
+  .research-entry-cover.is-empty{border:1px dashed var(--line-strong);background:var(--panel-soft)}
+  .research-entry-body{min-width:0}
+  .research-entry-category{margin:0 0 10px;font-family:var(--ui);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+  .research-entry h3{margin:0 0 7px;font-family:var(--ui);font-size:clamp(22px,2vw,30px);font-weight:600;line-height:1.2;letter-spacing:-.035em;color:var(--ink)}
+  .research-entry-subtitle{font-family:var(--ui);font-size:clamp(15px,1.25vw,19px);line-height:1.45;color:rgba(var(--ink-rgb),.86);margin:0 0 13px}
+  .research-entry-authors{font-family:var(--card-body);font-size:14px;line-height:1.6;color:rgba(var(--ink-rgb),.66);margin:0 0 11px}
+  .research-entry-authors strong{font-weight:600;color:var(--ink)}
+  .research-entry-summary{font-family:var(--card-body);font-size:15px;line-height:1.65;color:rgba(var(--ink-rgb),.66);margin:0 0 15px;max-width:none;width:100%}
+  .research-entry-subtitle:empty,.research-entry-authors:empty,.research-entry-summary:empty{display:none}
+  .research-entry-links{display:flex;gap:18px;flex-wrap:wrap;margin-top:15px}
+  #research .research-resource{display:inline-flex;align-items:center;gap:7px;width:auto;padding:5px 0;margin:0;border:0;border-radius:0;background:transparent;color:var(--ink);font-family:var(--ui);font-size:12px;font-weight:500;line-height:1.4;cursor:pointer;text-decoration:none;transform:none}
+  #research .research-resource:hover:not(:disabled){color:var(--accent);text-decoration:underline;text-underline-offset:4px}
+  #research .research-resource:disabled{opacity:.32;cursor:default}
+  #research .research-resource-icon{display:inline-block;width:17px;height:17px;flex:0 0 17px;margin:0;background:none;color:inherit;fill:none;stroke:currentColor}
+  .icon-slides{--resource-icon:url('assets/icons/presentation.svg')}.icon-doi{--resource-icon:url('assets/icons/link.svg')}.icon-pdf{--resource-icon:url('assets/icons/file-text.svg')}.icon-video{--resource-icon:url('assets/icons/video.svg')}.icon-html{--resource-icon:url('assets/icons/file-code.svg')}
+  @media(max-width:900px){.research-entry{grid-template-columns:minmax(0, .9fr) minmax(0, 1.5fr);gap:24px}.research-filter-bar{align-items:flex-start}.research-result-count{padding-top:12px}}
+  @media(max-width:640px){#research .research-overview{gap:24px}.research-filter-bar{display:block}.research-result-count{display:block;margin-top:12px;padding:0}.research-filter{font-size:11px;padding:8px 12px}.research-entry{grid-template-columns:1fr;gap:22px;padding:28px 0}.research-entry-cover{max-width:440px}.research-entry h3{font-size:24px}.research-entry-summary{font-size:14px}.research-entry-cover.is-empty{aspect-ratio:2/1}}
+
+  /* Compact publication hierarchy; group labels appear only in the All view. */
+  #research .research-overview{gap:14px}
+  #research .research-group-heading{margin:30px 0 0;padding:0;border:0;font-family:var(--ui);font-size:clamp(22px,1.85vw,28px);font-weight:600;line-height:1.25;letter-spacing:-.025em;color:var(--ink)}
+  #research .research-group-heading:first-child{margin-top:0}
+  #research .research-group-heading[hidden]{display:none}
+  #research .research-entry h3{font-size:clamp(18px,1.35vw,20px);line-height:1.35;letter-spacing:-.02em;margin-bottom:8px}
+  #research .research-publication-meta{font-family:var(--card-body);font-size:14px;line-height:1.55;color:rgba(var(--ink-rgb),.67);margin-bottom:8px}
+  #research .research-publication-meta strong{color:var(--ink);font-weight:600}
+  #research .research-entry-category{margin-bottom:8px;font-size:9px}
+  #research .research-entry-summary{font-size:14px;line-height:1.5;margin-bottom:6px}
+  #research .research-entry-links{margin-top:8px}
+  @media(min-width:901px){
+    #research .research-entry{grid-template-columns:clamp(210px,20vw,270px) minmax(0,1fr);padding:18px 0;min-height:200px;gap:clamp(32px,4vw,56px)}
+    #research .research-entry-cover{aspect-ratio:auto;height:150px}
+  }
+
+  /* Center the filter group itself; leave project count independently aligned. */
+  #research .research-filter-bar{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px}
+  #research .research-filters{grid-column:2;justify-content:center}
+  #research .research-result-count{grid-column:3;justify-self:end}
+  @media(min-width:901px){#research .research-overview{max-width:1240px}}
+  @media(max-width:900px){#research .research-filter-bar{grid-template-columns:1fr}#research .research-filters{grid-column:1}#research .research-result-count{grid-column:1;justify-self:center;padding-top:0}}
 </style>
 </head>
 <body>
@@ -3429,33 +3488,115 @@
     <section id="research" class="section dark" data-theme="dark">
       <div class="section-overview research-overview">
         <div class="overview-heading">
-          <span class="overview-kicker">Research Overview</span>
-          <h2>One consistent thread: measure human states, then translate evidence into interaction.</h2>
+          <span class="overview-kicker">Research &amp; Projects</span>
         </div>
-        <div class="research-journey" aria-label="Research project overview">
-          <article class="research-overview-item">
-            <span class="journey-phase">Analyze</span>
-            <div class="journey-number">01</div>
-            <h3>Visual Factors</h3>
-            <p>Refined emotion measurement through E-PrEmo and tested how five visual factors shape positive affect.</p>
-            <button class="overview-action" type="button" data-open-research="0">View details <span>↗</span></button>
+        <div class="research-filter-bar">
+          <div class="research-filters" role="group" aria-label="Filter research projects">
+            <button type="button" class="research-filter active" data-filter="all" aria-pressed="true">All</button>
+            <button type="button" class="research-filter" data-filter="digital-health" aria-pressed="false">Digital Health</button>
+            <button type="button" class="research-filter" data-filter="wearable-design" aria-pressed="false">Wearable Design</button>
+            <button type="button" class="research-filter" data-filter="system-design" aria-pressed="false">System Design</button>
+            <button type="button" class="research-filter" data-filter="mobility" aria-pressed="false">Mobility</button>
+            <button type="button" class="research-filter" data-filter="ai" aria-pressed="false">AI</button>
+          </div>
+          <span class="research-result-count" role="status" aria-live="polite">9 projects</span>
+        </div>
+        <!-- Empty author, subtitle, summary, cover, and PDF fields are reserved for future material. -->
+        <div class="research-project-list">
+          <h2 class="research-group-heading">CORE RESEARCH</h2>
+          <article class="research-entry" data-categories="digital-health" aria-labelledby="research-title-0">
+            <div class="research-entry-cover"><img src="assets/fig./pr-emo.webp" alt="PrEmo emotion illustrations" loading="lazy" decoding="async"></div>
+            <div class="research-entry-body">
+              <p class="research-entry-category">Digital Health</p>
+              <h3 id="research-title-0">E-PrEmo: Research on the Influence of Visual Factors on Emotion Regulation Interaction</h3>
+              <p class="research-entry-subtitle research-publication-meta">2022, <em>Published in Frontiers in Psychology (SSCI-Q1, IF: 3.8)</em>, Zhiyong Xiong <em>(Advisor)</em>, <strong>Xinyu Weng(Me)</strong>, Yu Wei</p>
+              <p class="research-entry-summary">E-PrEmo extends product emotion measurement to compare how visual factors shape complex emotional responses. Emotion-mapping scenes showed the strongest positive effect, followed by emotional stickers, interactive data visualization, and text. The findings offer evidence-based guidance for designing emotion-regulation products that support positive experiences.</p>
+              <div class="research-entry-links"><button class="research-resource overview-action" type="button" data-open-research="0" aria-label="View E-PrEmo slides"><svg class="research-resource-icon icon-slides" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h20"/><path d="M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3"/><path d="m7 21 5-5 5 5"/></svg>Slides</button><a class="research-resource" href="https://doi.org/10.3389/fpsyg.2021.772642" target="_blank" rel="noopener noreferrer" aria-label="E-PrEmo DOI"><svg class="research-resource-icon icon-doi" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>DOI</a></div>
+            </div>
           </article>
-          <article class="research-overview-item">
-            <span class="journey-phase">Apply</span>
-            <div class="journey-number">02</div>
-            <h3>SandplayAR</h3>
-            <p>Built and evaluated a smartphone AR psychometric tool using subjective scales and physiological measures.</p>
-            <button class="overview-action" type="button" data-open-research="1">View details <span>↗</span></button>
+          <article class="research-entry" data-categories="digital-health" aria-labelledby="research-title-1">
+            <div class="research-entry-cover"><img src="assets/fig./fig2b.png" alt="SandplayAR virtual sandplay environment" loading="lazy" decoding="async"></div>
+            <div class="research-entry-body">
+              <p class="research-entry-category">Digital Health</p>
+              <h3 id="research-title-1">SandplayAR: Evaluation of Psychometric Game for People with Generalized Anxiety Disorder</h3>
+              <p class="research-entry-subtitle research-publication-meta">2022, <em>Published in The Arts in Psychotherapy (SSCI-Q3, IF: 1.7)</em>, Zhiyong Xiong <em>(Advisor)</em>, <strong>Xinyu Weng(Me)</strong>, Yu Wei</p>
+              <p class="research-entry-summary">SandplayAR brings sandplay into an online AR psychometric game. A randomized study with 20 participants compared it with traditional sandplay using experience questionnaires, skin conductance, and systolic blood pressure. Results indicated stronger unconscious emergence and conscious perception activation, while meeting usability needs, suggesting potential for further development as a psychotherapy tool.</p>
+              <div class="research-entry-links"><button class="research-resource overview-action" type="button" data-open-research="1" aria-label="View SandplayAR slides"><svg class="research-resource-icon icon-slides" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h20"/><path d="M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3"/><path d="m7 21 5-5 5 5"/></svg>Slides</button><a class="research-resource" href="https://doi.org/10.1016/j.aip.2022.101934" target="_blank" rel="noopener noreferrer" aria-label="SandplayAR DOI"><svg class="research-resource-icon icon-doi" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>DOI</a></div>
+            </div>
           </article>
-          <article class="research-overview-item">
-            <span class="journey-phase">Full-stack</span>
-            <div class="journey-number">03</div>
-            <h3>HiMeet</h3>
-            <p>Connected causal analysis, multimodal role-play research, and an AR + AI concept for real-world social interaction.</p>
-            <button class="overview-action" type="button" data-open-research="2">View details <span>↗</span></button>
+          <article class="research-entry" data-categories="digital-health system-design ai" aria-labelledby="research-title-2">
+            <div class="research-entry-cover"><img src="assets/fig./Himeet-封面.png" alt="HiMeet project cover" loading="lazy" decoding="async"></div>
+            <div class="research-entry-body">
+              <p class="research-entry-category">Digital Health · System Design · AI</p>
+              <h3 id="research-title-2">HiMeet: An AI-Assisted AR Intervention System for Socially Anxious Individuals</h3>
+              <p class="research-entry-subtitle research-publication-meta">2023, <strong>Xinyu Weng(Me)</strong>, <em>Master’s Dissertation (Double A Grade, Top 5%)</em></p>
+              <p class="research-entry-summary">HiMeet explores how AR can support offline engagement for socially anxious young adults. Questionnaire research linked real-world social support, social anxiety, and online dependence. Role-play exposure studies combined self-reports, physiological signals, and behavioral observations to establish a cognitive-behavioral framework and five intervention strategies, informing an AR-assisted system grounded in the Chinese sociocultural context.</p>
+              <div class="research-entry-links"><button class="research-resource overview-action" type="button" data-open-research="2" aria-label="View HiMeet slides"><svg class="research-resource-icon icon-slides" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h20"/><path d="M21 3v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V3"/><path d="m7 21 5-5 5 5"/></svg>Slides</button><a class="research-resource" href="https://wxyhuigenghao-glitch.github.io/My/Graduation%20project.pdf" target="_blank" rel="noopener noreferrer" aria-label="HiMeet PDF"><svg class="research-resource-icon icon-pdf" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>PDF</a></div>
+            </div>
+          </article>
+          <h2 class="research-group-heading">RELEVANT PROJECTS</h2>
+          <article class="research-entry" data-categories="wearable-design ai" aria-labelledby="research-title-3">
+            <div class="research-entry-cover"><img src="assets/fig./clearsense-modeling-cover.png" alt="ClearSense wristband modeling, mechanism, and hardware experiments" loading="lazy" decoding="async"></div>
+            <div class="research-entry-body">
+              <p class="research-entry-category">Wearable Design · AI</p>
+              <h3 id="research-title-3">ClearSense: A Vision-Language Model Powered Wristband for Low-Vision Users</h3>
+              <p class="research-entry-subtitle research-publication-meta">2025, <strong>Xinyu Weng(Me), accessibility practice.</strong></p>
+              <p class="research-entry-summary">ClearSense is designed to support low-vision users in GPS-denied environments such as subway stations and underground parking lots. It combines a glasses-mounted camera, vision-language interpretation, and a wristband to translate visual surroundings into haptic and voice guidance. Voice-based setup personalizes assistance and vibration intensity, while obstacle alerts and destination confirmation support navigation. Journey logs and physiological monitoring provide information for family members and caregivers, with alerts for abnormal vital signs.</p>
+              <div class="research-entry-links"><a class="research-resource" href="https://wxyhuigenghao-glitch.github.io/My/Wearable%20Wristband.pdf" target="_blank" rel="noopener noreferrer" aria-label="ClearSense PDF"><svg class="research-resource-icon icon-pdf" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>PDF</a></div>
+            </div>
+          </article>
+          <article class="research-entry" data-categories="system-design" aria-labelledby="research-title-5">
+            <div class="research-entry-cover"><img src="assets/fig./校园取件-封面.png" alt="Campus pickup service system overview" loading="lazy" decoding="async"></div>
+            <div class="research-entry-body">
+              <p class="research-entry-category">System Design</p>
+              <h3 id="research-title-5">FindIt: Campus Pickup Service System Design</h3>
+              <p class="research-entry-subtitle research-publication-meta">2021, <strong>Xinyu Weng(Me),</strong> National 3rd Prize in UXDA (International User Experience Innovation Competition). Part of the system solution was adopted by Alibaba’s courier service app team for experimental grayscale testing.</p>
+              <p class="research-entry-summary">FindIt addresses slow parcel discovery and checkout at crowded campus pickup stations. The RFID-powered service combines smart packaging and parcel tracking with a mini app offering 3D shelf previews and AR navigation. Cloud-based parcel information simplifies labels and protects personal data, while recycling rewards, reuse exchanges, and social features encourage a more efficient and connected campus pickup experience.</p>
+              <div class="research-entry-links"><a class="research-resource" href="Pick%20Service%20System%20Design.pdf" target="_blank" rel="noopener noreferrer" aria-label="FindIt PDF"><svg class="research-resource-icon icon-pdf" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>PDF</a></div>
+            </div>
+          </article>
+          <article class="research-entry" data-categories="wearable-design" aria-labelledby="research-title-4">
+            <div class="research-entry-cover"><img src="assets/fig./可穿戴-封面.png" alt="Worry-free playable bracelet project cover" loading="lazy" decoding="async"></div>
+            <div class="research-entry-body">
+              <p class="research-entry-category">Wearable Design</p>
+              <h3 id="research-title-4">Worry-free: A Playable Bracelet</h3>
+              <p class="research-entry-subtitle research-publication-meta">2020, <strong>Xinyu Weng(Me), Award in</strong> The 17th &quot;Challenge Cup&quot; Extracurricular Academic and Technological Works Competition</p>
+              <p class="research-entry-summary"></p>
+              <div class="research-entry-links"><button class="research-resource" type="button" disabled title="PDF not yet available" aria-label="Worry-free PDF not yet available"><svg class="research-resource-icon icon-pdf" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>PDF</button></div>
+            </div>
+          </article>
+          <h2 class="research-group-heading">ENTERPRISE PROJECTS</h2>
+          <article class="research-entry" data-categories="mobility ai" aria-labelledby="research-title-6">
+            <div class="research-entry-cover"><img src="assets/fig./出行助手-封面.png" alt="Travel Assistant project cover" loading="lazy" decoding="async"></div>
+            <div class="research-entry-body">
+              <p class="research-entry-category">Mobility · AI</p>
+              <h3 id="research-title-6">Travel Assistant: Multidimensional Search with an In-Car Voice Map Agent</h3>
+              <p class="research-entry-subtitle research-publication-meta">2025, <strong>Xinyu Weng</strong>, Product Manager — from planning to a working demo</p>
+              <p class="research-entry-summary">Travel Assistant moves destination search beyond keyword matching and rigid rules. It interprets natural language, spatial relationships, and cues of urgency, combining semantic retrieval with richer point-of-interest data. For example, when a user urgently says, “Quick, find me a charging station nearby,” the system interprets the intent as finding the nearest station with an available charging spot as soon as possible. Popularity, amenities, and promotional offers are then filtered out as irrelevant criteria.</p>
+              <div class="research-entry-links"><a class="research-resource" href="https://github.com/wxyhuigenghao-glitch/My/issues/2#issue-5570161694" target="_blank" rel="noopener noreferrer" aria-label="Watch Travel Assistant video"><svg class="research-resource-icon icon-video" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 13 5.223 3.482a.5.5 0 0 0 .777-.416V7.87a.5.5 0 0 0-.752-.432L16 10.5"/><rect x="2" y="6" width="14" height="12" rx="2"/></svg>Video</a></div>
+            </div>
+          </article>
+          <article class="research-entry" data-categories="mobility" aria-labelledby="research-title-7">
+            <div class="research-entry-cover"><img src="assets/fig./智能充电-封面.png" alt="SmartCharging project cover" loading="lazy" decoding="async"></div>
+            <div class="research-entry-body">
+              <p class="research-entry-category">Mobility</p>
+              <h3 id="research-title-7">SmartCharging: Conduct an Immersive Scenario to Make Wait Time More Engaging</h3>
+              <p class="research-entry-subtitle research-publication-meta">2023–2024, <strong>Xinyu Weng</strong>, Product Manager — from planning to production rollout</p>
+              <p class="research-entry-summary">Transformed an underused charging app into a product with real user adoption and marketing value. Industry research, 11,000 survey responses, and input from six experts informed an iteration plan developed through a custom needs-analysis method. Added frequently used status information and start/stop controls, consolidated component controls, and introduced immersive scenario animations. Update reached production vehicles and was showcased at the Megawatt Flash Charging launch event. App usage increased from 13% to 30%, and the user-friendliness score rose from 6 to 8.</p>
+              <div class="research-entry-links"><a class="research-resource" href="charging.html" aria-label="View SmartCharging HTML page"><svg class="research-resource-icon icon-html" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 12.5 8 15l2 2.5"/><path d="m14 12.5 2 2.5-2 2.5"/></svg>HTML</a></div>
+            </div>
+          </article>
+          <article class="research-entry" data-categories="system-design ai" aria-labelledby="research-title-8">
+            <div class="research-entry-cover"><img src="assets/fig./SalesAI-封面.png" alt="SalesAI project cover" loading="lazy" decoding="async"></div>
+            <div class="research-entry-body">
+              <p class="research-entry-category">System Design · AI</p>
+              <h3 id="research-title-8">SalesAI: A Chatbot for Sales Teams for Enterprise Efficiency</h3>
+              <p class="research-entry-subtitle research-publication-meta">2025–2026, <strong>Xinyu Weng</strong>, Product Manager — from planning to production rollout</p>
+              <p class="research-entry-summary">Built a conversational AI assistant for sales teams that uses tool calling to intelligently enter and retrieve information, replacing cumbersome forms and multi-step interface interactions.</p>
+              <div class="research-entry-links"><a class="research-resource" href="salesai.html" aria-label="View SalesAI HTML page"><svg class="research-resource-icon icon-html" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/><path d="M14 2v5a1 1 0 0 0 1 1h5"/><path d="M10 12.5 8 15l2 2.5"/><path d="m14 12.5 2 2.5-2 2.5"/></svg>HTML</a></div>
+            </div>
           </article>
         </div>
-        <div class="overview-thread">Measurement innovation <span>→</span> multimodal validation <span>→</span> evidence-led design</div>
       </div>
       <div class="chrome">
         <div class="left"><button class="detail-back" type="button" data-close-detail="research">← Back to overview</button></div>
@@ -4598,6 +4739,27 @@
     }
   });
 
+  /* Research catalog filters. Category assignments can be changed on each article. */
+  var researchReturnButton=null;
+  var researchReturnScroll=0;
+  document.querySelectorAll('.research-filter').forEach(function(button){
+    button.addEventListener('click',function(){
+      var filter=button.dataset.filter;
+      document.querySelectorAll('.research-group-heading').forEach(function(heading){heading.hidden=filter!=='all';});
+      document.querySelectorAll('.research-filter').forEach(function(item){
+        var selected=item===button;
+        item.classList.toggle('active',selected);
+        item.setAttribute('aria-pressed',String(selected));
+      });
+      var count=0;
+      document.querySelectorAll('.research-entry').forEach(function(entry){
+        entry.hidden=filter!=='all'&&!entry.dataset.categories.split(' ').includes(filter);
+        if(!entry.hidden)count++;
+      });
+      document.querySelector('.research-result-count').textContent=count+' '+(count===1?'project':'projects');
+    });
+  });
+
   /* ===== Research Project Toggle ===== */
   var projectBtns=document.querySelectorAll('.project-btn');
   var papers=document.querySelectorAll('.research-paper');
@@ -4632,6 +4794,8 @@
   document.querySelectorAll('[data-open-research]').forEach(function(button){
     button.addEventListener('click',function(){
       var researchSection=document.getElementById('research');
+      researchReturnButton=button;
+      researchReturnScroll=window.scrollY;
       activateProject(button.dataset.openResearch);
       researchSection.classList.add('detail-open');
       window.scrollTo({top:researchSection.offsetTop,behavior:'smooth'});
@@ -4713,6 +4877,11 @@
       var section=document.getElementById(button.dataset.closeDetail);
       if(!section)return;
       section.classList.remove('detail-open');
+      if(section.id==='research'&&researchReturnButton){
+        window.scrollTo({top:researchReturnScroll,behavior:'instant'});
+        researchReturnButton.focus({preventScroll:true});
+        return;
+      }
       window.scrollTo({top:section.offsetTop,behavior:'smooth'});
       requestAnimationFrame(function(){
         var firstAction=section.querySelector('.section-overview .overview-action');
