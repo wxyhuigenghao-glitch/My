@@ -6,7 +6,7 @@
 <title>Simone Weng · Personal Page</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@300;400;500;600&family=Noto+Serif+SC:wght@300;400;500;600;700;900&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Charis+SIL:ital,wght@0,400;0,700;1,400;1,700&amp;family=Commissioner:wght@100..900&amp;display=swap" rel="stylesheet">
 <style>
   :root{
     /* ===== Dune (Light Mode Default) ===== */
@@ -16,11 +16,11 @@
     --paper-rgb:240,230,210;
     --paper-tint:#e3d7bf;
     --ink-tint:#2d2620;
-    --mono:"Noto Serif SC",source-han-serif-sc,serif;
-    --serif-en:"Noto Serif SC",source-han-serif-sc,serif;
-    --serif-body-en:"Noto Serif SC",source-han-serif-sc,serif;
-    --serif-zh:"Noto Serif SC",source-han-serif-sc,serif;
-    --sans-zh:"Noto Serif SC",source-han-serif-sc,serif;
+    --mono:"Charis SIL",Georgia,serif;
+    --serif-en:"Charis SIL",Georgia,serif;
+    --serif-body-en:"Charis SIL",Georgia,serif;
+    --serif-zh:"Charis SIL",Georgia,serif;
+    --sans-zh:"Charis SIL",Georgia,serif;
   }
   body.dark-mode{
     /* ===== Forest Ink ===== */
@@ -491,13 +491,13 @@
     --radius-lg:30px;
     --radius-md:20px;
     --radius-sm:12px;
-    --sans:"Source Serif 4",Georgia,serif;
-    --display:"Playfair Display",Georgia,serif;
-    --mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
-    --serif-en:"Source Serif 4",Georgia,serif;
-    --serif-body-en:"Source Serif 4",Georgia,serif;
-    --serif-zh:"Playfair Display",Georgia,serif;
-    --sans-zh:"Source Serif 4",Georgia,serif;
+    --sans:"Charis SIL",Georgia,serif;
+    --display:"Charis SIL",Georgia,serif;
+    --mono:"Charis SIL",Georgia,serif;
+    --serif-en:"Charis SIL",Georgia,serif;
+    --serif-body-en:"Charis SIL",Georgia,serif;
+    --serif-zh:"Charis SIL",Georgia,serif;
+    --sans-zh:"Charis SIL",Georgia,serif;
   }
 
   html{
@@ -1752,8 +1752,8 @@
      Final refinement — Inter UI, feathered Me image, one deck system
      ========================================================================== */
   :root{
-    --ui:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-    --card-body:"Source Serif 4",Georgia,serif;
+    --ui:"Charis SIL",Georgia,serif;
+    --card-body:"Charis SIL",Georgia,serif;
   }
 
   body,
@@ -3258,6 +3258,61 @@
   #research .research-result-count{grid-column:3;justify-self:end}
   @media(min-width:901px){#research .research-overview{max-width:1240px}}
   @media(max-width:900px){#research .research-filter-bar{grid-template-columns:1fr}#research .research-filters{grid-column:1}#research .research-result-count{grid-column:1;justify-self:center;padding-top:0}}
+
+  /* Typography roles: body/labels 400, headings 500, controls 300. */
+  body{font-weight:400}
+  h1,h2,h3,h4,h5,h6,
+  .display-zh,.h1-zh,.h2-zh,.h3-zh,.hl-title,.page-title,
+  #me .roadmap-svg .rm-title,#me .roadmap-svg .rm-phase{
+    font-family:"Commissioner",Arial,sans-serif!important;
+    font-weight:500!important;
+    font-style:normal;
+    font-optical-sizing:auto;
+    font-variation-settings:"slnt" 0,"FLAR" 0,"VOLM" 0;
+  }
+  button,button *,[role="button"],#navbar a,
+  .overview-action,.research-resource,.detail-back{
+    font-family:"Commissioner",Arial,sans-serif!important;
+    font-weight:300!important;
+    font-optical-sizing:auto;
+    font-variation-settings:"slnt" 0,"FLAR" 0,"VOLM" 0;
+  }
+
+  /* Clean white surfaces and near-black secondary text in light mode. */
+  body:not(.dark-mode){
+    --paper:#fff;--paper-rgb:255,255,255;--page-bg:#fff;
+    --surface:#fff;--surface-strong:#fff;--panel-bg:#fff;--panel-soft:#fff;
+    --section-bg:#fff;--hero-bg:#fff;--chrome-bg:#fff;
+    --nav-bg:#fff;--nav-bg-strong:#fff;--control-bg:#fff;
+    background:#fff;
+  }
+  html:has(body:not(.dark-mode)){background:#fff}
+  body:not(.dark-mode)::before,
+  body:not(.dark-mode) canvas.bg{display:none}
+  body:not(.dark-mode) main > .section::before{background:#fff}
+  body:not(.dark-mode) main > .section::after{background:none}
+  body:not(.dark-mode) :is(p,li,td,th,label,figcaption,.kicker,.tag,.chrome,.foot,
+    .research-result-count,.research-entry-authors,.research-entry-summary,
+    .research-publication-meta,.me-statement,.experience-roadmap){
+    color:#222!important;
+    opacity:1!important;
+  }
+  body:not(.dark-mode) :is(.chrome,.foot) span,
+  body:not(.dark-mode) #navbar .nav-links a:not(.active){color:#222;opacity:1}
+  body:not(.dark-mode) :is(p,li,td,th) span[style*="opacity"]{opacity:1!important}
+
+  /* Requested label sizes and role color. */
+  .research-entry-category,.research-result-count,.role-row,.company-row > span{
+    font-size:16px!important;
+  }
+  .role-row{color:var(--ink)!important;opacity:1!important}
+  body:not(.dark-mode) .role-row{color:#222!important}
+
+  /* Work project titles share the body serif while retaining their size. */
+  .work-overview-item h4{
+    font-family:"Charis SIL",Georgia,serif!important;
+    font-weight:700!important;
+  }
 </style>
 </head>
 <body>
@@ -3489,7 +3544,6 @@
     <section hidden id="research" class="section dark" data-theme="dark">
       <div class="section-overview research-overview">
         <div class="overview-heading">
-          <span class="overview-kicker">Research &amp; Projects</span>
         </div>
         <div class="research-filter-bar">
           <div class="research-filters" role="group" aria-label="Filter research projects">
@@ -4106,7 +4160,6 @@
     <section hidden id="work" class="section light" data-theme="light">
       <div class="section-overview work-overview">
         <div class="overview-heading">
-          <span class="overview-kicker">Work Overview</span>
           <h2>From consumer-scale mobility to enterprise AI.</h2>
         </div>
         <div class="work-timeline" aria-label="Professional experience overview">
@@ -4348,7 +4401,6 @@
     <section hidden id="awards" class="section dark" data-theme="dark">
       <div class="awards-shell">
         <div class="overview-heading awards-heading">
-          <span class="overview-kicker">Awards &amp; Recognition</span>
           <h2>A record of academic, design, and innovation achievements.</h2>
         </div>
         <div class="awards-timeline">
